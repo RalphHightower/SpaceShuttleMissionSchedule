@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Font Name="Microsoft Sans Serif" Size="8.25" />
+  <Class Name="NasaTvScheduleImport.MainForm">
+    <Position X="4.75" Y="0.5" Width="6.5" />
+    <TypeIdentifier>
+      <FileName>NasaTvScheduleImport.cs</FileName>
+      <HashCode>CQAAUCAISCiEAhQAQYiAAAYDBQQFHgKZJh0AdAwAFAg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NasaTvScheduleImport.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NasaTvScheduleImport.Properties.Resources">
+    <Position X="0.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAIAAAAAAAABEAAAAQAAAAAAAQAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NasaTvScheduleImport.Properties.Settings">
+    <Position X="0.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Settings.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAABAAAAAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.Msdn.BclTeam.TimeZoneInfo">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>TimeZoneInfo.cs</FileName>
+      <HashCode>QQAAEECAUQQAACEFRAMsgAQhAQEDAAACMBEAABAQAzA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>

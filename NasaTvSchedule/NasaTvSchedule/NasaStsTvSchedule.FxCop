@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.35" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">http://www.gotdotnet.com/team/fxcop//xsl/1.35/FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-us" />
+  <VersionAware>False</VersionAware>
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/../NASA_STS_TV_Schedule/bin/Debug/NASA_STS_TV_Schedule.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.35">
+  <Namespaces>
+   <Namespace Name="PermanentVacations.Nasa.Sts.Schedule">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2007-11-10 14:16:55Z">
+      <Issue>
+       <Item>PermanentVacations.Nasa.Sts.Schedule</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/../NASA_STS_TV_Schedule/bin/Debug/NASA_STS_TV_Schedule.dll">
+    <Modules>
+     <Module Name="nasa_sts_tv_schedule.dll">
+      <Namespaces>
+       <Namespace Name="PermanentVacations.Nasa.Sts.Schedule">
+        <Types>
+         <Type Name="NasaStsTVSchedule">
+          <Members>
+           <Member Name="DaylightSavingsTime">
+            <Accessors>
+             <Accessor Name="get_DaylightSavingsTime():System.Boolean">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-10 14:30:10Z">
+                <Issue>
+                 <Item>NasaStsTVSchedule.get_DaylightSavingsTime():Boolean</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="EasternTime">
+            <Accessors>
+             <Accessor Name="get_EasternTime():System.String">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-10 14:30:10Z">
+                <Issue>
+                 <Item>NasaStsTVSchedule.get_EasternTime():String</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="EOF():System.Boolean">
+            <Messages>
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2007-11-10 14:30:10Z">
+              <Issue Name="Member">
+               <Item>NasaStsTVSchedule.EOF():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="EventTimes">
+            <Messages>
+             <Message Id="Member" TypeName="PreferJaggedArraysOverMultidimensional" Category="Microsoft.Performance" CheckId="CA1814" Created="2007-11-10 14:30:10Z">
+              <Issue>
+               <Item>EventTimes</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GreenwichMeanTime">
+            <Accessors>
+             <Accessor Name="get_GreenwichMeanTime():System.String">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-10 14:30:10Z">
+                <Issue>
+                 <Item>NasaStsTVSchedule.get_GreenwichMeanTime():String</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="MissionElapsedTime">
+            <Accessors>
+             <Accessor Name="get_MissionElapsedTime():System.String">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-10 14:30:10Z">
+                <Issue>
+                 <Item>NasaStsTVSchedule.get_MissionElapsedTime():String</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="ProcessOrbitHeader(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-11-10 14:30:10Z">
+              <Issue Name="TooGeneric">
+               <Item>NasaStsTVSchedule.ProcessOrbitHeader(Int32):Boolean</Item>
+               <Item>System.ApplicationException</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="TZInfo">
+            <Accessors>
+             <Accessor Name="get_TZInfo():Microsoft.Msdn.BclTeam.TimeZoneInfo[]">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-10 19:50:52Z">
+                <Issue>
+                 <Item>NasaStsTVSchedule.get_TZInfo():TimeZoneInfo[]</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NasaStsTVSchedule+ToolsExcelInterface">
+          <Members>
+           <Member Name="OpenExcelFile(System.String):System.Array">
+            <Messages>
+             <Message Id="cells" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2007-11-11 00:37:34Z">
+              <Issue>
+               <Item>ToolsExcelInterface.OpenExcelFile(String):Array</Item>
+               <Item>cells</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+             <Message Id="range" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2007-11-11 00:37:34Z">
+              <Issue>
+               <Item>ToolsExcelInterface.OpenExcelFile(String):Array</Item>
+               <Item>range</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+             <Message Id="sheet" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2007-11-11 00:37:34Z">
+              <Issue>
+               <Item>ToolsExcelInterface.OpenExcelFile(String):Array</Item>
+               <Item>sheet</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SuccessfullyOpened">
+            <Accessors>
+             <Accessor Name="set_SuccessfullyOpened(System.Boolean):System.Void">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-11-11 00:31:39Z">
+                <Issue>
+                 <Item>ToolsExcelInterface.set_SuccessfullyOpened(Boolean):Void</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">'{0}' appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201">
+    <Resolution Name="TooGeneric">{0} creates an exception of type '{1}', an exception type that is not sufficiently specific and should never be raised by user code. If this exception instance might be thrown, use a different exception type.</Resolution>
+   </Rule>
+   <Rule TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705">
+    <Resolution Name="Member">Correct the capitalization of member name '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="PreferJaggedArraysOverMultidimensional" Category="Microsoft.Performance" CheckId="CA1814">
+    <Resolution Name="Default">'{0}' is a multidimensional array. Replace it with a jagged array if possible. (Jagged arrays are not CLS Compliant.)</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>
