@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.35" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">http://www.gotdotnet.com/team/fxcop//xsl/1.35/FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-us" />
+  <VersionAware>False</VersionAware>
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/bin/Debug/NasaTvSchedule.exe" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.35">
+  <Targets>
+   <Target Name="$(ProjectDir)/bin/Debug/NasaTvSchedule.exe">
+    <Modules>
+     <Module Name="nasatvschedule.exe">
+      <Namespaces>
+       <Namespace Name="NasaTVScheduleImport">
+        <Types>
+         <Type Name="MainForm">
+          <Members>
+           <Member Name=".ctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2007-11-11 00:27:40Z">
+              <Issue>
+               <Item>MainForm.MainForm()</Item>
+               <Item>stopWatch</Item>
+               <Item>System.Diagnostics.Stopwatch</Item>
+               <Item>null</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="AddAppointment(System.Windows.Forms.DataGridViewRow,System.String,Microsoft.Office.Interop.Outlook.ApplicationClass):System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-11-10 18:19:06Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>MainForm.AddAppointment(DataGridViewRow, String, ApplicationClass):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="btnSelectAllExcel_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.btnSelectAllExcel_Click(Object, EventArgs):Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="btnSelectAllOutlook_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.btnSelectAllOutlook_Click(Object, EventArgs):Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="btnUnselectAllExcel_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.btnUnselectAllExcel_Click(Object, EventArgs):Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="btnUnselectAllOutlook_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.btnUnselectAllOutlook_Click(Object, EventArgs):Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DeleteOutlookEntries():System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.DeleteOutlookEntries():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.DeleteOutlookEntries():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.DeleteOutlookEntries():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.DeleteOutlookEntries():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.DeleteOutlookEntries():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="InitializeComponent():System.Void">
+            <Messages>
+             <Message Id="System.Windows.Forms.Control.set_Text(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Created="2007-11-10 18:19:06Z">
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Docked</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Exit Application</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Nasa Sts TV Schedule Import</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Open Nasa TV Schedule</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Orbit</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Refresh Categories</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Remove Selected Entries</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Select All</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Select All</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Transfer TV Schedule</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Try Excel Interop</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Unselect All</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.InitializeComponent():Void</Item>
+               <Item>1</Item>
+               <Item>Control.set_Text(String):Void</Item>
+               <Item>Unselect All</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="RemoveAppointment(System.DateTime,System.DateTime,System.String,System.String,Microsoft.Office.Interop.Outlook.ApplicationClass):System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-11-10 18:19:06Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>MainForm.RemoveAppointment(DateTime, DateTime, String, String, ApplicationClass):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="TransferExcelToOutlook():System.Void">
+            <Messages>
+             <Message TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817" Created="2007-11-10 19:48:57Z">
+              <Issue>
+               <Item>MainForm.TransferExcelToOutlook():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+              <Issue>
+               <Item>MainForm.TransferExcelToOutlook():Void</Item>
+               <Item>DataGridViewRowCollection.get_Item(Int32):DataGridViewRow</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="DoNotCallPropertiesThatCloneValuesInLoops" Category="Microsoft.Performance" CheckId="CA1817">
+    <Resolution Name="Default">Within {0}, consider  getting the value of '{1}' once and caching it inside a local variable before entering the loop.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805">
+    <Resolution Name="Default">{0} initializes field {1} of type {2} to {3}. Remove this initialization as it will be done automatically by the runtime.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303">
+    <Resolution Name="Default">{0} passes a literal as parameter {1} of a call to {2}. Retrieve the following string argument from a resource table instead: '{3}'</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>
