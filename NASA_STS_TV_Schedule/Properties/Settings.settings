@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PermanentVacations.Nasa.Sts.Schedule.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="DefaultTimeZone" Type="System.String" Scope="User">
-      <Value Profile="(Default)">(GMT-05:00) Eastern Time (US &amp; Canada)</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
