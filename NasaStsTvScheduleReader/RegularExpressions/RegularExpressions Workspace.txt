@@ -1,0 +1,11 @@
+(?<DayOfWeek>SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY),\s+(?<Month>JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?<Day>\d+)
+
+(?<Eva>EVA)\s+(?<Number>#\d+)\s+(?<Activity>BEGINS|ENDS)
+
+^(?<FlightDay>FD)\s+(?<Day>\d+)
+
+(?<Shuttle>ATLANTIS|DISCOVERY|ENDEAVOR)?(?:\s*/?\s*)?(?<ISS>ISS)(?:\s*)(?<Activity>CREW SLEEP BEGINS|CREW WAKE UP)
+
+(?<Month>[01][0-9])/(?<Day>[0-3][0-9])/(?<Year>[0-9][0-9])
+
+(?<Shuttle>ATLANTIS|DISCOVERY|ENDEAVOR)(?:\s*/?\s*)?(?<ISS>ISS)?(?:\s*)(?<Activity>CREW SLEEP BEGINS|CREW WAKE UP)
