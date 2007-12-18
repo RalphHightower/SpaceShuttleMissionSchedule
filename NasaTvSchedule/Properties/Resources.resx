@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AND" xml:space="preserve">
+    <value> AND</value>
+    <comment>Both</comment>
+  </data>
   <data name="ERR_COM_EXCEPTION" xml:space="preserve">
     <value>COM Exception</value>
     <comment>COM Exception</comment>
@@ -132,6 +136,18 @@
   <data name="ERR_NO_EXCEL_SCHEDULE" xml:space="preserve">
     <value>There is no NASA STS TV Schedule loaded to transfer to Outlook</value>
     <comment>There are no entries in the Excel Grid to compare in the Outlook grid</comment>
+  </data>
+  <data name="FILTER_CATEGORIES" xml:space="preserve">
+    <value>[Categories] =</value>
+    <comment>Filter Outlook schedule by Category</comment>
+  </data>
+  <data name="FMT_DATE_FILTER" xml:space="preserve">
+    <value>([Start] &gt;= '{0}' AND [End] &lt;= '{1}')</value>
+    <comment>Filter searches in Outlook Calendar</comment>
+  </data>
+  <data name="FMT_FILTER_DATE_SUBJECT_LOCATION" xml:space="preserve">
+    <value>([Start] = '{0}') AND ([End] = '{1}') AND ([Subject] = '{2}') AND ([Location] = '{3}')</value>
+    <comment>Filter by Date, Subject and Location</comment>
   </data>
   <data name="ID_BULKIMPORT_READFILE" xml:space="preserve">
     <value>Reading NASA Schedule File: </value>
@@ -176,22 +192,6 @@
   <data name="ID_DEFAULT_DIRECTORY" xml:space="preserve">
     <value>E:\Documents and Settings\RalphHightower\My Documents\Nasa\</value>
     <comment>Default Directory for Nasa Schedule</comment>
-  </data>
-  <data name="ID_ELAPSED_TIME_BULK_IMPORT" xml:space="preserve">
-    <value>Elapsed Time doing Bulk Import = </value>
-    <comment>Elapsed time doing bulk import</comment>
-  </data>
-  <data name="ID_ELAPSED_TIME_READING_EXCEL" xml:space="preserve">
-    <value>Elapsed Time Reading NASA STS TV Schedule = </value>
-    <comment>Elapsed time processing NASA STS TV Schedule</comment>
-  </data>
-  <data name="ID_ELAPSED_TIME_REMOVING_SCHEDULE" xml:space="preserve">
-    <value>Elapsed Time Removing Schedule from Outlook = </value>
-    <comment>Elapsed time removing schedule from Outlook</comment>
-  </data>
-  <data name="ID_ELAPSED_TIME_TRANFERRING" xml:space="preserve">
-    <value>Elapsed Time Transferring Schedule to Outlook = </value>
-    <comment>Elapsed time transferring schedule to Outlook</comment>
   </data>
   <data name="ID_OPEN_MULTIPLE_EXCEL_FILES" xml:space="preserve">
     <value>Open multiple NASA STS TV Schedules</value>
@@ -296,5 +296,37 @@
   <data name="MOUSEHOVER_VIEWINGTIMEZONE" xml:space="preserve">
     <value>Time Zone for the Outlook Appointment Items to be converted to</value>
     <comment>Hover tip</comment>
+  </data>
+  <data name="OR" xml:space="preserve">
+    <value> OR </value>
+    <comment>One or the other</comment>
+  </data>
+  <data name="OUTLOOK_MAPI" xml:space="preserve">
+    <value>MAPI</value>
+    <comment>Namespace for Outlook</comment>
+  </data>
+  <data name="OUTLOOK_START" xml:space="preserve">
+    <value>[Start]</value>
+    <comment>Start Date for appointments</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="SpaceShuttle_32X32-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SpaceShuttle_32X32-256.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TIMER_ELAPSED_TIME_BULK_IMPORT" xml:space="preserve">
+    <value>Elapsed Time doing Bulk Import = </value>
+    <comment>Elapsed time doing bulk import</comment>
+  </data>
+  <data name="TIMER_ELAPSED_TIME_READING_EXCEL" xml:space="preserve">
+    <value>Elapsed Time Reading NASA STS TV Schedule = </value>
+    <comment>Elapsed time processing NASA STS TV Schedule</comment>
+  </data>
+  <data name="TIMER_ELAPSED_TIME_REMOVING_SCHEDULE" xml:space="preserve">
+    <value>Elapsed Time Removing Schedule from Outlook = </value>
+    <comment>Elapsed time removing schedule from Outlook</comment>
+  </data>
+  <data name="TIMER_ELAPSED_TIME_TRANFERRING" xml:space="preserve">
+    <value>Elapsed Time Transferring Schedule to Outlook = </value>
+    <comment>Elapsed time transferring schedule to Outlook</comment>
   </data>
 </root>

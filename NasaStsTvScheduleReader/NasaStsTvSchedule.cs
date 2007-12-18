@@ -29,6 +29,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using InteropExcel = Microsoft.Office.Interop.Excel;
 using ToolsExcel = Microsoft.Office.Tools.Excel;
@@ -1708,14 +1709,15 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					if (strSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
 						strSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
 					{
-						if (issCrewSleep && !ISSCrewWakeUp(indexRowAhead))
-						{
+						if (issCrewSleep && ISSCrewWakeUp(indexRowAhead))
+							scheduleRow = ScheduleType.scheduleEntry;
+						else
 							scheduleRow = ScheduleType.empty;
-						}
-						if (shuttleCrewSleep && !ShuttleCrewWakeUp(indexRowAhead))
-						{
+
+						if (shuttleCrewSleep && ShuttleCrewWakeUp(indexRowAhead))
+							scheduleRow = ScheduleType.scheduleEntry;
+						else
 							scheduleRow = ScheduleType.empty;
-						}
 					}
 					else
 						scheduleRow = ScheduleType.empty;

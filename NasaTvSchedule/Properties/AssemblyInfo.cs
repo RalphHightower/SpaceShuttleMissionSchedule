@@ -6,7 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PermanentVacations.Nasa.Sts.OutlookCalendar")]
-[assembly: AssemblyDescription("Reads NASA TV Schedule (Excel format) for the Space Shuttle and transfers the TV Schedule into Outlook's Calendar as Appointments")]
+[assembly: AssemblyDescription("NASA STS TV Outlook Calendar reads the Excel spreadsheet containing the schedule of events published by NASA for Space Shuttle missions.  " +
+	"It can copy the schedule of events from the Excel file to the calendar in Outlook and manages the schedule of events in the Outlook Calendar.\r\n" +
+	"This program is released under the GNU General Public License")]
 [assembly: AssemblyConfiguration("Microsoft Excel and Outlook required")]
 [assembly: AssemblyCompany("Permanent Vacations")]
 [assembly: AssemblyProduct("PermanentVacations.Nasa.Sts.OutlookCalendar")]

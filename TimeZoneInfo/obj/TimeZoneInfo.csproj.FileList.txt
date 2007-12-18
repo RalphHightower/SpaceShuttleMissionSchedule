@@ -1,0 +1,10 @@
+bin\Release\TimeZoneInfo.dll
+bin\Release\TimeZoneInfo.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\TimeZoneInfo.dll
+obj\Release\TimeZoneInfo.pdb
+bin\Debug\TimeZoneInfo.dll
+bin\Debug\TimeZoneInfo.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\TimeZoneInfo.dll
+obj\Debug\TimeZoneInfo.pdb

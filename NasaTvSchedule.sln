@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasaStsTvScheduleReader", "NasaStsTvScheduleReader\NasaStsTvScheduleReader.csproj", "{5637BCC0-5B21-4A69-8381-115598FD6D19}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupNasaTvSchedule", "SetupNasaTvSchedule\SetupNasaTvSchedule.vdproj", "{34EACD38-A589-4A09-ADD8-BE75672D5D2D}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = NasaTvSchedule\\NasaTvScheduleImport.csproj
 		SccLocalPath1 = .
@@ -31,6 +33,9 @@ Global
 		SccProjectUniqueName3 = NasaStsTvScheduleReader\\NasaStsTvScheduleReader.csproj
 		SccProjectName3 = \u0022$/NasaTvSchedule.root/NasaTvSchedule/NasaStsTvScheduleReader\u0022,\u0020QHAAAAAA
 		SccLocalPath3 = NasaStsTvScheduleReader
+		SccProjectUniqueName4 = SetupNasaTvSchedule\\SetupNasaTvSchedule.vdproj
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = SetupNasaTvSchedule\\
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +54,10 @@ Global
 		{5637BCC0-5B21-4A69-8381-115598FD6D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5637BCC0-5B21-4A69-8381-115598FD6D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5637BCC0-5B21-4A69-8381-115598FD6D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34EACD38-A589-4A09-ADD8-BE75672D5D2D}.Debug|Any CPU.ActiveCfg = Debug
+		{34EACD38-A589-4A09-ADD8-BE75672D5D2D}.Debug|Any CPU.Build.0 = Debug
+		{34EACD38-A589-4A09-ADD8-BE75672D5D2D}.Release|Any CPU.ActiveCfg = Release
+		{34EACD38-A589-4A09-ADD8-BE75672D5D2D}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

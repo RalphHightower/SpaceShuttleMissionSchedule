@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.txt"
+>
+
+  <PackageFiles>
+    <PackageFile Name="eula.txt"/>
+  </PackageFiles>
+
+  <!-- Defines a localizable string table for error messages. -->
+  <Strings>
+    <String Name="DisplayName">Microsoft Visual Studio 2005 Tools for Office Second Edition runtime</String>
+    <String Name="Culture">en</String>
+    <String Name="AdminRequired">Administrator permissions are required to install the Microsoft Visual Studio 2005 Tools for Office Second Edition runtime. Contact your administrator.</String>
+    <String Name="GeneralFailure">A failure occurred attempting to install the Microsoft Visual Studio 2005 Tools for Office Second Edition runtime.</String>
+    <String Name="VSTORExe">http://go.microsoft.com/fwlink/?LinkId=95486</String>
+    <String Name="VSTORManifest">http://go.microsoft.com/fwlink/?LinkID=93586</String>
+  </Strings>
+</Package>

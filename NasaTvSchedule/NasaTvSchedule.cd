@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Font Name="Microsoft Sans Serif" Size="8.25" />
+  <Class Name="PermanentVacations.Nasa.Sts.OutlookCalendar.AboutBox">
+    <Position X="4.25" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <FileName>AboutBox.cs</FileName>
+      <HashCode>kIACAAgAACAgCAUAAACAAAADAAAAEIAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.OutlookCalendar.MainForm">
+    <Position X="0.5" Y="1.75" Width="3.5" />
+    <TypeIdentifier>
+      <FileName>NasaTvScheduleImport.cs</FileName>
+      <HashCode>HYXDVn2kHKyEGlVMY4mSkIM7ncz/H4uTrp2H9j0ABEk=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.OutlookCalendar.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.OutlookCalendar.Properties.Resources">
+    <Position X="4.25" Y="6.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ADAIJmBAIAKwAAoABAABmZFiIQATCAJADTAAAACAAeA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.OutlookCalendar.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Settings.cs</FileName>
+      <HashCode>AAAAAAAAAAAIAAAEAAAAIAAIAAABACACAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.Schedule.NasaStsTVSchedule">
+    <Position X="7.5" Y="1" Width="3.25" />
+    <TypeIdentifier />
+    <NestedTypes>
+      <Enum Name="PermanentVacations.Nasa.Sts.Schedule.NasaStsTVSchedule.ExcelInterface" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.Schedule.InvalidFileFormatException">
+    <Position X="11.25" Y="4" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PermanentVacations.Nasa.Sts.Schedule.NasaStsTVScheduleEntry">
+    <Position X="11.25" Y="1" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.Msdn.BclTeam.TimeZoneInfo">
+    <Position X="14" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Enum Name="PermanentVacations.Nasa.Sts.Schedule.ScheduleType" Collapsed="true">
+    <Position X="11.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+</ClassDiagram>
