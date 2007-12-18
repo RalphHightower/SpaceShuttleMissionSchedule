@@ -1,0 +1,5 @@
+bin\Debug\UpdateManifest.dll
+bin\Debug\UpdateManifest.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\UpdateManifest.dll
+obj\Debug\UpdateManifest.pdb

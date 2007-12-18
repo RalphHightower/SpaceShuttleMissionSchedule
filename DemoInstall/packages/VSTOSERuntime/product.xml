@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.VSTORuntime.2.0.SE"
+  >
+
+  <RelatedProducts>
+    <DependsOnProduct Code="Microsoft.Net.Framework.2.0" />
+  </RelatedProducts>
+
+  <!-- Defines the list of files to be copied on build. -->
+  <PackageFiles CopyAllPackageFiles="true">
+    <PackageFile Name="vstor.exe" HomeSite="VSTORExe" PublicKey="3082010a0282010100cd819638ae5ca2f2c1dfded0ab958dd63c9d1f8bc35d862e5df0b172f5abac886ab5dab1227b0bc8c8a54b915e2213e9f9f5239db5f46e76aeefeea43cc7c4c0595c3fabb3733326a662816179a162f46e8895d06eddc79fd2a451117661ba708a65a1961689a75d81d04466e5db569e40cafcdc76242e443000e5d67d7b9511d5581da3e84f0bc988dca2d653996cca63ca996a9a925e4c4d11e82fd35b5b5e5f52a3732da5bb84450d8c191576cb08da9aa67015e84dec69fd5db26b8fed295137388bc6464915945098b0f468a4d7de097167749e778c1d856b97eae75f45cce0e6710dd16300937b31988e0bb413bdb3d0eef1df21eea96061ee37433dc30203010001"/>
+    <PackageFile Name="vstor.exe.manifest" HomeSite="VSTORManifest" Hash = "F21D60F3D8E370B9D61EBD3A2C9686F2FE895D1A" />
+
+  </PackageFiles>
+  <InstallChecks>
+    <RegistryCheck Property="VSTOVersion" Key="HKLM\Software\Microsoft\vsto runtime Setup\v2.0.50727" Value="Update" />
+  </InstallChecks>
+
+  <!-- Defines how to run the Setup package. -->
+  <Commands Reboot="Defer">
+    <Command PackageFile="vstor.exe" 
+      Arguments=' /q:a /c:"install /q /l"'
+      EstimatedInstalledBytes="10000000" 
+      EstimatedTempBytes="10000000"
+      EstimatedInstallSeconds="60"
+      >
+      <InstallConditions>
+        <BypassIf Property="VSTOVersion" Compare="ValueGreaterThanOrEqualTo" Value="2"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+</Product>

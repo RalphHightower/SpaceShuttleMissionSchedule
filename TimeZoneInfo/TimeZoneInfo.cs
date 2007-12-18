@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Globalization;
+using System.Security.Permissions;
 using Microsoft.Win32;
 
 /// <summary>
@@ -34,6 +35,7 @@ using Microsoft.Win32;
 /// </summary>
 
 [assembly: CLSCompliant(true)]
+[assembly: PermissionSet(SecurityAction.RequestMinimum)]
 namespace Microsoft.Msdn.BclTeam
 {
     // Container for time zone information

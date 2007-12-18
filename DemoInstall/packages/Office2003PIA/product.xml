@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.Office.PIA.2003"
+  >
+
+  <RelatedProducts>
+    <DependsOnProduct Code="Microsoft.Net.Framework.2.0" />
+  </RelatedProducts>
+
+  <!-- Defines the list of files to be copied on build. -->
+  <PackageFiles>
+    <PackageFile Name="o2003pia.msi"/>
+    <PackageFile Name="ComponentCheck.exe"/>
+  </PackageFiles>
+
+  <InstallChecks>
+     <ExternalCheck 
+      Property="Office2003Exists" 
+      PackageFile="ComponentCheck.exe" 
+      Arguments="{A1FE0698-609D-400F-BF10-F52238DD6475} {14D3E42A-A318-4D77-9895-A7EE585EFC3B}"/>
+  </InstallChecks>
+    
+  <!-- Defines how to run the Setup package. -->
+  <Commands Reboot="Defer">
+    
+    <Command PackageFile="o2003pia.msi" 
+      Arguments=""
+      EstimatedInstalledBytes="30000000" 
+      EstimatedInstallSeconds="60"
+      >
+      
+      <InstallConditions>
+        <BypassIf Property="Office2003Exists" Compare="ValueNotEqualTo" Value="0" />
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+</Product>

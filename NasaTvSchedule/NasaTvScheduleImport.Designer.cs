@@ -28,8 +28,8 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.btnOpenNasaTvSchedule = new System.Windows.Forms.Button();
 			this.dgvExcelSchedule = new System.Windows.Forms.DataGridView();
@@ -106,8 +106,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.label6 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dgvExcelSchedule)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvOutlook)).BeginInit();
-			this.statusStrip.SuspendLayout();
-			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnOpenNasaTvSchedule
@@ -144,9 +142,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.dgvExcelSchedule.Name = "dgvExcelSchedule";
 			this.dgvExcelSchedule.Size = new System.Drawing.Size(767, 138);
 			this.dgvExcelSchedule.TabIndex = 1;
-			this.dgvExcelSchedule.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvExcelSchedule_CurrentCellDirtyStateChanged);
 			this.dgvExcelSchedule.MouseHover += new System.EventHandler(this.dgvExcelSchedule_MouseHover);
 			this.dgvExcelSchedule.MouseLeave += new System.EventHandler(this.dgvExcelSchedule_MouseLeave);
+			this.dgvExcelSchedule.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvExcelSchedule_CurrentCellDirtyStateChanged);
 			this.dgvExcelSchedule.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvExcelSchedule_DataError);
 			// 
 			// ID_ADD
@@ -169,9 +167,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// BEGIN_DATE_TV
 			// 
 			this.BEGIN_DATE_TV.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			dataGridViewCellStyle1.Format = "g";
-			dataGridViewCellStyle1.NullValue = null;
-			this.BEGIN_DATE_TV.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5.Format = "g";
+			dataGridViewCellStyle5.NullValue = null;
+			this.BEGIN_DATE_TV.DefaultCellStyle = dataGridViewCellStyle5;
 			this.BEGIN_DATE_TV.HeaderText = "BEGIN DATE";
 			this.BEGIN_DATE_TV.Name = "BEGIN_DATE_TV";
 			this.BEGIN_DATE_TV.ReadOnly = true;
@@ -254,9 +252,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.dgvOutlook.Name = "dgvOutlook";
 			this.dgvOutlook.Size = new System.Drawing.Size(767, 138);
 			this.dgvOutlook.TabIndex = 5;
-			this.dgvOutlook.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvOutlook_CurrentCellDirtyStateChanged);
 			this.dgvOutlook.MouseHover += new System.EventHandler(this.dgvOutlook_MouseHover);
 			this.dgvOutlook.MouseLeave += new System.EventHandler(this.dgvOutlook_MouseLeave);
+			this.dgvOutlook.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvOutlook_CurrentCellDirtyStateChanged);
 			this.dgvOutlook.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvOutlook_DataError);
 			// 
 			// REMOVE_OL
@@ -271,9 +269,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// BEGIN_DATE_OL
 			// 
 			this.BEGIN_DATE_OL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			dataGridViewCellStyle2.Format = "g";
-			dataGridViewCellStyle2.NullValue = null;
-			this.BEGIN_DATE_OL.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6.Format = "g";
+			dataGridViewCellStyle6.NullValue = null;
+			this.BEGIN_DATE_OL.DefaultCellStyle = dataGridViewCellStyle6;
 			this.BEGIN_DATE_OL.HeaderText = "BEGIN DATE";
 			this.BEGIN_DATE_OL.Name = "BEGIN_DATE_OL";
 			this.BEGIN_DATE_OL.ReadOnly = true;
@@ -483,9 +481,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// 
 			// statusStrip
 			// 
-			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar,
-            this.toolStripStatusLabel});
 			this.statusStrip.Location = new System.Drawing.Point(0, 551);
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.Size = new System.Drawing.Size(795, 22);
@@ -552,11 +547,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// 
 			// menuStrip
 			// 
-			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(795, 24);
@@ -882,16 +872,13 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.Controls.Add(this.dgvOutlook);
 			this.Controls.Add(this.dgvExcelSchedule);
 			this.Controls.Add(this.btnOpenNasaTvSchedule);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip;
 			this.Name = "MainForm";
 			this.Text = "NASA Space Shuttle TV Schedule Transfer to Outlook Calendar";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgvExcelSchedule)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvOutlook)).EndInit();
-			this.statusStrip.ResumeLayout(false);
-			this.statusStrip.PerformLayout();
-			this.menuStrip.ResumeLayout(false);
-			this.menuStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

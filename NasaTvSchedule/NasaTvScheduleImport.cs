@@ -34,6 +34,8 @@ using System.Globalization;
 using System.IO;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Permissions;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Windows.Forms;
@@ -42,6 +44,7 @@ using Microsoft.Msdn.BclTeam;
 using PermanentVacations.Nasa.Sts.Schedule;
 
 [assembly: CLSCompliant(true)]
+[assembly: PermissionSet(SecurityAction.RequestMinimum, Name="FullTrust")]
 namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 {
 	/// <summary>
@@ -244,9 +247,12 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		/// </summary>
 		private void StopTimer(string elapsedTime)
 		{
-			stopWatch.Stop();
-			TimeSpan tsElapsed = stopWatch.Elapsed;
-			Status = elapsedTime + tsElapsed.ToString();
+			if (stopWatch != null)
+			{
+				stopWatch.Stop();
+				TimeSpan tsElapsed = stopWatch.Elapsed;
+				Status = elapsedTime + tsElapsed.ToString();
+			}
 			stopWatch = null;
 		}
 
@@ -445,7 +451,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				LoadExcelSchedule(excelSchedule);
 
 				Ready();
-				StopTimer(Properties.Resources.ID_ELAPSED_TIME_READING_EXCEL);
+				StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_READING_EXCEL);
 			}
 		}
 
@@ -511,7 +517,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			LoadOutlookSchedule();
 
 			Ready();
-			StopTimer(Properties.Resources.ID_ELAPSED_TIME_REMOVING_SCHEDULE);
+			StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_REMOVING_SCHEDULE);
 		}
 
 		/// <summary>
@@ -622,7 +628,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			TransferExcelToOutlook();
 
 			Ready();
-			StopTimer(Properties.Resources.ID_ELAPSED_TIME_TRANFERRING);
+			StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_TRANFERRING);
 		}
 
 		/// <summary>
@@ -819,7 +825,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		private void dgvExcelSchedule_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
 		{
 			string header = dgvExcelSchedule.SortedColumn.HeaderText;
-			if ((header == "BEGIN DATE") || (header == "END_DATE"))
+			if ((header == BEGIN_DATE_TV.Name) || (header == END_DATE_TV.Name))
 			{
 				e.SortResult = System.DateTime.Compare((DateTime)e.CellValue1, (DateTime)e.CellValue2);
 			}
@@ -965,7 +971,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 				ImportMultipleSchedules(nasaTvSchedules);
 				Ready();
-				StopTimer(Properties.Resources.ID_ELAPSED_TIME_BULK_IMPORT);
+				StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_BULK_IMPORT);
 			}
 
 		}
@@ -1243,7 +1249,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			try
 			{
 				applOutlook = new Microsoft.Office.Interop.Outlook.ApplicationClass();
-				InteropOutlook.NameSpaceClass nmOutlook = (InteropOutlook.NameSpaceClass)applOutlook.GetNamespace("MAPI");
+				InteropOutlook.NameSpaceClass nmOutlook = (InteropOutlook.NameSpaceClass)applOutlook.GetNamespace(Properties.Resources.OUTLOOK_MAPI);
 				if (nmOutlook.Categories.Count > 0)
 				{
 					int index;
@@ -1297,8 +1303,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				const int daysInWeek = 7;
 				//	Set an end date x weeks from the Application Specified Setting of LookAheadWeeks
 				DateTime dtEnd = dtStart.AddDays(daysInWeek * Properties.Settings.Default.LookAheadWeeks);
-				string filterDateSearchRange = "([Start] >= '" + dtStart.ToString("g", CultureInfo.CurrentCulture) +
-					"' AND [End] <= '" + dtEnd.ToString("g", CultureInfo.CurrentCulture) + "')";
+				string filterDateSearchRange = String.Format(Properties.Resources.FMT_DATE_FILTER,
+					dtStart.ToString("g", CultureInfo.CurrentCulture),
+					dtEnd.ToString("g", CultureInfo.CurrentCulture));
+
 				StringBuilder filterCategories = new StringBuilder();
 
 				string categories = GetSelectedCategories();
@@ -1312,11 +1320,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 					for (indexCategories = lowCategories; indexCategories <= maxCategories; indexCategories++)
 					{
-						filterCategories.Append("[Categories] = " + category[indexCategories]);
+						filterCategories.Append(Properties.Resources.FILTER_CATEGORIES + category[indexCategories]);
 						//  If not the only category and not the last category
 						if ((lowCategories != maxCategories) && (indexCategories < maxCategories))
 						{
-							filterCategories.Append(" OR ");
+							filterCategories.Append(Properties.Resources.OR);
 						}
 					}
 				}
@@ -1325,12 +1333,12 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				//	Put the date range search and categories search together
 				if (filterCategories.Length > 0)
 				{
-					filterCalendar += " AND (" + filterCategories.ToString() + ")";
+					filterCalendar += Properties.Resources.AND + "(" + filterCategories.ToString() + ")";
 				}
 
 				filterCategories = null;
 
-				nmOutlook = outlook.GetNamespace("MAPI");
+				nmOutlook = outlook.GetNamespace(Properties.Resources.OUTLOOK_MAPI);
 				//  Ralph Hightower - 20071104
 				//  FolderClass, ItemClass, and AppointmentItemClass do not appear to work
 				//  Use Folder, Item, and AppointmentItem instead
@@ -1344,7 +1352,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				{
 					//InteropOutlook.ItemsClass calendarItems = (InteropOutlook.ItemsClass)olCalendarFolder.Items.Restrict(filterCalendar);
 					InteropOutlook.Items calendarItems = (InteropOutlook.ItemsClass)olCalendarFolder.Items.Restrict(filterCalendar);
-					calendarItems.Sort("[Start]", Type.Missing);
+					calendarItems.Sort(Properties.Resources.OUTLOOK_START, Type.Missing);
 					foreach (InteropOutlook.AppointmentItem apptItem in calendarItems)
 					{
 						dgvOutlook.Rows.Add(false, apptItem.Start, apptItem.End, apptItem.Subject, apptItem.Location);
@@ -1504,7 +1512,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				appt.BusyStatus = Microsoft.Office.Interop.Outlook.OlBusyStatus.olFree;
 
 				appt.Save();
-				nasaTVSchedule = null;
 			}
 			catch (COMException comExp)
 			{
@@ -1512,10 +1519,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
-			}
-			finally
-			{
-				nasaTVSchedule = null;
 			}
 		}
 
@@ -1533,10 +1536,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			//
 			//	COM Exception cause: Single quotes in Subject causes RemoveAppointment to get a COM Exception in Calendar.Items.Restrict(filterAppt)
 			//
-			string filterAppt = "([Start] = '" + dtStart.ToString("g", CultureInfo.CurrentCulture) + "') " +
-				"AND ([End] = '" + dtEnd.ToString("g", CultureInfo.CurrentCulture) + "') " +
-				"AND ([Subject] = '" + subject.Replace("'", "''") + "') " +
-				"AND ([Location] = '" + site + "')";
+			string filterAppt = String.Format(Properties.Resources.FMT_FILTER_DATE_SUBJECT_LOCATION,
+				dtStart.ToString("g", CultureInfo.CurrentCulture),
+				dtEnd.ToString("g", CultureInfo.CurrentCulture),
+				subject.Replace("'", "''"),
+				site.Replace("'", "''"));
 
 			InteropOutlook.NameSpace nmOutlook = null;
 			InteropOutlook.Folder olCalendarFolder = null;
@@ -1555,7 +1559,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				{
 					//InteropOutlook.ItemsClass calendarItems = (InteropOutlook.ItemsClass)olCalendarFolder.Items.Restrict(filterCalendar);
 					InteropOutlook.Items calendarItems = (InteropOutlook.ItemsClass)olCalendarFolder.Items.Restrict(filterAppt);
-					calendarItems.Sort("[Start]", Type.Missing);
+					calendarItems.Sort(Properties.Resources.OUTLOOK_START, Type.Missing);
 					foreach (InteropOutlook.AppointmentItem apptItem in calendarItems)
 					{
 						apptItem.Delete();
