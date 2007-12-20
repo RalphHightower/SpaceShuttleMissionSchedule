@@ -22,6 +22,10 @@
  * Ralph Hightower
  * Chapin, SC 29036
 */
+/* Change History
+ * 20071217 RMH Moved Outlook filter strings from code to resource
+ * 20071218 RMH Added New Schedule Update button
+ */
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -323,7 +327,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		/// <param name="e"></param>
 		private void btnOpenNasaTvSchedule_Click(object sender, EventArgs e)
 		{
-			OpenNasaTvSchedule();
+            Busy(Properties.Resources.ID_BUSY_READING_EXCEL);
+            StartTimer();
+            OpenNasaTvSchedule();
+            Ready();
+            StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_READING_EXCEL);
 		}
 
 		/// <summary>
@@ -334,8 +342,12 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		/// <param name="e"></param>
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OpenNasaTvSchedule();
-		}
+            Busy(Properties.Resources.ID_BUSY_READING_EXCEL);
+            StartTimer();
+            OpenNasaTvSchedule();
+            Ready();
+            StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_READING_EXCEL);
+        }
 
 		/// <summary>
 		/// Tool tip for the Open NASA TV Schedule button
@@ -445,13 +457,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				Properties.Settings.Default.MyDocuments = fiExcelSchedule.DirectoryName;
 				fiExcelSchedule = null;
 
-				Busy(Properties.Resources.ID_BUSY_READING_EXCEL);
-				StartTimer();
-
 				LoadExcelSchedule(excelSchedule);
-
-				Ready();
-				StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_READING_EXCEL);
 			}
 		}
 
@@ -465,7 +471,41 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			Status = "";
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Updates the Outlook Calendar with the new Excel schedule loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNewScheduleUpdate_Click(object sender, EventArgs e)
+        {
+            Busy(Properties.Resources.ID_BUSY_UPDATING_SCHEDULE);
+            StartTimer();
+            UpdateNewSchedule();
+            Ready();
+            StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_NEWSCHEDULEUPDATE);
+        }
+
+        /// <summary>
+        /// Clears hover tip
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNewScheduleUpdate_Leave(object sender, EventArgs e)
+        {
+            Status = "";
+        }
+
+        /// <summary>
+        /// Hover tip for New Schedule Update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNewScheduleUpdate_MouseHover(object sender, EventArgs e)
+        {
+            Status = Properties.Resources.MOUSEHOVER_NEWSCHEDULEUPDATE;
+        }
+
+        /// <summary>
 		/// Handler for Refresh Outlook Categories
 		/// Reloads the categories from Outlook into the CheckListBox
 		/// </summary>
@@ -1376,6 +1416,23 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			}
 		}
 
+        /// <summary>
+        /// Updates the Outlook Schedule with the new Excel Schedule
+        /// </summary>
+        private void UpdateNewSchedule()
+        {
+            if (dgvExcelSchedule.RowCount > 0)
+            {
+                dtpOutlook.Value = (DateTime)dgvExcelSchedule.Rows[0].Cells[BEGIN_DATE_TV.Name].Value;
+                dtpOutlook.Refresh();
+                LoadOutlookSchedule();
+            }
+            SmartSelect();
+            RemoveOutlookEntries();
+            SelectAllExcel();
+            TransferExcelToOutlook();
+        }
+
 		/// <summary>
 		/// Gets selected Outlook Categories separated by a semicolon
 		/// </summary>
@@ -1611,6 +1668,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					{
 						dtpOutlook.Value = (DateTime)dgvExcelSchedule.Rows[0].Cells[BEGIN_DATE_TV.Name].Value;
 						dtpOutlook.Refresh();
+                        LoadOutlookSchedule();
 					}
 					Busy(Properties.Resources.ID_BULKIMPORT_SELECTALLEXCEL);
 					SelectAllExcel();
@@ -1633,5 +1691,5 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 		#endregion
 
-	}
+    }
 }

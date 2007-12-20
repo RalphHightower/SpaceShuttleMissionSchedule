@@ -185,6 +185,10 @@
     <value>Busy transferring NASA STS TV Schedule to Outlook</value>
     <comment>Busy transferring schedule to Outlook</comment>
   </data>
+  <data name="ID_BUSY_UPDATING_SCHEDULE" xml:space="preserve">
+    <value>Busy updating the Schedule</value>
+    <comment>Busy updating schedule</comment>
+  </data>
   <data name="ID_DEFALT_CATEGORY" xml:space="preserve">
     <value>NASA TV Schedule - STS</value>
     <comment>Default Appointment Category</comment>
@@ -245,6 +249,10 @@
     <value>{0} week window of Outlook Calendar Appointments</value>
     <comment>Hover tip</comment>
   </data>
+  <data name="MOUSEHOVER_NEWSCHEDULEUPDATE" xml:space="preserve">
+    <value>Updates the Outlook Calendar with the new schedule that is currently loaded</value>
+    <comment>Hover tip</comment>
+  </data>
   <data name="MOUSEHOVER_OPENNASATVSCHEDULE" xml:space="preserve">
     <value>Open a NASA STS TV schedule and read the schedule entries</value>
     <comment>Hover tip</comment>
@@ -297,6 +305,13 @@
     <value>Time Zone for the Outlook Appointment Items to be converted to</value>
     <comment>Hover tip</comment>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NASA_16X16_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NASA_16X16-16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NasaLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NasaLogo.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="OR" xml:space="preserve">
     <value> OR </value>
     <comment>One or the other</comment>
@@ -309,13 +324,19 @@
     <value>[Start]</value>
     <comment>Start Date for appointments</comment>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SpaceShuttle_32X32-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SpaceShuttle_32X32_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SpaceShuttle_32X32-256.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sts114_s_028" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sts114-s-028.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TIMER_ELAPSED_TIME_BULK_IMPORT" xml:space="preserve">
     <value>Elapsed Time doing Bulk Import = </value>
     <comment>Elapsed time doing bulk import</comment>
+  </data>
+  <data name="TIMER_ELAPSED_TIME_NEWSCHEDULEUPDATE" xml:space="preserve">
+    <value>Elapsed Time Updating Schedule = </value>
+    <comment>Elapsed time updating the new schedule</comment>
   </data>
   <data name="TIMER_ELAPSED_TIME_READING_EXCEL" xml:space="preserve">
     <value>Elapsed Time Reading NASA STS TV Schedule = </value>
