@@ -16,6 +16,7 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+    <ApplicationIcon>NasaLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GNU_GeneralPublicLicenseV3.txt" />
+    <Content Include="NasaLogo.ico" />
     <Content Include="RegularExpressions\RegularExpressions Workspace.txt" />
     <None Include="Resources\SpaceShuttle_16X16-256.ico" />
   </ItemGroup>

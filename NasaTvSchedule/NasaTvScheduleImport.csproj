@@ -35,6 +35,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ApplicationIcon>Resources\NasaLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,8 +55,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Tools.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Office.Tools.Outlook, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -104,7 +103,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="TestCases\STS-116tvsked_reva.xls" />
     <None Include="TestCases\STS-120 tvsked_rev0.xls" />
+    <None Include="TestCases\STS-120tvsked_reva.xls" />
     <None Include="Word\InitialRelease.doc" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,10 +143,11 @@
   <ItemGroup>
     <Content Include="GNU_GeneralPublicLicenseV3.txt" />
     <Content Include="NasaTvScheduleImport.sdm" />
-    <None Include="Resources\NASA_16X16-256.ico" />
-    <Content Include="Resources\NasaLogo.ico" />
-    <None Include="Resources\SpaceShuttle_32X32-256.ico" />
-    <Content Include="Resources\SpaceShuttle_16X16-256.ico" />
+    <Compile Include="Resources\SpaceShuttle_32X32-256.ico" />
+    <Compile Include="Resources\NASA_16X16-16.ico" />
+    <Compile Include="Resources\NasaLogo.ico" />
+    <EmbeddedResource Include="Resources\sts114-s-028.jpg" />
+    <Content Include="SpaceShuttle_32X32-256.ico" />
     <Content Include="TestCases\Test Cases Explanations.txt" />
   </ItemGroup>
   <ItemGroup>
