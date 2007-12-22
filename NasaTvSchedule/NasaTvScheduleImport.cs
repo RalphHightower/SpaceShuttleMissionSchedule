@@ -438,10 +438,13 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		}
 
 		/// <summary>
-		/// Show the File Open Dialog and process the NASA TV Schedule
+		/// Shows Open File Dialog and loads new NASA TV Schedule
 		/// </summary>
-		private void OpenNasaTvSchedule()
+		/// <returns>true if user selects OK and loads schedule</returns>
+		private bool OpenNasaTvSchedule()
 		{
+			bool openNasaTvSchedule = false;
+
 			ofExcelSchedule.Multiselect = false;
 			ofExcelSchedule.ReadOnlyChecked = true;
 			ofExcelSchedule.Title = Properties.Resources.ID_OPEN_SINGLE_EXCEL_FILE;
@@ -450,6 +453,8 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 			if (drExcelSchedule == DialogResult.OK)
 			{
+				openNasaTvSchedule = true;
+
 				string excelSchedule = ofExcelSchedule.FileName;
 
 				FileInfo fiExcelSchedule = new FileInfo(excelSchedule);
@@ -459,6 +464,8 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 				LoadExcelSchedule(excelSchedule);
 			}
+
+			return (openNasaTvSchedule);
 		}
 
 		/// <summary>
@@ -1421,16 +1428,26 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         /// </summary>
         private void UpdateNewSchedule()
         {
-            if (dgvExcelSchedule.RowCount > 0)
-            {
-                dtpOutlook.Value = (DateTime)dgvExcelSchedule.Rows[0].Cells[BEGIN_DATE_TV.Name].Value;
-                dtpOutlook.Refresh();
-                LoadOutlookSchedule();
-            }
-            SmartSelect();
-            RemoveOutlookEntries();
-            SelectAllExcel();
-            TransferExcelToOutlook();
+			bool somethingToDo = false;
+
+			if (OpenNasaTvSchedule())
+			{
+				somethingToDo = (dgvExcelSchedule.Rows.Count > 0);
+				if (somethingToDo)
+				{
+					dtpOutlook.Value = (DateTime)dgvExcelSchedule.Rows[0].Cells[BEGIN_DATE_TV.Name].Value;
+					dtpOutlook.Refresh();
+					LoadOutlookSchedule();
+				}
+
+				if (somethingToDo)
+				{
+					SmartSelect();
+					RemoveOutlookEntries();
+					SelectAllExcel();
+					TransferExcelToOutlook();
+				}
+			}
         }
 
 		/// <summary>
