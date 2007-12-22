@@ -28,8 +28,8 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.btnOpenNasaTvSchedule = new System.Windows.Forms.Button();
 			this.dgvExcelSchedule = new System.Windows.Forms.DataGridView();
@@ -104,8 +104,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
+			this.btnNewScheduleUpdate = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgvExcelSchedule)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvOutlook)).BeginInit();
+			this.statusStrip.SuspendLayout();
+			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnOpenNasaTvSchedule
@@ -167,9 +170,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// BEGIN_DATE_TV
 			// 
 			this.BEGIN_DATE_TV.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			dataGridViewCellStyle5.Format = "g";
-			dataGridViewCellStyle5.NullValue = null;
-			this.BEGIN_DATE_TV.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle1.Format = "g";
+			dataGridViewCellStyle1.NullValue = null;
+			this.BEGIN_DATE_TV.DefaultCellStyle = dataGridViewCellStyle1;
 			this.BEGIN_DATE_TV.HeaderText = "BEGIN DATE";
 			this.BEGIN_DATE_TV.Name = "BEGIN_DATE_TV";
 			this.BEGIN_DATE_TV.ReadOnly = true;
@@ -269,9 +272,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// BEGIN_DATE_OL
 			// 
 			this.BEGIN_DATE_OL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			dataGridViewCellStyle6.Format = "g";
-			dataGridViewCellStyle6.NullValue = null;
-			this.BEGIN_DATE_OL.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle2.Format = "g";
+			dataGridViewCellStyle2.NullValue = null;
+			this.BEGIN_DATE_OL.DefaultCellStyle = dataGridViewCellStyle2;
 			this.BEGIN_DATE_OL.HeaderText = "BEGIN DATE";
 			this.BEGIN_DATE_OL.Name = "BEGIN_DATE_OL";
 			this.BEGIN_DATE_OL.ReadOnly = true;
@@ -481,6 +484,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// 
 			// statusStrip
 			// 
+			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar,
+            this.toolStripStatusLabel});
 			this.statusStrip.Location = new System.Drawing.Point(0, 551);
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.Size = new System.Drawing.Size(795, 22);
@@ -547,6 +553,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			// 
 			// menuStrip
 			// 
+			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(795, 24);
@@ -838,12 +849,25 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.label6.TabIndex = 28;
 			this.label6.Text = "Outlook Schedule";
 			// 
+			// btnNewScheduleUpdate
+			// 
+			this.btnNewScheduleUpdate.Location = new System.Drawing.Point(642, 294);
+			this.btnNewScheduleUpdate.Name = "btnNewScheduleUpdate";
+			this.btnNewScheduleUpdate.Size = new System.Drawing.Size(147, 23);
+			this.btnNewScheduleUpdate.TabIndex = 29;
+			this.btnNewScheduleUpdate.Text = "New Schedule Update";
+			this.btnNewScheduleUpdate.UseVisualStyleBackColor = true;
+			this.btnNewScheduleUpdate.Click += new System.EventHandler(this.btnNewScheduleUpdate_Click);
+			this.btnNewScheduleUpdate.Leave += new System.EventHandler(this.btnNewScheduleUpdate_Leave);
+			this.btnNewScheduleUpdate.MouseHover += new System.EventHandler(this.btnNewScheduleUpdate_MouseHover);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(795, 573);
+			this.Controls.Add(this.btnNewScheduleUpdate);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
@@ -879,6 +903,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgvExcelSchedule)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvOutlook)).EndInit();
+			this.statusStrip.ResumeLayout(false);
+			this.statusStrip.PerformLayout();
+			this.menuStrip.ResumeLayout(false);
+			this.menuStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -959,6 +987,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnNewScheduleUpdate;
     }
 }
 
