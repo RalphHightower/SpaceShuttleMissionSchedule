@@ -23,8 +23,9 @@
  * Chapin, SC 29036
 */
 /* Change History
- * 20071217 RMH Moved Outlook filter strings from code to resource
+ * 20071227 RMH Added SuspendTimer(), ResumeTimer(); added appropriate calls to suspend and resume timing for user interactions
  * 20071218 RMH Added New Schedule Update button
+ * 20071217 RMH Moved Outlook filter strings from code to resource
  */
 using System;
 using System.Collections;
@@ -242,8 +243,34 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		/// </summary>
 		private void StartTimer()
 		{
-			stopWatch = new Stopwatch();
+			if (stopWatch == null)
+			{
+				stopWatch = new Stopwatch();
+			}
+			if (stopWatch.IsRunning)
+			{
+				stopWatch.Stop();
+				stopWatch.Reset();
+			}
 			stopWatch.Start();
+		}
+
+		private void SuspendTimer()
+		{
+			if (stopWatch != null)
+			{
+				if (stopWatch.IsRunning)
+					stopWatch.Stop();
+			}
+		}
+
+		private void ResumeTimer()
+		{
+			if (stopWatch != null)
+			{
+				if (!stopWatch.IsRunning)
+					stopWatch.Start();
+			}
 		}
 
 		/// <summary>
@@ -449,7 +476,12 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			ofExcelSchedule.ReadOnlyChecked = true;
 			ofExcelSchedule.Title = Properties.Resources.ID_OPEN_SINGLE_EXCEL_FILE;
 			ofExcelSchedule.InitialDirectory = Properties.Settings.Default.MyDocuments;
+
+			SuspendTimer();
+			
 			DialogResult drExcelSchedule = ofExcelSchedule.ShowDialog();
+
+			ResumeTimer();
 
 			if (drExcelSchedule == DialogResult.OK)
 			{
@@ -635,9 +667,13 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				Ready();
 			}
 			else
+			{
+				SuspendTimer();
 				MessageBox.Show(Properties.Resources.ERR_NO_EXCEL_SCHEDULE,
 					Properties.Resources.ERR_MESSAGE_BOX_HDR_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error,
 					MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+				ResumeTimer();
+			}
 		}
 
 		/// <summary>
@@ -970,17 +1006,23 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				if (!noErrors)
 				{
 					if (scheduleRow != null)
+					{
+						SuspendTimer();
 						MessageBox.Show(scheduleRow.Subject, Properties.Resources.ERR_EXCEPTION, MessageBoxButtons.OK,
 							MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+						ResumeTimer();
+					}
 				}
 
 				ProgressBar = -1;
 			}
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1,
 					(MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
@@ -1020,7 +1062,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				Ready();
 				StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_BULK_IMPORT);
 			}
-
 		}
 
 		/// <summary>
@@ -1318,8 +1359,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			}
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
@@ -1408,8 +1451,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			}
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
@@ -1542,8 +1587,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
@@ -1589,8 +1636,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			}
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
@@ -1642,8 +1691,10 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			}
 			catch (COMException comExp)
 			{
+				SuspendTimer();
 				MessageBox.Show(comExp.Message + comExp.StackTrace, Properties.Resources.ERR_COM_EXCEPTION,
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
+				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
 					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
 			}
