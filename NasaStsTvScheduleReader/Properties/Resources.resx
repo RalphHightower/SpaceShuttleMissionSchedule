@@ -730,7 +730,7 @@
     <comment>Regular Expression: Flight Day Header</comment>
   </data>
   <data name="RGX_ISS_CREW_SLEEP_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP)</value>
     <comment>ISS, optionally Shuttle Crew, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="RGX_MISSIONDAY" xml:space="preserve">
@@ -746,7 +746,7 @@
     <comment>Regular Expression to capture month/day/year</comment>
   </data>
   <data name="RGX_SHUTTLE_CREW_SLEEP_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP)</value>
     <comment>Captures Shuttle Crew, optionally ISS, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="SYSTEM_DOUBLE" xml:space="preserve">

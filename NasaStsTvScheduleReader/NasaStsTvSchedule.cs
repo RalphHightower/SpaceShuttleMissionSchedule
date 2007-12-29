@@ -24,6 +24,9 @@
 */
 /*
  * Revision History
+ * 20071228 - Ralph Hightower
+ *		Fixed mispelling of Endeavour in regular expression, tightened rules for new year, 
+ *		restore Month and Year after ReadAhead code
  * 20071227 - Ralph Hightower
  *		Fixed nagging problems with pairing crew sleep with crew wakeup calls; 
  *		Tightened up rules for Happy New Year Routine for Gregorian calendar.
@@ -1543,7 +1546,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					dtEndViewingTime = GuesstimateFixedEvents(Subject, dtBeginViewingTime);
 					//  If a special event was not found, get the start time for the next event
 					if (dtEndViewingTime == DateTime.MinValue)
+					{
+						//	Save Month & Year.  ReadAhead code may advance month and year when processing date headers
+						int holdYear = Year;
+						int holdMonth = Month;
+
 						dtEndViewingTime = ReadAhead();
+
+						Month = holdMonth;
+						Year = holdYear;
+					}
 					validEntry = true;
 					//  This situation may not occur (except for STS Landing since though there are next events,
 					//	the events are Net Landing + a time span
@@ -1708,7 +1720,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 							{
 								try
 								{
-									endDate = ProcessDateHeader(endDateHeader, false);
+									endDate = ProcessDateHeader(endDateHeader);
 								}
 								catch (InvalidFileFormatException invalidFileFormat)
 								{
@@ -1734,7 +1746,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 						}
 						else
 							scheduleRow = ScheduleType.empty;
-						if (issCrewSleep && ISSCrewWakeUp(indexRowAhead) && !shuttleCrewSleep)
+						if (issCrewSleep && ISSCrewWakeUp(indexRowAhead))
 						{
 							scheduleRow = ScheduleType.scheduleEntry;
 							break;
@@ -1803,7 +1815,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 							{
 								try
 								{
-									HeadingDate = ProcessDateHeader(cellOrbitValue, true);
+									HeadingDate = ProcessDateHeader(cellOrbitValue);
 									typeEntry = ScheduleType.dateHeading;
 								}
 								catch (InvalidFileFormatException expInvalidFileFormat)
@@ -1959,13 +1971,12 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// </summary>
 		/// <param name="weekdayMonthDay">Cell Value of the Date Header</param>
 		/// <returns>DateTime of the Cell Value</returns>
-		private DateTime ProcessDateHeader(string weekdayMonthDay, bool advanceYear)
+		private DateTime ProcessDateHeader(string weekdayMonthDay)
 		{
 			DateTime dtHeading = DateTime.MinValue;
 			bool dateHeaderFound = MatchDateHeader(weekdayMonthDay);
 			if (dateHeaderFound)
 			{
-				int holdYear = Year;
 				//  Date Heaader is DayOfWeek, Month missionDay in uppercase
 				Match mtchDateHeader = rgDateHeader.Match(weekdayMonthDay);
 
@@ -1985,8 +1996,6 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 
 				Day = Convert.ToInt32(grpcolDateHeader[Properties.Resources.IX_DAY].Value, CultureInfo.InvariantCulture);
 				dtHeading = new DateTime(Year, Month, Day);
-				if (!advanceYear)
-					Year = holdYear;
 			}
 
 			return (dtHeading);
