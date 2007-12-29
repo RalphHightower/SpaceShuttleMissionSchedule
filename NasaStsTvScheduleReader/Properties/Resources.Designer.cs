@@ -1438,7 +1438,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP).
+        ///   Looks up a localized string similar to (?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP).
         /// </summary>
         internal static string RGX_ISS_CREW_SLEEP_ACTIVITY {
             get {
@@ -1474,7 +1474,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP).
+        ///   Looks up a localized string similar to (?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP).
         /// </summary>
         internal static string RGX_SHUTTLE_CREW_SLEEP_ACTIVITY {
             get {
