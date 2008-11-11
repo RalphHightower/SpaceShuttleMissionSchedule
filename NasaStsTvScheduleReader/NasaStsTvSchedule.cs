@@ -32,6 +32,10 @@
  *		Tightened up rules for Happy New Year Routine for Gregorian calendar.
  * 20071226 - Ralph Hightower
  *		STS-118 schedule has entries with a site of " " causing a null site to be entered in the schedule
+ * 20081110 - Ralph Hightower
+ *      STS-126: rev0 schedule has a space before the comma separating the day and the month.
+ *          Updated regular expression RGX_DATE_HEADER to include that pattern
+ *          Updated Version in AssemblyInfo
  */
 using System;
 using System.Collections.Generic;
@@ -1480,7 +1484,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					}
 				}
 				else if (Subject.Contains(Properties.Resources.NASA_UNDOCKING) ||
-				Subject.Contains(Properties.Resources.NASA_UNDOCKS))
+					Subject.Contains(Properties.Resources.NASA_UNDOCKS))
 				{
 					if (!Subject.Contains(Properties.Resources.NASA_VTR_PLAYBACK))
 					{
@@ -1518,27 +1522,31 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 						Site = Properties.Resources.NASA_ISS;
 					else
 						Site = Properties.Resources.NASA_STS;
-
-					if (Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS) ||
-						Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
-                        Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
-					{
-						if (ISSCrewSleep(row) || ISSCrewWakeUp(row))
-							Site = Properties.Resources.NASA_ISS;
-						if (ShuttleCrewSleep(row) || ShuttleCrewWakeUp(row))
-							Site = Properties.Resources.NASA_STS;
-					}
 				}
+
+				if (Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS) ||
+					Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
+					Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+				{
+					if (ISSCrewSleep(row) || ISSCrewWakeUp(row))
+						Site = Properties.Resources.NASA_ISS;
+					if (ShuttleCrewSleep(row) || ShuttleCrewWakeUp(row))
+						Site = Properties.Resources.NASA_STS;
+				}
+
 				if (TvScheduleCells.GetValue(row, MissionElapsedTimeColumnHeader) != null)
 				{
 					MissionElapsedTime = TvScheduleCells.GetValue(row, MissionElapsedTimeColumnHeader).ToString();
 					MissionDurationTime.Set(TvScheduleCells, row, MissionElapsedTimeColumnHeader);
 				}
+
 				//  watch for "NET L" usually means "Net Landing + some time"
 				if (TvScheduleCells.GetValue(row, OrbitColumnHeader) != null)
 					Orbit = (System.Double)TvScheduleCells.GetValue(row, OrbitColumnHeader);
+
 				if (TvScheduleCells.GetValue(row, FlightDayColumnHeader) != null)
 					FlightDay = TvScheduleCells.GetValue(row, FlightDayColumnHeader).ToString();
+
 				if (TvScheduleCells.GetValue(row, CentralTimeColumnHeader) != null)
 				{
 					CentralTime = ExcelFormatTime(row, CentralTimeColumnHeader);
@@ -1670,29 +1678,50 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 
 			bool shuttleCrewSleep = false;
 			bool issCrewSleep = false;
-			bool evaBegins = false;
+			bool evaActivity = false;
 
 			string subjectStart = TvScheduleCells.GetValue(CurrentRow, SubjectColumnHeader).ToString();
+            DateTime startCentralTime = DateTime.FromOADate((double)TvScheduleCells.GetValue(CurrentRow, CentralTimeColumnHeader));
+            DateTime startEvent = ConvertFromCentralTzToViewingTz(HeadingDate, startCentralTime.ToString(Properties.Resources.FMT_TIME));
+
 			if (subjectStart.Contains(Properties.Resources.NASA_EVA) &&
 				(subjectStart.Contains(Properties.Resources.NASA_BEGINS)))
 			{
-				evaBegins = EVABegins(CurrentRow);
+				evaActivity = EVABegins(CurrentRow);
 			}
+
 			if (subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS))
 			{
 				shuttleCrewSleep = ShuttleCrewSleep(CurrentRow);
 				issCrewSleep = ISSCrewSleep(CurrentRow);
 			}
+            bool sleepActivity = shuttleCrewSleep || issCrewSleep;
 
 			for (indexRowAhead = CurrentRow + 1; (indexRowAhead <= RowCount) &&
 				(scheduleRow != ScheduleType.scheduleEntry) &&
 				!tempEOF && !ErrorProcessed; indexRowAhead++)
 			{
+                object objDebugSubject = TvScheduleCells.GetValue(indexRowAhead, SubjectColumnHeader);
+                string currentSubject = "";
+                if (objDebugSubject != null)
+                    currentSubject = objDebugSubject.ToString();
 				if (IsRowScheduleEntry(indexRowAhead))
 				{
 					scheduleRow = ScheduleType.scheduleEntry;
-					endCentralTime = ExcelFormatTime(indexRowAhead, CentralTimeColumnHeader);
-					endDate = ConvertFromCentralTzToViewingTz(endDate, endCentralTime);
+                    // An event that occurs during a sleep period may advance the day in another timezone
+                    if (sleepActivity)
+                    {
+                        if (currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+                        {
+                            endCentralTime = ExcelFormatTime(indexRowAhead, CentralTimeColumnHeader);
+                            endDate = ConvertFromCentralTzToViewingTz(endDate, endCentralTime);
+                        }
+                    }
+                    else
+                    {
+                        endCentralTime = ExcelFormatTime(indexRowAhead, CentralTimeColumnHeader);
+                        endDate = ConvertFromCentralTzToViewingTz(endDate, endCentralTime);
+                    }
 				}
 				else
 				{
@@ -1706,6 +1735,13 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 							//  Don't loop through missionDay for end of file record
 							if (endDateHeader.Contains(Properties.Resources.NASA_DEFINITION_OF_TERMS))
 							{
+                                if (sleepActivity)
+                                {
+                                    TimeSpan defaultSleepPeriod = new TimeSpan(8, 30, 0);
+                                    DateTime dtWakeup = HeadingDate.Add(startCentralTime.TimeOfDay);
+                                    dtWakeup = dtWakeup.Add(defaultSleepPeriod);
+                                    endDate = ConvertFromCentralTzToViewingTz(dtWakeup.Date, dtWakeup.TimeOfDay.ToString());
+                                }
 								tempEOF = true;
 								break;
 							}
@@ -1758,7 +1794,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					else
 						scheduleRow = ScheduleType.empty;
 				}
-				if (evaBegins && (scheduleRow == ScheduleType.scheduleEntry))
+				if (evaActivity && (scheduleRow == ScheduleType.scheduleEntry))
 				{
 					if (TvScheduleCells.GetValue(indexRowAhead, SubjectColumnHeader).ToString().Contains(Properties.Resources.NASA_ENDS))
 					{
@@ -1872,7 +1908,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// Determines if schedule entry based on the system type of the cells
 		/// C3 (Subject) is a string
 		/// C7 (Central Time) is a double
-		/// C8 (Easter Time) is a double
+		/// C8 (Eastern Time) is a double
 		/// C9 (GMT) is a double
 		/// </summary>
 		/// <param name="row">Row number of schedule to examine</param>
@@ -1936,14 +1972,14 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 						headingCount++;
 					}
 					else if ((TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_CDT)
-					|| (TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_CST))
+                        || (TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_CST))
 					{
 						CentralTimeColumnHeader = col;
 						DaylightSavingsTime = TvScheduleCells.GetValue(row, col).ToString().Substring(1, 1) == "D";
 						headingCount++;
 					}
 					else if ((TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_EDT)
-					|| (TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_EST))
+                        || (TvScheduleCells.GetValue(row, col).ToString() == Properties.Resources.NASA_EST))
 					{
 						EasternTimeColumnHeader = col;
 						DaylightSavingsTime = TvScheduleCells.GetValue(row, col).ToString().Substring(1, 1) == "D";
@@ -1985,7 +2021,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				string month = grpcolDateHeader[Properties.Resources.IX_MONTH].Value;
 				int indexMonth;
 				for (indexMonth = Months.GetLowerBound(0); indexMonth <= Months.GetUpperBound(0) &&
-				month != Months[indexMonth]; indexMonth++)
+                    month != Months[indexMonth]; indexMonth++)
 				{
 				}
 				indexMonth++;	//	Month is zero based
@@ -2024,14 +2060,14 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// </summary>
 		/// <param name="row">Row of spreadsheet</param>
 		/// <param name="weekdayMonthDay">Column of spreadsheet</param>
-		/// <returns>Time as a string formatted similar to DateTime.ToString("hh:mm tt")</returns>
+		/// <returns>Time as a string formatted similar to DateTime.ToString("hh:mm:tt")</returns>
 		private string ExcelFormatTime(int row, int cell)
 		{
 			string formattedTime = "";
 			switch (ExcelTypeInterface)
 			{
 				case ExcelInterface.InteropExcel:
-					formattedTime = DateTime.FromOADate((double)TvScheduleCells.GetValue(row, cell)).ToString("hh:mm tt");
+					formattedTime = DateTime.FromOADate((double)TvScheduleCells.GetValue(row, cell)).ToString(Properties.Resources.FMT_TIME);
 					break;
 				case ExcelInterface.ToolsExcel:
 					formattedTime = ToolsExcelIF.FormatTime(TvScheduleCells, row, cell);
@@ -2056,7 +2092,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		{
 			string convertTime = timeOfday.Trim();
 			DateTime dtCentralTZ = dtConvert.Date;
-			//TimeSpan tsTimeOfDay = TimeSpan.Parse(convertTime);
+			//  TimeSpan tsTimeOfDay = TimeSpan.Parse(convertTime);
 			DateTime dtTimeOfDay = DateTime.Parse(convertTime, CultureInfo.CurrentCulture);
 			dtCentralTZ = dtCentralTZ.Add(dtTimeOfDay.TimeOfDay);
 			DateTime dtViewingTZ = TimeZoneInfo.ConvertTimeZoneToTimeZone(dtCentralTZ, JohnsonSpaceCenterTZ, ViewingTimeZoneTZ);
@@ -2246,13 +2282,13 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// 6. EVAEnds
 		/// </summary>
 		/// <param name="rgSubjectVerbPattern">Regular expression for required rgSubjectVerbPattern: Shuttle or ISS</param>
-		/// <param name="subject">Crew: Shuttle or ISS</param>
-		/// <param name="verb">CREW WAKE UP or CREW SLEEP BEGINS</param>
+		/// <param name="subject">Crew: Shuttle, ISS or EVA</param>
+		/// <param name="verb">CREW WAKE UP, CREW SLEEP BEGINS or BEGINS, END (for EVA)</param>
 		/// <param name="row">Row in TvScheduleCells with Subject to match</param>
-		/// <returns>true if Required Crew is in the desired Sleep or Wake Activity</returns>
+		/// <returns>true if Required Crew is in the desired Sleep / Wake Activity, or EVA Begins / Ends Activity</returns>
 		private bool SubjectVerbPatternMatch(Regex rgSubjectVerbPattern, string subject, string verb, int row)
 		{
-			string entry = TvScheduleCells.GetValue(row, SubjectColumnHeader).ToString(); ;
+			string entry = TvScheduleCells.GetValue(row, SubjectColumnHeader).ToString();
 
 			Match mtchSubjectVerb = rgSubjectVerbPattern.Match(entry);
 
