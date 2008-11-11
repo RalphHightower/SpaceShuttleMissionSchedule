@@ -23,9 +23,14 @@
  * Chapin, SC 29036
 */
 /* Change History
- * 20071227 RMH Added SuspendTimer(), ResumeTimer(); added appropriate calls to suspend and resume timing for user interactions
- * 20071218 RMH Added New Schedule Update button
- * 20071217 RMH Moved Outlook filter strings from code to resource
+ * 20071227 - Ralph Hightower
+ *      Added SuspendTimer(), ResumeTimer(); added appropriate calls to suspend and resume timing for user interactions
+ * 20071218 - Ralph Hightower
+ *      Added New Schedule Update button
+ * 20071217 - Ralph Hightower
+ *      Moved Outlook filter strings from code to resource
+ * 20081110 - Ralph Hightower
+ *      Fixed ImportMultipleSchedules to process last file
  */
 using System;
 using System.Collections;
@@ -57,6 +62,8 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 	/// </summary>
 	public partial class MainForm : Form
 	{
+        private const string CRLF = "\r\n";
+
 		/// <summary>
 		/// True when application is shutting down
 		/// </summary>
@@ -517,11 +524,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         /// <param name="e"></param>
         private void btnNewScheduleUpdate_Click(object sender, EventArgs e)
         {
-            Busy(Properties.Resources.ID_BUSY_UPDATING_SCHEDULE);
-            StartTimer();
             UpdateNewSchedule();
-            Ready();
-            StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_NEWSCHEDULEUPDATE);
         }
 
         /// <summary>
@@ -1024,7 +1027,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					(MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+                    Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 			finally
 			{
@@ -1364,7 +1367,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+					Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 			finally
 			{
@@ -1456,7 +1459,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+					Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 			finally
 			{
@@ -1477,7 +1480,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 			if (OpenNasaTvSchedule())
 			{
-				somethingToDo = (dgvExcelSchedule.Rows.Count > 0);
+                Busy(Properties.Resources.ID_BUSY_UPDATING_SCHEDULE);
+                StartTimer();
+                somethingToDo = (dgvExcelSchedule.Rows.Count > 0);
 				if (somethingToDo)
 				{
 					dtpOutlook.Value = (DateTime)dgvExcelSchedule.Rows[0].Cells[BEGIN_DATE_TV.Name].Value;
@@ -1492,7 +1497,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					SelectAllExcel();
 					TransferExcelToOutlook();
 				}
-			}
+                Ready();
+                StopTimer(Properties.Resources.TIMER_ELAPSED_TIME_NEWSCHEDULEUPDATE);
+            }
         }
 
 		/// <summary>
@@ -1592,7 +1599,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+                    Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 
 			finally
@@ -1641,7 +1648,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+                    Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 		}
 
@@ -1696,7 +1703,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0);
 				ResumeTimer();
 				if (Properties.Settings.Default.CopyExceptionsToClipboard)
-					Clipboard.SetText(comExp.Message + comExp.StackTrace, TextDataFormat.Text);
+                    Clipboard.SetText(comExp.Message + CRLF + comExp.StackTrace, TextDataFormat.Text);
 			}
 			finally
 			{
@@ -1719,7 +1726,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		private void ImportMultipleSchedules(string[] filenames)
 		{
 			int indexFiles;
-			for (indexFiles = filenames.GetLowerBound(0); indexFiles < filenames.GetUpperBound(0); indexFiles++)
+			for (indexFiles = filenames.GetLowerBound(0); indexFiles <= filenames.GetUpperBound(0); indexFiles++)
 			{
 				FileInfo fiExcelSchedule = new FileInfo(filenames[indexFiles]);
 				lblNasaStsTVScheduleFile.Text = fiExcelSchedule.Name;

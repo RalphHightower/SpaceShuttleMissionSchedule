@@ -173,6 +173,10 @@
     <value>PermanentVacations.Nasa.Sts.Schedule.NasaStsTVSchedule</value>
     <comment>Namespace.class</comment>
   </data>
+  <data name="FMT_TIME" xml:space="preserve">
+    <value>hh:mm tt</value>
+    <comment>Hour:Minute AM/PM</comment>
+  </data>
   <data name="INVALIDFILE_NO_REVISION_DATE" xml:space="preserve">
     <value>Creation or Revision Date was not found in file {0}.  Year of the mission cannot be determined.</value>
     <comment>InvalidFileFormatException: No date was found before the Date Header</comment>
@@ -241,6 +245,10 @@
     <value>ASI</value>
     <comment>Agenzia Spaziale Italiana (Italian Space Agency)</comment>
   </data>
+  <data name="NASA_ATV" xml:space="preserve">
+    <value>ATV</value>
+    <comment>Automated Transport Vehicle</comment>
+  </data>
   <data name="NASA_BEGINS" xml:space="preserve">
     <value>BEGINS</value>
     <comment>Action Begins</comment>
@@ -264,6 +272,10 @@
   <data name="NASA_CMG" xml:space="preserve">
     <value>CMG</value>
     <comment>Control Moment Gyroscope</comment>
+  </data>
+  <data name="NASA_COLUMBUS" xml:space="preserve">
+    <value>Columbus</value>
+    <comment>Columbus European Laboratory Module</comment>
   </data>
   <data name="NASA_CREW_SLEEP_BEGINS" xml:space="preserve">
     <value>CREW SLEEP BEGINS</value>
@@ -361,6 +373,10 @@
     <value>ETCS</value>
     <comment>External Thermal Control System</comment>
   </data>
+  <data name="NASA_EUTEF" xml:space="preserve">
+    <value>EUTEF</value>
+    <comment>European Technology Exposure Facility for Columbus</comment>
+  </data>
   <data name="NASA_EVA" xml:space="preserve">
     <value>EVA</value>
     <comment>Extravehicular Activity</comment>
@@ -408,6 +424,10 @@
   <data name="NASA_LAUNCH" xml:space="preserve">
     <value>LAUNCH</value>
     <comment>Launch of Sts</comment>
+  </data>
+  <data name="NASA_LIMO" xml:space="preserve">
+    <value>LIMO</value>
+    <comment>Live Interview Media Outlet channel</comment>
   </data>
   <data name="NASA_MBS" xml:space="preserve">
     <value>MBS</value>
@@ -513,6 +533,10 @@
     <value>NETL + </value>
     <comment>Nasa Column Value - Net Landing +Time</comment>
   </data>
+  <data name="NASA_NTA" xml:space="preserve">
+    <value>NTA</value>
+    <comment>Nitrogen Tank Assembly</comment>
+  </data>
   <data name="NASA_OBS" xml:space="preserve">
     <value>OBS</value>
     <comment>Orbiter Docking System</comment>
@@ -520,6 +544,10 @@
   <data name="NASA_OBSS" xml:space="preserve">
     <value>OBSS</value>
     <comment>Orbiter Boom Sensor System</comment>
+  </data>
+  <data name="NASA_ODS" xml:space="preserve">
+    <value>ODS</value>
+    <comment>Orbiter Docking System</comment>
   </data>
   <data name="NASA_OMS" xml:space="preserve">
     <value>OMS</value>
@@ -637,6 +665,10 @@
     <value>SITE</value>
     <comment>Nasa Column Heading</comment>
   </data>
+  <data name="NASA_SOLAR" xml:space="preserve">
+    <value>SOLAR</value>
+    <comment>Solar Sun Observatory for Columbus</comment>
+  </data>
   <data name="NASA_SSPTS" xml:space="preserve">
     <value>SSPTS</value>
     <comment>Station to Shuttle Power Transfer System</comment>
@@ -718,11 +750,11 @@
     <comment>Zenith One Truss</comment>
   </data>
   <data name="RGX_DATE_HEADER" xml:space="preserve">
-    <value>(?&lt;DayOfWeek&gt;SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY),\s+(?&lt;Month&gt;JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?&lt;Day&gt;\d+)</value>
+    <value>(?&lt;DayOfWeek&gt;SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)\s?,\s+(?&lt;Month&gt;JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?&lt;Day&gt;\d+)</value>
     <comment>Regular Expression:Date Header captures DayOfWeek, Month, Day</comment>
   </data>
   <data name="RGX_EVA_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Eva&gt;EVA)\s+(?&lt;Number&gt;#\d+)\s+(?&lt;Activity&gt;BEGINS|ENDS)</value>
+    <value>(?&lt;Eva&gt;EVA)\s+(?:#\s?)(?&lt;Number&gt;\d+)\s+(?&lt;Activity&gt;BEGINS|ENDS)</value>
     <comment>EVA #? BEGINS or ENDS</comment>
   </data>
   <data name="RGX_FLIGHDAY_HEADER" xml:space="preserve">
@@ -779,7 +811,7 @@
   </data>
   <data name="TM_DEORBIT_BURN" xml:space="preserve">
     <value>DEORBIT BURN</value>
-    <comment>0:02:30</comment>
+    <comment>00:02:30</comment>
   </data>
   <data name="TM_INTERVIEW" xml:space="preserve">
     <value>INTERVIEW</value>
