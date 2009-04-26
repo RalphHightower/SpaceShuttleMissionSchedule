@@ -31,6 +31,8 @@
  *      Moved Outlook filter strings from code to resource
  * 20081110 - Ralph Hightower
  *      Fixed ImportMultipleSchedules to process last file
+ * 20081127 - Ralph Hightower
+ *      Added Mission Type (ISS, Hubble): ISS has docking
  */
 using System;
 using System.Collections;
@@ -83,6 +85,40 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		/// Date of dtpOutlook
 		/// </summary>
 		private DateTime dtOutlookCalendar;
+
+#if false   //  {
+        /// <summary>
+        /// Locations is SITE column in NASA STS TV Schedule DataGrid that should not be changed
+        /// </summary>
+        private string [] FixedLocations = {
+            Properties.Resources.NASA_HQ,
+            Properties.Resources.NASA_ISS_KU ,
+            Properties.Resources.NASA_JPL,
+            Properties.Resources.NASA_JSC,
+            Properties.Resources.NASA_JSC_FG,
+            Properties.Resources.NASA_KSC,
+            Properties.Resources.NASA_TDRE,
+            Properties.Resources.NASA_TDRW,
+            Properties.Resources.NASA_TDRZ,
+            Properties.Resources.NASA_VAFB
+        };
+#endif  //  }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private enum missionType
+        {
+            nonInitialized,
+            missionISS,
+            missionHubble
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private missionType typeMission;
+
 		/// <summary>
 		/// Getter/Setter of value containing dtpOutlook. Value
 		/// </summary>
@@ -178,6 +214,15 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 			InitializeExcelControls();
 			LoadOutlookControls();
+
+#if false   //  {
+            //  If it's May or June in 2009, then it's probably STS-125, the Hubble Servicing Mission
+            DateTime dtToday = DateTime.Now;
+            if ((dtToday.Year == 2009) && ((dtToday.Month == 5) || (dtToday.Month == 6)))
+                rbHubble.Checked = true;
+            else
+                rbISS.Checked = true;
+#endif  //  }
 
 			Ready();
 		}
@@ -472,42 +517,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		}
 
 		/// <summary>
-		/// Shows Open File Dialog and loads new NASA TV Schedule
-		/// </summary>
-		/// <returns>true if user selects OK and loads schedule</returns>
-		private bool OpenNasaTvSchedule()
-		{
-			bool openNasaTvSchedule = false;
-
-			ofExcelSchedule.Multiselect = false;
-			ofExcelSchedule.ReadOnlyChecked = true;
-			ofExcelSchedule.Title = Properties.Resources.ID_OPEN_SINGLE_EXCEL_FILE;
-			ofExcelSchedule.InitialDirectory = Properties.Settings.Default.MyDocuments;
-
-			SuspendTimer();
-			
-			DialogResult drExcelSchedule = ofExcelSchedule.ShowDialog();
-
-			ResumeTimer();
-
-			if (drExcelSchedule == DialogResult.OK)
-			{
-				openNasaTvSchedule = true;
-
-				string excelSchedule = ofExcelSchedule.FileName;
-
-				FileInfo fiExcelSchedule = new FileInfo(excelSchedule);
-				lblNasaStsTVScheduleFile.Text = fiExcelSchedule.Name;
-				Properties.Settings.Default.MyDocuments = fiExcelSchedule.DirectoryName;
-				fiExcelSchedule = null;
-
-				LoadExcelSchedule(excelSchedule);
-			}
-
-			return (openNasaTvSchedule);
-		}
-
-		/// <summary>
 		/// Handler for the MouseLeave (Clears Tool tip) Bulk Import
 		/// </summary>
 		/// <param name="sender"></param>
@@ -772,28 +781,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		}
 
 		/// <summary>
-		/// Select All entries in Excel Data Grid (NASA STS TV Schedule)
-		/// </summary>
-		private void SelectAllExcel()
-		{
-			for (int index = 0; index < dgvExcelSchedule.Rows.Count; index++)
-			{
-				dgvExcelSchedule.Rows[index].Cells[ID_ADD.Name].Value = true;
-			}
-		}
-
-		/// <summary>
-		/// Unselect all entries in Excel Data Grid (NASA STS TV Schedule)
-		/// </summary>
-		private void UnselectAllExcel()
-		{
-			for (int index = 0; index < dgvExcelSchedule.Rows.Count; index++)
-			{
-				dgvExcelSchedule.Rows[index].Cells[ID_ADD.Name].Value = false;
-			}
-		}
-
-		/// <summary>
 		/// Tool tip for the Docked checkbox
 		/// </summary>
 		/// <param name="sender"></param>
@@ -833,7 +820,49 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			Status = "";
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Handler of NASA STS TV Schedule DataGridView CellEnter: 
+        ///     If the column is the location of the event, check to see if the location is not a fixed ground or space location:
+        ///     NASA HQ, JSC, KSC, or space locations, such as, TDRS.
+        ///     If the cell contents is ISS or STS, allow editing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvExcelSchedule_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvExcelSchedule[e.ColumnIndex, e.RowIndex].OwningColumn.HeaderText == SITE_TV.HeaderText)
+            {
+                string site = dgvExcelSchedule[e.ColumnIndex, e.RowIndex].Value.ToString();
+                if ((site == Properties.Resources.NASA_ISS) || (site == Properties.Resources.NASA_STS))
+                    dgvExcelSchedule.BeginEdit(true);
+#if false   //  {
+            bool exit = false;
+                for (int idxFixedLocations = FixedLocations.GetLowerBound(0);
+                    idxFixedLocations <= FixedLocations.GetUpperBound(0) && !exit;
+                    idxFixedLocations++)
+                {
+                    if (dgvExcelSchedule[e.ColumnIndex, e.RowIndex].Value.ToString() == FixedLocations[idxFixedLocations])
+                        exit = true;
+                }
+                if (!exit)
+                    dgvExcelSchedule.BeginEdit(true);
+#endif
+            }
+        }
+
+        /// <summary>
+        /// Handler for NASA STS TV Schedule DataGridView CellLeave:
+        ///     If the current cell is in edit mode, then commit the changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvExcelSchedule_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvExcelSchedule.CurrentCell.IsInEditMode)
+                dgvExcelSchedule.EndEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        /// <summary>
 		/// Handler for ColumnSortModeChanged
 		/// May need to develop this for DateTime comparison if string compare is used instead of DateTime
 		/// </summary>
@@ -922,7 +951,67 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			e.Handled = true;
 		}
 
-		/// <summary>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbISS_CheckedChanged(object sender, EventArgs e)
+        {
+            typeMission = (rbISS.Checked ? missionType.missionISS : missionType.missionHubble);
+        }
+
+        /// <summary>
+        /// Handler of Mouse Hover over Radio Button: ISS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbISS_MouseHover(object sender, EventArgs e)
+        {
+            Status = Properties.Resources.MOUSEHOVER_MISSIONISS;
+        }
+
+        /// <summary>
+        /// Handler for Mouse Hover over Radio Button: ISS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbISS_MouseLeave(object sender, EventArgs e)
+        {
+            Status = "";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbHubble_CheckedChanged(object sender, EventArgs e)
+        {
+            typeMission = (rbHubble.Checked ? missionType.missionHubble : missionType.missionISS);
+        }
+
+        /// <summary>
+        /// Handler for Mouse Hover over Radio Button: Standalone/Hubble
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbHubble_MouseHover(object sender, EventArgs e)
+        {
+            Status = Properties.Resources.MOUSEHOVER_MISSIONSTANDALONE;
+        }
+
+        /// <summary>
+        /// Handler for Mouse Hover over Radio Button: Standalone/Hubble
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbHubble_MouseLeave(object sender, EventArgs e)
+        {
+            Status = "";
+        }
+
+        /// <summary>
 		/// Initializes the Data Grid for the schedule read from the Nasa Sts TV Schedule
 		/// </summary>
 		private void InitializeExcelControls()
@@ -934,30 +1023,93 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 			//  I have not found a way to open an Excel file using Microsoft.Office.Tools.Excel
 			chkInteropExcel.Checked = true;
 
-			InitializeExcelDateGrid();
+            if (rbISS.Checked)
+                typeMission = missionType.missionISS;
+            else
+                typeMission = missionType.missionHubble;
+
+			InitializeExcelDataGrid();
 		}
 
 		/// <summary>
 		/// Clears the entries in the NASA STS TV Schedule Grid
 		/// </summary>
-		private void InitializeExcelDateGrid()
+		private void InitializeExcelDataGrid()
 		{
 			dgvExcelSchedule.Rows.Clear();
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Shows Open File Dialog and loads new NASA TV Schedule
+        /// </summary>
+        /// <returns>true if user selects OK and loads schedule</returns>
+        private bool OpenNasaTvSchedule()
+        {
+            bool openNasaTvSchedule = false;
+
+            ofExcelSchedule.Multiselect = false;
+            ofExcelSchedule.ReadOnlyChecked = true;
+            ofExcelSchedule.Title = Properties.Resources.ID_OPEN_SINGLE_EXCEL_FILE;
+            ofExcelSchedule.InitialDirectory = Properties.Settings.Default.MyDocuments;
+
+            SuspendTimer();
+
+            DialogResult drExcelSchedule = ofExcelSchedule.ShowDialog();
+
+            ResumeTimer();
+
+            if (drExcelSchedule == DialogResult.OK)
+            {
+                openNasaTvSchedule = true;
+
+                string excelSchedule = ofExcelSchedule.FileName;
+
+                FileInfo fiExcelSchedule = new FileInfo(excelSchedule);
+                Properties.Settings.Default.MyDocuments = fiExcelSchedule.DirectoryName;
+                fiExcelSchedule = null;
+
+                LoadExcelSchedule(excelSchedule);
+            }
+
+            return (openNasaTvSchedule);
+        }
+
+        /// <summary>
+        /// Select All entries in Excel Data Grid (NASA STS TV Schedule)
+        /// </summary>
+        private void SelectAllExcel()
+        {
+            for (int index = 0; index < dgvExcelSchedule.Rows.Count; index++)
+            {
+                dgvExcelSchedule.Rows[index].Cells[ID_ADD.Name].Value = true;
+            }
+        }
+
+        /// <summary>
+        /// Unselect all entries in Excel Data Grid (NASA STS TV Schedule)
+        /// </summary>
+        private void UnselectAllExcel()
+        {
+            for (int index = 0; index < dgvExcelSchedule.Rows.Count; index++)
+            {
+                dgvExcelSchedule.Rows[index].Cells[ID_ADD.Name].Value = false;
+            }
+        }
+
+        /// <summary>
 		/// Populates the data grid with data from the Nasa Sts TV Schedule class
 		/// </summary>
 		/// <param name="excelFile">NASA TV Schedule Excel spreadsheet</param>
 		private void LoadExcelSchedule(string excelFile)
 		{
-			InitializeExcelDateGrid();
+			InitializeExcelDataGrid();
 			NasaStsTVSchedule tvSchedule = null;
 
 			FileInfo fiExcelSchedule = new FileInfo(excelFile);
 			DirectoryInfo diExcelSchedule = fiExcelSchedule.Directory;
 			string dirFile = fiExcelSchedule.Directory.Name + "/" + fiExcelSchedule.Name + " - ";
-			string strTitle = dirFile + Properties.Resources.ID_PROGRAMTITLE;
+            lblNasaStsTVScheduleFile.Text = dirFile;
+            string strTitle = dirFile + Properties.Resources.ID_PROGRAMTITLE;
 			this.Text = strTitle;
 
 			try
@@ -976,7 +1128,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 				}
 
 				//  Use the Nasa Sts TV Schedule class to populate the Nasa Sts TV Schedule Data Grid
-				tvSchedule = new NasaStsTVSchedule(excelFile, viewingTimeZone);
+				tvSchedule = new NasaStsTVSchedule(excelFile, viewingTimeZone, typeMission == missionType.missionISS);
 
 				NasaStsTVScheduleEntry scheduleRow = tvSchedule.ReadScheduleRow();
 
@@ -1190,52 +1342,6 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		}
 
 		/// <summary>
-		/// Select all entries in Outlook Data Grid
-		/// </summary>
-		private void SelectAllOutlook()
-		{
-			for (int index = 0; index < dgvOutlook.Rows.Count; index++)
-			{
-				dgvOutlook.Rows[index].Cells[REMOVE_OL.Name].Value = true;
-			}
-		}
-
-		/// <summary>
-		/// Uses first Begin Date and last Begin Date in Excel DataGrid
-		/// to select those entries in the Outlook DataGrid that are between the first and last dates
-		/// </summary>
-		private void SmartSelect()
-		{
-			if (dgvExcelSchedule.RowCount > 0)
-			{
-				DateTime dtBegin = (DateTime)dgvExcelSchedule[BEGIN_DATE_TV.Name, 0].Value;
-				DateTime dtEnd = (DateTime)dgvExcelSchedule[BEGIN_DATE_TV.Name, dgvExcelSchedule.RowCount - 1].Value;
-
-				int indexOutlook;
-				int outlookEntries = dgvOutlook.RowCount;
-				for (indexOutlook = 0; indexOutlook < outlookEntries; indexOutlook++)
-				{
-					DateTime dtEntry = (DateTime)dgvOutlook[BEGIN_DATE_OL.Name, indexOutlook].Value;
-					if ((dtBegin <= dtEntry) && (dtEntry <= dtEnd))
-						dgvOutlook.Rows[indexOutlook].Cells[REMOVE_OL.Name].Value = true;
-					else
-						dgvOutlook.Rows[indexOutlook].Cells[REMOVE_OL.Name].Value = false;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Unselect all entries in Outlook Data Grid
-		/// </summary>
-		private void UnselectAllOutlook()
-		{
-			for (int index = 0; index < dgvOutlook.Rows.Count; index++)
-			{
-				dgvOutlook.Rows[index].Cells[REMOVE_OL.Name].Value = false;
-			}
-		}
-
-		/// <summary>
 		/// Handler for the Outlook Calendar CloseUp
 		/// If the value changed, reloads the schedule from Outlook
 		/// </summary>
@@ -1291,7 +1397,53 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		}
 
 		/// <summary>
-		/// Loads data from Outlook (TimeZones, Categories, Current Schedule
+        /// <summary>
+        /// Select all entries in Outlook Data Grid
+        /// </summary>
+        private void SelectAllOutlook()
+        {
+            for (int index = 0; index < dgvOutlook.Rows.Count; index++)
+            {
+                dgvOutlook.Rows[index].Cells[REMOVE_OL.Name].Value = true;
+            }
+        }
+
+        /// <summary>
+        /// Uses first Begin Date and last Begin Date in Excel DataGrid
+        /// to select those entries in the Outlook DataGrid that are between the first and last dates
+        /// </summary>
+        private void SmartSelect()
+        {
+            if (dgvExcelSchedule.RowCount > 0)
+            {
+                DateTime dtBegin = (DateTime)dgvExcelSchedule[BEGIN_DATE_TV.Name, 0].Value;
+                DateTime dtEnd = (DateTime)dgvExcelSchedule[BEGIN_DATE_TV.Name, dgvExcelSchedule.RowCount - 1].Value;
+
+                int indexOutlook;
+                int outlookEntries = dgvOutlook.RowCount;
+                for (indexOutlook = 0; indexOutlook < outlookEntries; indexOutlook++)
+                {
+                    DateTime dtEntry = (DateTime)dgvOutlook[BEGIN_DATE_OL.Name, indexOutlook].Value;
+                    if ((dtBegin <= dtEntry) && (dtEntry <= dtEnd))
+                        dgvOutlook.Rows[indexOutlook].Cells[REMOVE_OL.Name].Value = true;
+                    else
+                        dgvOutlook.Rows[indexOutlook].Cells[REMOVE_OL.Name].Value = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Unselect all entries in Outlook Data Grid
+        /// </summary>
+        private void UnselectAllOutlook()
+        {
+            for (int index = 0; index < dgvOutlook.Rows.Count; index++)
+            {
+                dgvOutlook.Rows[index].Cells[REMOVE_OL.Name].Value = false;
+            }
+        }
+
+        /// Loads data from Outlook (TimeZones, Categories, Current Schedule
 		/// </summary>
 		protected void LoadOutlookControls()
 		{
@@ -1766,5 +1918,30 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 		#endregion
 
+        private void MainForm_AutoSizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_MaximizedBoundsChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_MaximumSizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_MinimumSizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

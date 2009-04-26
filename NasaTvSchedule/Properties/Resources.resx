@@ -249,6 +249,12 @@
     <value>{0} week window of Outlook Calendar Appointments</value>
     <comment>Hover tip</comment>
   </data>
+  <data name="MOUSEHOVER_MISSIONISS" xml:space="preserve">
+    <value>Selects ISS mission profile</value>
+  </data>
+  <data name="MOUSEHOVER_MISSIONSTANDALONE" xml:space="preserve">
+    <value>Selects standalone mission profile</value>
+  </data>
   <data name="MOUSEHOVER_NEWSCHEDULEUPDATE" xml:space="preserve">
     <value>Updates the Outlook Calendar with the new schedule that is currently loaded</value>
     <comment>Hover tip</comment>
@@ -308,6 +314,54 @@
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NASA_16X16_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NASA_16X16-16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NASA_HQ" xml:space="preserve">
+    <value>HQ</value>
+    <comment>NASA Headquarters</comment>
+  </data>
+  <data name="NASA_ISS" xml:space="preserve">
+    <value>ISS</value>
+    <comment>International Space Station</comment>
+  </data>
+  <data name="NASA_ISS_KU" xml:space="preserve">
+    <value>ISS KU</value>
+    <comment>ISS KU Band Communications</comment>
+  </data>
+  <data name="NASA_JPL" xml:space="preserve">
+    <value>JPL</value>
+    <comment>NASA Jet Propulsion Lab</comment>
+  </data>
+  <data name="NASA_JSC" xml:space="preserve">
+    <value>JSC</value>
+    <comment>NASA Johnson Space Center</comment>
+  </data>
+  <data name="NASA_JSC_FG" xml:space="preserve">
+    <value>JSC/  FG</value>
+    <comment>NASA Johnson Space Center &amp; FG</comment>
+  </data>
+  <data name="NASA_KSC" xml:space="preserve">
+    <value>KSC</value>
+    <comment>NASA Kennedy Space Center</comment>
+  </data>
+  <data name="NASA_STS" xml:space="preserve">
+    <value>STS</value>
+    <comment>Space Transport System</comment>
+  </data>
+  <data name="NASA_TDRE" xml:space="preserve">
+    <value>TDRE</value>
+    <comment>NASA Tracking &amp; Data Relay Satellite</comment>
+  </data>
+  <data name="NASA_TDRW" xml:space="preserve">
+    <value>TDRW</value>
+    <comment>NASA Tracking &amp; Data Relay Satellite</comment>
+  </data>
+  <data name="NASA_TDRZ" xml:space="preserve">
+    <value>TDRZ</value>
+    <comment>NASA Tracking &amp; Data Relay Satellite</comment>
+  </data>
+  <data name="NASA_VAFB" xml:space="preserve">
+    <value>VAFB</value>
+    <comment>Vandenburg Air Force Base</comment>
   </data>
   <data name="NasaLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NasaLogo.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

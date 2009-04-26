@@ -149,6 +149,213 @@
     <value>NasaStsTVSchedule::ToolsExcelOpenFile()</value>
     <comment>Error opening NASA STS TV Schedule file in ToolsExcelOpenFile()</comment>
   </data>
+  <data name="EVENT_CABIN_STORAGE" xml:space="preserve">
+    <value>CABIN STOWAGE</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_CDRA_BED_REMOVAL_REPLACEMENT" xml:space="preserve">
+    <value>CDRA BED 2 REMOVAL AND REPLACEMENT</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_CENTERLINE_CAMERA" xml:space="preserve">
+    <value>CENTERLINE CAMERA</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_CETA_CART_RELOCATION" xml:space="preserve">
+    <value>CETA CART RELOCATION FROM S1 TO P1 TRUSS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_CIR_RACK_INSTALLATION" xml:space="preserve">
+    <value>CIR RACK INSTALLATION IN DESTINY LAB BEGINS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_CLPA_INSTALLATION" xml:space="preserve">
+    <value>CLPA INSTALLATION ON SPDM</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_COLUMBUS_MODULE" xml:space="preserve">
+    <value>COLUMBUS MODULE</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_DEORBIT" xml:space="preserve">
+    <value>DEORBIT</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_ENGINEERING_LAUNCH_REPLAYS" xml:space="preserve">
+    <value>ADDITIONAL LAUNCH REPLAYS FROM KSC</value>
+    <comment>KSC</comment>
+  </data>
+  <data name="EVENT_EVA_CAMPOUT" xml:space="preserve">
+    <value>CAMPOUT BEGINS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_EXTERNAL_TANK" xml:space="preserve">
+    <value>EXTERNAL TANK</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_FAREWELL_HATCH_CLOSURE" xml:space="preserve">
+    <value>FAREWELL AND HATCH CLOSURE</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_FCS_CHECKOUT" xml:space="preserve">
+    <value>FCS CHECKOUT</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_FINAL_SEPARATION_ISS" xml:space="preserve">
+    <value>FINAL SEPARATION FROM ISS</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_FLYAROUND" xml:space="preserve">
+    <value>FLYAROUND</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_FOCUSED_INSPECTION" xml:space="preserve">
+    <value>RMS / OBSS FOCUSED INSPECTION</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_GET_AHEAD_TASKS" xml:space="preserve">
+    <value>GET AHEAD TASKS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_HATCH_OPENING_WELCOME_CEREMONY" xml:space="preserve">
+    <value>HATACH OPENING AND WELCOME CEREMONY</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_KEEP_ALIVE_ASSEMBLY" xml:space="preserve">
+    <value>KEEP ALIVE</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_KSC_REPLAYS" xml:space="preserve">
+    <value>ADDITIONAL LAUNCH REPLAYS FROM KSC</value>
+    <comment>KSC</comment>
+  </data>
+  <data name="EVENT_KU__BAND_STOWAGE" xml:space="preserve">
+    <value>KU-BAND ANTENNA STOWAGE</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_KU_BAND_STORAGE" xml:space="preserve">
+    <value>KU BAND ANTENNA STOWAGE</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_LATE_INSPECTION" xml:space="preserve">
+    <value>RMS / OBSS LATE INSPECTION</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_MOBILE_TRANSPORTER" xml:space="preserve">
+    <value>MOBILE TRANSPORTER</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_OBSS_BERTH" xml:space="preserve">
+    <value>OBSS BERTH</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_OBSS_UNBERTH" xml:space="preserve">
+    <value>OBSS UNBERTH</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_ODS_LEAK_CHECK" xml:space="preserve">
+    <value>ODS LEAK CHECK</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_ODS_RING_EXTENSION" xml:space="preserve">
+    <value>ODS RING EXTENSION</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_OFF_DUTY_PERIOD" xml:space="preserve">
+    <value>OFF DUTY PERIOD</value>
+  </data>
+  <data name="EVENT_ORBIT_ADJUST" xml:space="preserve">
+    <value>ORBIT ADJUST BURN</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_P1_TRUSS" xml:space="preserve">
+    <value>P1 TRUSS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_P3_TRUSS" xml:space="preserve">
+    <value>P3 TRUSS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_PAYLOAD_BAY" xml:space="preserve">
+    <value>PAYLOAD BAY</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_PORT_TRUSS" xml:space="preserve">
+    <value>PORT TRUSS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_RACK_INSTALLATION" xml:space="preserve">
+    <value>RACK INSTALLATION</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_RACK_TRANSFER" xml:space="preserve">
+    <value>RACK TRANSFER</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_RCS_HOT_TEST" xml:space="preserve">
+    <value>RCS HOT</value>
+    <comment>STS: HOTFIRE or HOT-FIRE</comment>
+  </data>
+  <data name="EVENT_RECUMBENT_SEAT" xml:space="preserve">
+    <value>RECUMBENT SEAT</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RENDEZVOUS_OPERATIONS" xml:space="preserve">
+    <value>RENDEZVOUS OPERATIONS BEGIN</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RENDEZVOUS_TOOL_CHECKOUT" xml:space="preserve">
+    <value>RENDEZVOUS TOOL CHECKOUT</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RMS_CHECKOUT" xml:space="preserve">
+    <value>RMS CHECKOUT</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RMS_GRAPPLE" xml:space="preserve">
+    <value>RMS GRAPPLE</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RMS_OBSS_SURVEY" xml:space="preserve">
+    <value>RMS/OBSS SURVEY</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RMS_OMS_POD_SURVEY" xml:space="preserve">
+    <value>RMS OMS POD SURVEY</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_RMS_POWERDOWN" xml:space="preserve">
+    <value>RMS POWERDOWN</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_S1_TRUSS" xml:space="preserve">
+    <value>S1 TRUSS</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_SHUTTLE_KU_BAND" xml:space="preserve">
+    <value>SHUTTLE KU-BAND</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_SOYUZ_SEATLINER_SWAP" xml:space="preserve">
+    <value>SOYUZ SEATLINER SWAP</value>
+    <comment>ISS</comment>
+  </data>
+  <data name="EVENT_TI_BURN" xml:space="preserve">
+    <value>TI BURN</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_UNDOCKS_ISS" xml:space="preserve">
+    <value>UNDOCKS FROM ISS</value>
+    <comment>STS</comment>
+  </data>
+  <data name="EVENT_VTR_PLAYBACK" xml:space="preserve">
+    <value>VTR PLAYBACK</value>
+    <comment>JSC</comment>
+  </data>
+  <data name="EVENT_WATER_RECOVERY" xml:space="preserve">
+    <value>WATER RECOVERY</value>
+    <comment>ISS</comment>
+  </data>
   <data name="EXP_COMEXCEPTION_INTEROPEXCEL_OPENEXCELFILE_GETRANGE" xml:space="preserve">
     <value>get_Range</value>
     <comment>Range</comment>
@@ -177,13 +384,16 @@
     <value>hh:mm tt</value>
     <comment>Hour:Minute AM/PM</comment>
   </data>
-  <data name="INVALIDFILE_NO_REVISION_DATE" xml:space="preserve">
-    <value>Creation or Revision Date was not found in file {0}.  Year of the mission cannot be determined.</value>
-    <comment>InvalidFileFormatException: No date was found before the Date Header</comment>
-  </data>
   <data name="INVALIDFILEFORMAT_NO_PRINT_AREA" xml:space="preserve">
     <value>Range, Print_Area, is not defined in the NASA STS TV Schedule File {0}</value>
     <comment>InvalidFileFormatException: Print_Area is not defined in the spreadsheet</comment>
+  </data>
+  <data name="INVALIDFILEFORMAT_NO_REVISION_DATE" xml:space="preserve">
+    <value>Creation or Revision Date was not found in file {0}.  Year of the mission cannot be determined.</value>
+    <comment>InvalidFileFormatException: No date was found before the Date Header</comment>
+  </data>
+  <data name="IX_ACTION" xml:space="preserve">
+    <value>Action</value>
   </data>
   <data name="IX_ACTIVITY" xml:space="preserve">
     <value>Activity</value>
@@ -217,6 +427,10 @@
     <value>ISS</value>
     <comment>Group Collection Index: Subject</comment>
   </data>
+  <data name="IX_KIBO" xml:space="preserve">
+    <value>Kibo</value>
+    <comment>Japanese Kibo Module</comment>
+  </data>
   <data name="IX_MINUTE" xml:space="preserve">
     <value>Minute</value>
     <comment>Group Collection Index: Minute</comment>
@@ -225,6 +439,10 @@
     <value>Month</value>
     <comment>Group Collection Index: Month</comment>
   </data>
+  <data name="IX_OFF_DUTY" xml:space="preserve">
+    <value>OffDuty</value>
+    <comment>RGX_CREW_OFF_DUTY</comment>
+  </data>
   <data name="IX_SHUTTLE" xml:space="preserve">
     <value>Shuttle</value>
     <comment>Group Collection Index: Subject</comment>
@@ -232,6 +450,10 @@
   <data name="IX_YEAR" xml:space="preserve">
     <value>Year</value>
     <comment>Group Collection Index: Year</comment>
+  </data>
+  <data name="NASA_ACBM" xml:space="preserve">
+    <value>ACBM</value>
+    <comment>Active Common Berthing Mechanism</comment>
   </data>
   <data name="NASA_AG" xml:space="preserve">
     <value>A/G</value>
@@ -244,6 +466,10 @@
   <data name="NASA_ASI" xml:space="preserve">
     <value>ASI</value>
     <comment>Agenzia Spaziale Italiana (Italian Space Agency)</comment>
+  </data>
+  <data name="NASA_ATLANTIS" xml:space="preserve">
+    <value>ATLANTIS</value>
+    <comment>STS Atlantis</comment>
   </data>
   <data name="NASA_ATV" xml:space="preserve">
     <value>ATV</value>
@@ -261,20 +487,36 @@
     <value>CAMPOUT</value>
     <comment>EVA CAMPOUT: Do not match for EVA BEGINS</comment>
   </data>
+  <data name="NASA_CDRA" xml:space="preserve">
+    <value>CDRA</value>
+    <comment>Carbon Dioxide Removal Assembly in U.S. Destiny Laboratory</comment>
+  </data>
   <data name="NASA_CDT" xml:space="preserve">
     <value>CDT</value>
     <comment>Nasa Column Heading - Central Daylight Time</comment>
   </data>
+  <data name="NASA_CETA" xml:space="preserve">
+    <value>CETA</value>
+    <comment>Crew Equipment Translation Aid</comment>
+  </data>
   <data name="NASA_CHANGED" xml:space="preserve">
     <value>*</value>
     <comment>Asterisk in cell 2 denotes change from previous schedule</comment>
+  </data>
+  <data name="NASA_CIR" xml:space="preserve">
+    <value>CIR</value>
+    <comment>Combustion Integration Rack</comment>
+  </data>
+  <data name="NASA_CLPA" xml:space="preserve">
+    <value>CLPA</value>
+    <comment>Camera Light Pan/Tilt Assembly</comment>
   </data>
   <data name="NASA_CMG" xml:space="preserve">
     <value>CMG</value>
     <comment>Control Moment Gyroscope</comment>
   </data>
   <data name="NASA_COLUMBUS" xml:space="preserve">
-    <value>Columbus</value>
+    <value>COLUMBUS</value>
     <comment>Columbus European Laboratory Module</comment>
   </data>
   <data name="NASA_CREW_SLEEP_BEGINS" xml:space="preserve">
@@ -297,13 +539,25 @@
     <value>CST</value>
     <comment>Nasa Column Heading - Central Standard Time</comment>
   </data>
+  <data name="NASA_DCSU" xml:space="preserve">
+    <value>DCSU</value>
+    <comment>Direct Current Switching Unit on ISS</comment>
+  </data>
   <data name="NASA_DEFINITION_OF_TERMS" xml:space="preserve">
     <value>DEFINITION OF TERMS</value>
     <comment>End of file for Nasa TV Schedule</comment>
   </data>
   <data name="NASA_DESTINY" xml:space="preserve">
-    <value>Destiny</value>
+    <value>DESTINY</value>
     <comment>U.S. Laboratory on International Space Station</comment>
+  </data>
+  <data name="NASA_DEXTRE" xml:space="preserve">
+    <value>DEXTRE</value>
+    <comment>Special Purpose Dexterous Manipulator (SPDM)</comment>
+  </data>
+  <data name="NASA_DISCOVERY" xml:space="preserve">
+    <value>DISCOVERY</value>
+    <comment>STS Discovery</comment>
   </data>
   <data name="NASA_DOCKING" xml:space="preserve">
     <value> DOCKING</value>
@@ -345,9 +599,21 @@
     <value>EDT</value>
     <comment>Nasa Column Heading - Eastern Daylight Time</comment>
   </data>
+  <data name="NASA_EDW" xml:space="preserve">
+    <value>EDW</value>
+    <comment>Edwards Air Force Base</comment>
+  </data>
+  <data name="NASA_EFBM" xml:space="preserve">
+    <value>EFBM</value>
+    <comment>External Facility Berthing Mechanism</comment>
+  </data>
   <data name="NASA_EMU" xml:space="preserve">
     <value>EMU</value>
     <comment>Extravehicular Mobility Unit</comment>
+  </data>
+  <data name="NASA_ENDEAVOUR" xml:space="preserve">
+    <value>ENDEAVOUR</value>
+    <comment>STS Endeavour</comment>
   </data>
   <data name="NASA_ENDS" xml:space="preserve">
     <value>ENDS</value>
@@ -357,9 +623,17 @@
     <value>ESA</value>
     <comment>European Space Agency</comment>
   </data>
+  <data name="NASA_ESP" xml:space="preserve">
+    <value>ESP</value>
+    <comment>External Stowage Platform</comment>
+  </data>
   <data name="NASA_ESP_2" xml:space="preserve">
     <value>ESP-2</value>
     <comment>External Stowage Platform #2 on ISS Airlock</comment>
+  </data>
+  <data name="NASA_ESP_3" xml:space="preserve">
+    <value>ESP-3</value>
+    <comment>External Stowage Platform #3</comment>
   </data>
   <data name="NASA_EST" xml:space="preserve">
     <value>EST</value>
@@ -372,6 +646,10 @@
   <data name="NASA_ETCS" xml:space="preserve">
     <value>ETCS</value>
     <comment>External Thermal Control System</comment>
+  </data>
+  <data name="NASA_ETVCG" xml:space="preserve">
+    <value>ETVCG</value>
+    <comment>External Television Camera Group</comment>
   </data>
   <data name="NASA_EUTEF" xml:space="preserve">
     <value>EUTEF</value>
@@ -389,25 +667,73 @@
     <value>FD</value>
     <comment>Nasa Row Heading - Flight Day</comment>
   </data>
+  <data name="NASA_FHRC" xml:space="preserve">
+    <value>FHRC</value>
+    <comment>Flex Hose Rotary Coupler</comment>
+  </data>
+  <data name="NASA_GLAST" xml:space="preserve">
+    <value>GLAST</value>
+    <comment>Gamma-ray Large Area Space Telescope</comment>
+  </data>
   <data name="NASA_GMT" xml:space="preserve">
     <value>GMT</value>
     <comment>Nasa Column Heading - Greenwich Mean Time</comment>
+  </data>
+  <data name="NASA_GPS" xml:space="preserve">
+    <value>GPS</value>
+    <comment>Global Positioning System</comment>
   </data>
   <data name="NASA_HARMONY" xml:space="preserve">
     <value>Harmony</value>
     <comment>Connecting Node 2 on ISS</comment>
   </data>
+  <data name="NASA_HD" xml:space="preserve">
+    <value>HD</value>
+    <comment>High Definition Television</comment>
+  </data>
   <data name="NASA_HQ" xml:space="preserve">
     <value>HQ</value>
     <comment>Nasa Column Value - Nasa Headquaters</comment>
+  </data>
+  <data name="NASA_HST" xml:space="preserve">
+    <value>HST</value>
+    <comment>Hubble Space Telescope</comment>
   </data>
   <data name="NASA_ISS" xml:space="preserve">
     <value>ISS</value>
     <comment>Nasa Column Value - International Space Station</comment>
   </data>
+  <data name="NASA_JAXA" xml:space="preserve">
+    <value>JAXA</value>
+    <comment>Japan Aerospace and Exploration Agency</comment>
+  </data>
+  <data name="NASA_JEM_PM" xml:space="preserve">
+    <value>JEM-PM</value>
+    <comment>Japanese Experiment Module - Pressurized Module  (KIBO)</comment>
+  </data>
+  <data name="NASA_JEM_RMS" xml:space="preserve">
+    <value>JEM RMS</value>
+    <comment>Japanese Experiment Module - Remote Manipulator System</comment>
+  </data>
+  <data name="NASA_JLP" xml:space="preserve">
+    <value>JLP</value>
+    <comment>Japanese Logistics Module - Pressurized Section</comment>
+  </data>
   <data name="NASA_JSC" xml:space="preserve">
     <value>JSC</value>
     <comment>Nasa Column Value - Johnson Space Center</comment>
+  </data>
+  <data name="NASA_JTVE" xml:space="preserve">
+    <value>JTVE</value>
+    <comment>Japanese Television Equipment</comment>
+  </data>
+  <data name="NASA_KAU" xml:space="preserve">
+    <value>KAU</value>
+    <comment>Keep Alive Umbilical</comment>
+  </data>
+  <data name="NASA_KIBO" xml:space="preserve">
+    <value>KIBO</value>
+    <comment>Japanese Pressurized Module</comment>
   </data>
   <data name="NASA_KSC" xml:space="preserve">
     <value>KSC</value>
@@ -419,15 +745,23 @@
   </data>
   <data name="NASA_LANDING" xml:space="preserve">
     <value>LANDING</value>
-    <comment>Landing of Sts</comment>
+    <comment>Landing of STS</comment>
   </data>
   <data name="NASA_LAUNCH" xml:space="preserve">
     <value>LAUNCH</value>
-    <comment>Launch of Sts</comment>
+    <comment>Launch of STS</comment>
+  </data>
+  <data name="NASA_LEE" xml:space="preserve">
+    <value>LEE</value>
+    <comment>Latching End-Effector</comment>
   </data>
   <data name="NASA_LIMO" xml:space="preserve">
     <value>LIMO</value>
     <comment>Live Interview Media Outlet channel</comment>
+  </data>
+  <data name="NASA_LWAPA" xml:space="preserve">
+    <value>LWAPA</value>
+    <comment>Lightweight Adapter Plate Assembly</comment>
   </data>
   <data name="NASA_MBS" xml:space="preserve">
     <value>MBS</value>
@@ -452,6 +786,10 @@
   <data name="NASA_MISSE" xml:space="preserve">
     <value>MISSE</value>
     <comment>Materials International Space Station Experiment</comment>
+  </data>
+  <data name="NASA_MLI" xml:space="preserve">
+    <value>MLI</value>
+    <comment>Multi-Layer Insulation</comment>
   </data>
   <data name="NASA_MM_DD_YY" xml:space="preserve">
     <value>MM/dd/yy</value>
@@ -533,6 +871,10 @@
     <value>NETL + </value>
     <comment>Nasa Column Value - Net Landing +Time</comment>
   </data>
+  <data name="NASA_NOR" xml:space="preserve">
+    <value>NOR</value>
+    <comment>White Sands Space Harbor</comment>
+  </data>
   <data name="NASA_NTA" xml:space="preserve">
     <value>NTA</value>
     <comment>Nitrogen Tank Assembly</comment>
@@ -556,6 +898,22 @@
   <data name="NASA_ORBIT" xml:space="preserve">
     <value>ORBIT</value>
     <comment>Nasa Column Heading</comment>
+  </data>
+  <data name="NASA_ORU" xml:space="preserve">
+    <value>ORU</value>
+    <comment>Orbital Replacment Unit</comment>
+  </data>
+  <data name="NASA_OSTM" xml:space="preserve">
+    <value>OSTM</value>
+    <comment>Ocean Surface Topography Mission</comment>
+  </data>
+  <data name="NASA_OTCM" xml:space="preserve">
+    <value>OTCM</value>
+    <comment>ORU and Tool Changeout Mechanism</comment>
+  </data>
+  <data name="NASA_OTP" xml:space="preserve">
+    <value>OTP</value>
+    <comment>ORU Tool Platform</comment>
   </data>
   <data name="NASA_P1" xml:space="preserve">
     <value>P1</value>
@@ -589,6 +947,10 @@
     <value>PGDF</value>
     <comment>Power &amp; Data Grapple Fixture</comment>
   </data>
+  <data name="NASA_PICOSAT" xml:space="preserve">
+    <value>PICOSAT</value>
+    <comment>PICOSAT Solar Cell Experiment</comment>
+  </data>
   <data name="NASA_PMA" xml:space="preserve">
     <value>PMA</value>
     <comment>Pressurized Mating Adapter on International Space Station</comment>
@@ -596,6 +958,10 @@
   <data name="NASA_PMA_2" xml:space="preserve">
     <value>PMA 2</value>
     <comment>Pressurized Mating Adapter #2 on ISS</comment>
+  </data>
+  <data name="NASA_POA" xml:space="preserve">
+    <value>POA</value>
+    <comment>Payload Orbital Replacement Unit Attachment on Mobile Base System</comment>
   </data>
   <data name="NASA_PRE_BREATHE" xml:space="preserve">
     <value>PRE-BREATHE</value>
@@ -610,7 +976,7 @@
     <comment>Name of Print Area in Nasa Sts TV Schedule</comment>
   </data>
   <data name="NASA_QUEST" xml:space="preserve">
-    <value>Quest</value>
+    <value>QUEST</value>
     <comment>U.S. Airlock on ISS</comment>
   </data>
   <data name="NASA_RCC" xml:space="preserve">
@@ -620,6 +986,14 @@
   <data name="NASA_RCS" xml:space="preserve">
     <value>RCS</value>
     <comment>Reaction Control System</comment>
+  </data>
+  <data name="NASA_RIGEX" xml:space="preserve">
+    <value>RIGEX</value>
+    <comment>Rigidizable Inflatable Get-Away Special Experiment</comment>
+  </data>
+  <data name="NASA_RJMC" xml:space="preserve">
+    <value>RJMC</value>
+    <comment>Rotary Joint Motor Controllers</comment>
   </data>
   <data name="NASA_RMS" xml:space="preserve">
     <value>RMS</value>
@@ -632,6 +1006,10 @@
   <data name="NASA_RPM" xml:space="preserve">
     <value>RPM</value>
     <comment>Rendezvous Pitch Maneuver</comment>
+  </data>
+  <data name="NASA_RSR" xml:space="preserve">
+    <value>RSR</value>
+    <comment>Resupply Stowage Rack</comment>
   </data>
   <data name="NASA_S1" xml:space="preserve">
     <value>S1</value>
@@ -657,17 +1035,41 @@
     <value>S6</value>
     <comment>Starboard 6 Truss</comment>
   </data>
+  <data name="NASA_SAPH" xml:space="preserve">
+    <value>SAPH</value>
+    <comment>SPDM Attachment Pallet Hardware</comment>
+  </data>
+  <data name="NASA_SARJ" xml:space="preserve">
+    <value>SARJ</value>
+    <comment>Solar Alpha Rotary Joint</comment>
+  </data>
   <data name="NASA_SASA" xml:space="preserve">
     <value>SASA</value>
     <comment>S-Band Antenna Structural Assembly</comment>
+  </data>
+  <data name="NASA_SDRM" xml:space="preserve">
+    <value>SDRM</value>
+    <comment>Space-Dynamically Responding Ultrasonic Matrix System</comment>
   </data>
   <data name="NASA_SITE" xml:space="preserve">
     <value>SITE</value>
     <comment>Nasa Column Heading</comment>
   </data>
+  <data name="NASA_SLP_D1" xml:space="preserve">
+    <value>SLP-D1</value>
+    <comment>Spacelab Pallet Deployable 1 (carries SPDM)</comment>
+  </data>
   <data name="NASA_SOLAR" xml:space="preserve">
     <value>SOLAR</value>
     <comment>Solar Sun Observatory for Columbus</comment>
+  </data>
+  <data name="NASA_SPDM" xml:space="preserve">
+    <value>SPDM</value>
+    <comment>Special Purpose Dextrous Manipulator (Dextre)</comment>
+  </data>
+  <data name="NASA_SRMS" xml:space="preserve">
+    <value>SRMS</value>
+    <comment>Shuttle Remote Manipulator System on Endeavour</comment>
   </data>
   <data name="NASA_SSPTS" xml:space="preserve">
     <value>SSPTS</value>
@@ -713,13 +1115,25 @@
     <value>TDRZ</value>
     <comment>Nasa Column Value - Tracking and Data Relay</comment>
   </data>
+  <data name="NASA_THA" xml:space="preserve">
+    <value>THA</value>
+    <comment>Tool Holder Assembly</comment>
+  </data>
   <data name="NASA_TI" xml:space="preserve">
     <value>TI</value>
     <comment>Terminal Initiation Rendezvous Maneuver</comment>
   </data>
+  <data name="NASA_TOCA" xml:space="preserve">
+    <value>TOCA</value>
+    <comment>Total Organic Carbon Analyzer</comment>
+  </data>
   <data name="NASA_TPS" xml:space="preserve">
     <value>TPS</value>
     <comment>Thermal Protection System</comment>
+  </data>
+  <data name="NASA_TRAD" xml:space="preserve">
+    <value>TRAD</value>
+    <comment>Tile Repair Ablator Dispenser</comment>
   </data>
   <data name="NASA_UNDOCKING" xml:space="preserve">
     <value> UNDOCKING</value>
@@ -733,6 +1147,10 @@
     <value>UNITY</value>
     <comment>U.S. connecting node on International Space Station</comment>
   </data>
+  <data name="NASA_VIP" xml:space="preserve">
+    <value>VIP</value>
+    <comment>Very Important Person</comment>
+  </data>
   <data name="NASA_VTR" xml:space="preserve">
     <value>VTR</value>
     <comment>Videotape Recorder</comment>
@@ -741,20 +1159,36 @@
     <value>VTR PLAYBACK</value>
     <comment>VTR Playback of events (do not use to change status of docked, launch or landing</comment>
   </data>
+  <data name="NASA_WHC" xml:space="preserve">
+    <value>WHC</value>
+    <comment>Waste and Hygiene Compartment</comment>
+  </data>
+  <data name="NASA_WHS" xml:space="preserve">
+    <value>WHS</value>
+    <comment>Waste and Hygiene System</comment>
+  </data>
   <data name="NASA_WLE" xml:space="preserve">
     <value>WLE</value>
     <comment>Wing Leading Edge</comment>
   </data>
+  <data name="NASA_WRS" xml:space="preserve">
+    <value>WRS</value>
+    <comment>Water Recovery System</comment>
+  </data>
   <data name="NASA_Z1" xml:space="preserve">
     <value>Z1</value>
     <comment>Zenith One Truss</comment>
+  </data>
+  <data name="RGX_CREW_OFF_DUTY" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Action&gt;CREW OFF DUTY)</value>
+    <comment>RGX_CREW_OFF_DUTY</comment>
   </data>
   <data name="RGX_DATE_HEADER" xml:space="preserve">
     <value>(?&lt;DayOfWeek&gt;SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)\s?,\s+(?&lt;Month&gt;JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?&lt;Day&gt;\d+)</value>
     <comment>Regular Expression:Date Header captures DayOfWeek, Month, Day</comment>
   </data>
   <data name="RGX_EVA_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Eva&gt;EVA)\s+(?:#\s?)(?&lt;Number&gt;\d+)\s+(?&lt;Activity&gt;BEGINS|ENDS)</value>
+    <value>(?&lt;Eva&gt;EVA)\s+(?:#\s?)?(?&lt;Number&gt;\d+)\s+(?&lt;Activity&gt;BEGINS|ENDS)</value>
     <comment>EVA #? BEGINS or ENDS</comment>
   </data>
   <data name="RGX_FLIGHDAY_HEADER" xml:space="preserve">
@@ -774,8 +1208,16 @@
     <comment>Regular Expression: Mission Elapsed Time hh:mm</comment>
   </data>
   <data name="RGX_MM_DD_YY" xml:space="preserve">
-    <value>(?&lt;Month&gt;[01][0-9])/(?&lt;Day&gt;[0-3][0-9])/(?&lt;Year&gt;[0-9][0-9])</value>
+    <value>(?&lt;Month&gt;[01]?[0-9])/(?&lt;Day&gt;[0-3]?[0-9])/(?&lt;Year&gt;[0-9][0-9])</value>
     <comment>Regular Expression to capture month/day/year</comment>
+  </data>
+  <data name="RGX_OFF_DUTY_PERIOD" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|SHUTTLE)(?:\s?/?\s?)(?&lt;ISS&gt;ISS)(?:\s)(?&lt;Action&gt;CREW OFF DUTY)</value>
+    <comment>Regular expression to get crew off duty</comment>
+  </data>
+  <data name="RGX_ROBOTARMS" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;^RMS(?=\s|/)|(?&lt;=\s|/)RMS(?=\s|/|$)|^SRMS(?=\s|/)|(?&lt;=\s|/)SRMS(?=\s|/|$))|(?&lt;ISS&gt;^SSRMS(?=\s|/)|(?&lt;=\s|/)SSRMS(?=\s|/|$)|^SSRMS(?=\s|/)|(?&lt;=\s|/)SSRMS(?=\s|/|$))|(?&lt;Kibo&gt;JEM RMS)</value>
+    <comment>Regular Expression: Captures occurance of Station, Kibo, and Shuttle robot arms</comment>
   </data>
   <data name="RGX_SHUTTLE_CREW_SLEEP_ACTIVITY" xml:space="preserve">
     <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP)</value>
@@ -801,6 +1243,10 @@
     <value>COUNTDOWN STATUS BRIEFING</value>
     <comment>01:00:00</comment>
   </data>
+  <data name="TM_CREW_ARRIVAL" xml:space="preserve">
+    <value>CREW ARRIVAL</value>
+    <comment>00:30:00</comment>
+  </data>
   <data name="TM_CREW_SLEEP_BEGINS" xml:space="preserve">
     <value>CREW SLEEP BEGINS</value>
     <comment>08:30:00</comment>
@@ -813,9 +1259,13 @@
     <value>DEORBIT BURN</value>
     <comment>00:02:30</comment>
   </data>
+  <data name="TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS" xml:space="preserve">
+    <value>HIGH DEFINITION FLIGHT DAY</value>
+    <comment>High Definition Flight Day Highlights</comment>
+  </data>
   <data name="TM_INTERVIEW" xml:space="preserve">
     <value>INTERVIEW</value>
-    <comment>00:15:00</comment>
+    <comment>00:20:00</comment>
   </data>
   <data name="TM_ISS_FLIGHT_DIRECTOR_UPDATE" xml:space="preserve">
     <value>FLIGHT DIRECTOR UPDATE</value>
@@ -840,6 +1290,10 @@
   <data name="TM_RG_FLIGHT_DAY_HIGHLIGHTS" xml:space="preserve">
     <value>(?&lt;FlightDay&gt;FLIGHT DAY)\s+(?&lt;Day&gt;\d+)\s+(?&lt;Highlights&gt;HIGHLIGHTS)</value>
     <comment>00:45:00</comment>
+  </data>
+  <data name="TM_TI_BURN" xml:space="preserve">
+    <value>TI BURN</value>
+    <comment>00:00:30</comment>
   </data>
   <data name="TM_VIDEO_FILE" xml:space="preserve">
     <value>VIDEO FILE</value>

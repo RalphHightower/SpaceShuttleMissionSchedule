@@ -35,7 +35,14 @@
  * 20081110 - Ralph Hightower
  *      STS-126: rev0 schedule has a space before the comma separating the day and the month.
  *          Updated regular expression RGX_DATE_HEADER to include that pattern
+ *          Added CREW ARRIVAL to fixed event times
  *          Updated Version in AssemblyInfo
+ * 20090309
+ *      STS-119: rev0 and a schedule changed the date format, dropping the leading 0;
+ *          instead of 03/09/09, the date published was 3/9/09.  Updated RGX_DATE_HEADER to allow the missing 0.
+ * 20090320
+ *      STS-119: Noticed that rev. e schedule did not have # in the EVA #1 ENDS causing the failure of the routine 
+ *          SubjectVerbPatternMatch to recognize the end of the EVA
  */
 using System;
 using System.Collections.Generic;
@@ -76,6 +83,29 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 	/// </summary>
 	public class NasaStsTVSchedule : Object
 	{
+        /// <summary>
+        /// 
+        /// </summary>
+        private enum MissionType { notInitialized, StandAlone, SpaceStation };
+        /// <summary>
+        /// Indicates if the Shuttle mission is a Space Station mission(true) or a standalone mission (Hubble)
+        /// </summary>
+        private bool stationMission;
+        /// <summary>
+        /// Getter/Setter for: Indicates if the Shuttle mission is a Space Station mission(true) or a standalone mission (Hubble)
+        /// </summary>
+        private bool StationMission
+        {
+            get
+            {
+                return (stationMission);
+            }
+            set
+            {
+                stationMission = value;
+            }
+        }
+
 		/// <summary>
 		/// Carriage Return, Line Feed
 		/// </summary>
@@ -85,6 +115,28 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		//	Switching Regular Expressions to Regex.Compiled brought the average processing of an
 		//	Excel spreadsheet from 45 seconds to 15 seconds which is a significant improvement in speed
 
+        /// <summary>
+        /// Regular Expression for CREW OFF DUTY.
+        /// Group Collections: Shuttle, ISS, Action
+        /// </summary>
+        private Regex crgOffDutyPeriod = null;
+        private Regex rgOffDutyPeriod
+        {
+            get
+            {
+                if (crgOffDutyPeriod == null)
+                    crgOffDutyPeriod = new Regex(Properties.Resources.EVENT_OFF_DUTY_PERIOD, RegexOptions.Compiled |
+                        RegexOptions.CultureInvariant);
+                return (crgOffDutyPeriod);
+            }
+            set
+            {
+                if (value == null)
+                    crgOffDutyPeriod = null;
+                else
+                    crgOffDutyPeriod = value;
+            }
+        }
 		/// <summary>
 		/// Compiled Regular Expression for Date Header entry
 		/// Date Header is DayOfWeek, Month missionDay in uppercase
@@ -257,6 +309,36 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					crgShuttleCrewSleepActivity = value;
 			}
 		}
+        /// <summary>
+        /// Regular Expression for Robot Arm Activity
+        /// Either Shuttle (RMS | SRMS) or Station (SSRMS) is required, both can appear
+        /// Groups: Shuttle &| ISS
+        /// </summary>
+        private Regex crgRobotArmActivity = null;
+        /// <summary>
+        /// Regular Expression for Robot Arm Activity
+        /// Getter creates compiled instance of Regex if is hasn't been created yet.
+        /// Setter does not check for nulls since it will be used in ~NasaStsTVSchedule
+        /// </summary>
+        private Regex rgRobotArmActivity
+        {
+            get
+            {
+                if (crgRobotArmActivity == null)
+                {
+                    crgRobotArmActivity = new Regex(Properties.Resources.RGX_ROBOTARMS,
+                        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+                }
+                return (crgRobotArmActivity);
+            }
+            set
+            {
+                if (value == null)
+                    crgRobotArmActivity = null;
+                else
+                    crgRobotArmActivity = value;
+            }
+        }
 		#endregion	//	Frequently Used Regular Expressions - Compiled
 
 		#region PermanentVacations.Nasa.Sts.Schedule Variables with Getters/Setters
@@ -325,7 +407,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				//	Should throw an exception that a revision date has not been encountered before the Date Header
 				if (Year == 0)
 				{
-					string explanation = Properties.Resources.INVALIDFILE_NO_REVISION_DATE;
+					string explanation = Properties.Resources.INVALIDFILEFORMAT_NO_REVISION_DATE;
 					throw new InvalidFileFormatException(String.Format(explanation, NasaTVScheduleFile));
 				}
 				if (missionMonth > 0)
@@ -575,7 +657,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// This is just a guesstimate of how long some events last.
 		/// </summary>
 		//  TM_RG means Time Event, Regular Expression
-		private string[,] EventTimes = { { Properties.Resources.TM_RG_FLIGHT_DAY_HIGHLIGHTS, "00:45:00" },
+        private string[,] EventTimes = { { Properties.Resources.TM_RG_FLIGHT_DAY_HIGHLIGHTS, "00:45:00" },
 			{ Properties.Resources.TM_VIDEO_FILE, "01:00:00" },
 			{ Properties.Resources.TM_ISS_FLIGHT_DIRECTOR_UPDATE, "00:15:00" },
 			{ Properties.Resources.TM_MISSION_STATUS_BRIEFING, "00:45:00" },
@@ -584,12 +666,144 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			{ Properties.Resources.TM_POST_MMT_BRIEFING, "00:45:00" },
 			// ReadAhead will detect wake up period
 			//{ Properties.Resources.TM_CREW_SLEEP_BEGINS, "08:30:00" },
-			{ Properties.Resources.TM_INTERVIEW, "00:15:00" },
-			{ Properties.Resources.TM_CHANGE_COMMAND_CEREMONY, "00:20:00"},
-			{ Properties.Resources.TM_COUNTDOWN_STATUS_BRIEFING, "01:00:00"},
+			{ Properties.Resources.TM_INTERVIEW, "00:20:00" },
+			{ Properties.Resources.TM_CHANGE_COMMAND_CEREMONY, "00:20:00" },
+			{ Properties.Resources.TM_COUNTDOWN_STATUS_BRIEFING, "01:00:00" },
 			{ Properties.Resources.TM_BRIEFING, "00:30:00" },
-			{ Properties.Resources.TM_DEORBIT_BURN, "00:02:30" }
+			{ Properties.Resources.TM_DEORBIT_BURN, "00:02:50" },
+            { Properties.Resources.TM_CREW_ARRIVAL, "00:30:00" },
+            { Properties.Resources.TM_TI_BURN, "00:00:30" },
+            { Properties.Resources.TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS, "00:30:00"}
 		};
+
+        private string[,] SpaceLocations = {
+            { Properties.Resources.EVENT_VTR_PLAYBACK, Properties.Resources.NASA_JSC },
+
+            { Properties.Resources.EVENT_ENGINEERING_LAUNCH_REPLAYS, Properties.Resources.NASA_KSC},
+            { Properties.Resources.NASA_MILA, Properties.Resources.NASA_KSC },
+
+            { Properties.Resources.EVENT_CABIN_STORAGE, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_CENTERLINE_CAMERA, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_DEORBIT, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_EXTERNAL_TANK, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_FCS_CHECKOUT, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_FLYAROUND, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_FOCUSED_INSPECTION, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_FINAL_SEPARATION_ISS, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_KU__BAND_STOWAGE, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_KU_BAND_STORAGE, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_LATE_INSPECTION, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_OBSS_BERTH, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_OBSS_UNBERTH, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_ODS_RING_EXTENSION, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_ORBIT_ADJUST, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RECUMBENT_SEAT, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RCS_HOT_TEST, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RENDEZVOUS_OPERATIONS, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RENDEZVOUS_TOOL_CHECKOUT, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RMS_CHECKOUT, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RMS_GRAPPLE, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RMS_OMS_POD_SURVEY, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_RMS_POWERDOWN, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_SHUTTLE_KU_BAND, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_TI_BURN, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_UNDOCKS_ISS, Properties.Resources.NASA_STS },
+
+            { Properties.Resources.NASA_ET, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_FCS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_HST, Properties.Resources.NASA_STS },
+            { Properties.Resources.EVENT_PAYLOAD_BAY, Properties.Resources.NASA_STS} ,
+            { Properties.Resources.NASA_MECO, Properties.Resources.NASA_STS},
+            { Properties.Resources.NASA_OBS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_ODS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_OMS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_PICOSAT, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_RCC, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_RCS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_RPM, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_TPS, Properties.Resources.NASA_STS },
+            { Properties.Resources.NASA_WLE, Properties.Resources.NASA_STS },
+
+            { Properties.Resources.EVENT_CDRA_BED_REMOVAL_REPLACEMENT, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_CETA_CART_RELOCATION, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_CIR_RACK_INSTALLATION, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_CLPA_INSTALLATION, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_COLUMBUS_MODULE, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_EVA_CAMPOUT, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_GET_AHEAD_TASKS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_HATCH_OPENING_WELCOME_CEREMONY, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_FAREWELL_HATCH_CLOSURE, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_KEEP_ALIVE_ASSEMBLY, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_MOBILE_TRANSPORTER, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_P1_TRUSS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_P3_TRUSS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_PORT_TRUSS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_RACK_INSTALLATION, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_RACK_TRANSFER, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_S1_TRUSS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_SOYUZ_SEATLINER_SWAP, Properties.Resources.NASA_ISS },
+            { Properties.Resources.EVENT_WATER_RECOVERY, Properties.Resources.NASA_ISS },
+
+            { Properties.Resources.NASA_CDRA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_CETA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_CIR, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_CLPA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_CMG, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_COLUMBUS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_DCSU, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_DESTINY, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_DEXTRE, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_EFBM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_ESP, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_ESP_2, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_ESP_3, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_ETCS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_ETVCG, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_EUTEF, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_FHRC, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_HARMONY, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_JEM_PM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_JEM_RMS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_JLP, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_JTVE, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_KAU, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_KIBO, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_LWAPA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_MISSE, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_MBS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_MBSU, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_MPLM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_MT, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_OTCM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_OTP, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P1, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P2, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P3, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P4, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P5, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_P6, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_PMA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_PMA_2, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_QUEST, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_RPCM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S1, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S2, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S3, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S4, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S5, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_S6, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_SARJ, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_SAPH, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_SDRM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_SOLAR, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_SPDM, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_TOCA, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_UNITY, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_WHC, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_WHS, Properties.Resources.NASA_WHS },
+            { Properties .Resources.NASA_WRS, Properties.Resources.NASA_ISS },
+            { Properties.Resources.NASA_Z1, Properties.Resources.NASA_ISS}
+        };
 
 		/// <summary>
 		/// Internal array holding list of Windows Time Zones from the registry
@@ -1081,9 +1295,9 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// Initialize class with filename of Nasa TV Schedule
 		/// </summary>
 		/// <param name="excelFile">file name of Nasa Sts TV Schedule</param>
-		public NasaStsTVSchedule(string excelFile)
+		public NasaStsTVSchedule(string excelFile, bool missionStation)
 		{
-			PreInitializeClass();
+            PreInitializeClass(missionStation);
 
 			NasaTVScheduleFile = excelFile;
 
@@ -1095,9 +1309,9 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// </summary>
 		/// <param name="excelFile">file name of Nasa Sts TV Schedule</param>
 		/// <param name="viewingTimeZone">Time Zone for Viewer</param>
-		public NasaStsTVSchedule(string excelFile, string viewingTimeZone)
+        public NasaStsTVSchedule(string excelFile, string viewingTimeZone, bool missionStation)
 		{
-			PreInitializeClass();
+            PreInitializeClass(missionStation);
 
 			NasaTVScheduleFile = excelFile;
 
@@ -1114,9 +1328,9 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <param name="excelFile">file name of Nasa Sts TV Schedule</param>
 		/// <param name="viewingTimeZone">Time Zone for Viewer</param>
 		/// <param name="typeInterface">Type of Excel Interface (Interop or Tools)</param>
-		public NasaStsTVSchedule(string excelFile, string viewingTimeZone, ExcelInterface typeInterface)
+        public NasaStsTVSchedule(string excelFile, string viewingTimeZone, ExcelInterface typeInterface, bool missionStation)
 		{
-			PreInitializeClass();
+            PreInitializeClass(missionStation);
 
 			NasaTVScheduleFile = excelFile;
 			ViewingTimeZone = viewingTimeZone;
@@ -1159,8 +1373,10 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <summary>
 		/// Initialize common variables
 		/// </summary>
-		private void PreInitializeClass()
+		private void PreInitializeClass(bool missionStation)
 		{
+            StationMission = missionStation;
+
 			RowCount = 0;
 			ExcelTypeInterface = ExcelInterface.InteropExcel;
 			ViewingTimeZone = Properties.Resources.TZ_DEFAULT;
@@ -1426,11 +1642,14 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 
 				if (grpcolDate[Properties.Resources.IX_MONTH].Success &&
 					grpcolDate[Properties.Resources.IX_DAY].Success &&
-				grpcolDate[Properties.Resources.IX_YEAR].Success)
+                    grpcolDate[Properties.Resources.IX_YEAR].Success)
 				{
 					string revisionDate = cellOne.ToString().Trim();
-					DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
-						Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
+                    DateTime dtRevisionDate = new DateTime(Convert.ToInt32(grpcolDate[Properties.Resources.IX_YEAR].Value),
+                        Convert.ToInt32(grpcolDate[Properties.Resources.IX_MONTH].Value),
+                        Convert.ToInt32(grpcolDate[Properties.Resources.IX_DAY].Value));
+					//DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
+					//	Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
 					Year = dtRevisionDate.Year;
 					if (Year < 2000)
 						Year += 2000;
@@ -1506,33 +1725,8 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 						Landed = true;
 					}
 				}
-				//	20071226 - Ralph Hightower
-				//		STS-118 schedule has a site entry of " " which none the less caused a blank site
-				//		to be entered in the schedule (leading and trailing spaces are trimmed)
-				bool nullSite = true;
-				if (TvScheduleCells.GetValue(row, SiteColumHeader) != null)
-				{
-					Site = TvScheduleCells.GetValue(row, SiteColumHeader).ToString();
-					Site = Site.Trim();
-					nullSite = false;
-				}
-				if (nullSite || (Site.Length == 0))
-				{
-					if (Docked)
-						Site = Properties.Resources.NASA_ISS;
-					else
-						Site = Properties.Resources.NASA_STS;
-				}
 
-				if (Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS) ||
-					Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
-					Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
-				{
-					if (ISSCrewSleep(row) || ISSCrewWakeUp(row))
-						Site = Properties.Resources.NASA_ISS;
-					if (ShuttleCrewSleep(row) || ShuttleCrewWakeUp(row))
-						Site = Properties.Resources.NASA_STS;
-				}
+                Site = GetSiteLocation(row);
 
 				if (TvScheduleCells.GetValue(row, MissionElapsedTimeColumnHeader) != null)
 				{
@@ -1576,14 +1770,155 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			}
 
 			if (validEntry)
-			{
 				return (entryRow);
-			}
 			else
 				return (null);
 		}
 
-		/// <summary>
+        private string GetSiteLocation(int row)
+        {
+            string location = "";
+
+			bool nullSite = true;
+			if (TvScheduleCells.GetValue(row, SiteColumHeader) != null)
+			{
+                location = TvScheduleCells.GetValue(row, SiteColumHeader).ToString();
+                location = location.Trim();
+				nullSite = false;
+			}
+            if (nullSite || (location.Length == 0))
+			{
+                //  Lookup event
+                //	20071226 - Ralph Hightower
+                //		STS-118 schedule has a site entry of " " which none the less caused a blank site
+                //		to be entered in the schedule (leading and trailing spaces are trimmed)
+                if (Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS) ||
+                    Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
+                    Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+                {
+                    if (ISSCrewSleep(row) || ISSCrewWakeUp(row))
+                        location = Properties.Resources.NASA_ISS;
+                    if (ShuttleCrewSleep(row) || ShuttleCrewWakeUp(row))
+                        location = Properties.Resources.NASA_STS;
+                }
+                else
+                {
+                    if (!StationMission)
+                        location = Properties.Resources.NASA_STS;
+                    else
+                    {
+                        if (location.Length == 0)
+                            location = GetRobotArmActivity(row);
+                        if (location.Length == 0)
+                            location = LookupLocationEvent(row);
+                        if (Subject.Contains(Properties.Resources.NASA_EVA))
+                        {
+                            if (StationMission)
+                                location = Properties.Resources.NASA_ISS;
+                            else
+                                location = Properties.Resources.NASA_STS;
+                        }
+                        else
+                        {
+                            if (Subject.Contains(Properties.Resources.EVENT_OFF_DUTY_PERIOD))
+                            {
+                                Match mtchOffDuty = rgOffDutyPeriod.Match(Subject);
+
+                                GroupCollection grpcollOffDuty = mtchOffDuty.Groups;
+                                if (grpcollOffDuty[Properties.Resources.IX_ACTION].Success)
+                                {
+                                    if (grpcollOffDuty[Properties.Resources.IX_SHUTTLE].Success)
+                                        location = Properties.Resources.NASA_STS;
+                                    if (grpcollOffDuty[Properties.Resources.IX_ISS].Success)
+                                    {
+                                        if (location.Length > 0)
+                                            location += " / ";
+                                        location += Properties.Resources.NASA_ISS;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (location.Length == 0)
+            {
+                if (Subject.Contains(Properties.Resources.NASA_ATLANTIS)
+                    || (Subject.Contains(Properties.Resources.NASA_DISCOVERY))
+                    || (Subject.Contains(Properties.Resources.NASA_ENDEAVOUR)))
+                    location = Properties.Resources.NASA_STS;
+                if (Subject.Contains(Properties.Resources.NASA_ISS))
+                {
+                    if (location.Length > 0)
+                        location += " / ";
+                    location += Properties.Resources.NASA_ISS;
+                }
+                if (location.Length == 0)
+                {
+                    if (StationMission)
+                        location = Properties.Resources.NASA_ISS;
+                    else
+                        location = Properties.Resources.NASA_STS;
+                }
+            }
+
+            return (location);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        private string GetRobotArmActivity(int row)
+        {
+            string location = "";
+
+			string entry = TvScheduleCells.GetValue(row, SubjectColumnHeader).ToString();
+
+			Match mtchRobotArmActivity = rgRobotArmActivity.Match(entry);
+
+			GroupCollection grpcollRobotArmActivity = mtchRobotArmActivity.Groups;
+
+            //  Both Shuttle & Station arms are involved
+            if (grpcollRobotArmActivity[Properties.Resources.IX_SHUTTLE].Success
+                && grpcollRobotArmActivity[Properties.Resources.IX_ISS].Success && !grpcollRobotArmActivity[Properties.Resources.IX_KIBO].Success)
+                location = Properties.Resources.NASA_STS + " / " + Properties.Resources.NASA_ISS;
+            else
+                //  Only Shuttle arm is invovled (Kibo has an RMS; exclude that)
+                if (grpcollRobotArmActivity[Properties.Resources.IX_SHUTTLE].Success
+                    && !grpcollRobotArmActivity[Properties.Resources.IX_ISS].Success && !grpcollRobotArmActivity[Properties.Resources.IX_KIBO].Success)
+                    location = Properties.Resources.NASA_STS;
+                else
+                    //  Only Station arm is invovled or Kibo robotic arm
+                    if ((grpcollRobotArmActivity[Properties.Resources.IX_ISS].Success
+                        && !grpcollRobotArmActivity[Properties.Resources.IX_SHUTTLE].Success) || grpcollRobotArmActivity[Properties.Resources.IX_KIBO].Success)
+                        location = Properties.Resources.NASA_ISS;
+
+            return (location);
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        private string LookupLocationEvent(int row)
+        {
+            string location = "";
+
+            for (int idxLocation = SpaceLocations.GetLowerBound(0); (idxLocation < SpaceLocations.GetUpperBound(0)) && (location.Length == 0); idxLocation++)
+            {
+                if (Subject.Contains(SpaceLocations[idxLocation, 0]))
+                    location = SpaceLocations[idxLocation, 1];
+            }
+
+            return (location);
+        }
+
+        /// <summary>
 		/// Some NASA STS TV Schedules have the event on multiple lines instead in a single cellTime
 		/// This routine reads ahead concatenating the lines until an empty cellTime is found or until the end of the spreadsheet is found
 		/// </summary>
@@ -1992,12 +2327,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					}
 				}
 			}
+#if false   //  STS-119 Rev 0 and a do not have MET header
+            //  Since the format hasn't changed in several shuttle missions, this is not a show stopper
+            //  unless NASA changes the MET header to some column other than 6
 			if (headingCount < 7)
 			{
 				string InvalidOrbitHeader = Properties.Resources.ERR_INVALID_COLUMN_HEADER +
 					row.ToString(CultureInfo.CurrentCulture);
 				throw new ApplicationException(InvalidOrbitHeader);
 			}
+#endif
 			return (true);
 		}
 
