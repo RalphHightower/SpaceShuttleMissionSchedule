@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Microsoft Excel and Outlook required")]
 [assembly: AssemblyCompany("Permanent Vacations")]
 [assembly: AssemblyProduct("PermanentVacations.Nasa.Sts.OutlookCalendar")]
-[assembly: AssemblyCopyright("Copyright 2007 © Ralph M. Hightower, Jr. (Permanent Vacations)")]
+[assembly: AssemblyCopyright("Copyright 2007-2008 © Ralph M. Hightower, Jr. (Permanent Vacations)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.3")]
-[assembly: AssemblyFileVersion("1.0.1.3")]
+[assembly: AssemblyVersion("1.4.119.2")]
+[assembly: AssemblyFileVersion("1.4.119.2")]
