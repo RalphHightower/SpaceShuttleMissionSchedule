@@ -98,7 +98,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -108,6 +107,7 @@
     <Content Include="GNU_GeneralPublicLicenseV3.txt" />
     <Content Include="NasaLogo.ico" />
     <Content Include="RegularExpressions\RegularExpressions Workspace.txt" />
+    <None Include="Resources\NasaTvSchedule..html" />
     <None Include="Resources\SpaceShuttle_16X16-256.ico" />
   </ItemGroup>
   <ItemGroup>

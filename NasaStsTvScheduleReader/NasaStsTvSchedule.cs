@@ -43,6 +43,9 @@
  * 20090320
  *      STS-119: Noticed that rev. e schedule did not have # in the EVA #1 ENDS causing the failure of the routine 
  *          SubjectVerbPatternMatch to recognize the end of the EVA
+ * 20090507
+ *      STS-125: rev0 Crew sleep period beginning May 18, 2009 8:31 PM EDT, ending May 20, 2009 4:31 AM EDT.
+ *      rev0 has TU\ESDAY, MAY 19.  Modified RGX_DATE_HEADER to recognize this variant of Tuesday.
  */
 using System;
 using System.Collections.Generic;
@@ -1792,13 +1795,20 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                 //	20071226 - Ralph Hightower
                 //		STS-118 schedule has a site entry of " " which none the less caused a blank site
                 //		to be entered in the schedule (leading and trailing spaces are trimmed)
-                if (Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS) ||
-                    Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
-                    Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+                bool sleepPeriod = Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS);
+                bool wakeUpCall = Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) || Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP);
+                if (sleepPeriod || wakeUpCall)
                 {
-                    if (ISSCrewSleep(row) || ISSCrewWakeUp(row))
-                        location = Properties.Resources.NASA_ISS;
-                    if (ShuttleCrewSleep(row) || ShuttleCrewWakeUp(row))
+                    if (StationMission)
+                    {
+                        if (sleepPeriod && ISSCrewSleep(row))
+                            location = Properties.Resources.NASA_ISS;
+                        if (wakeUpCall && ISSCrewWakeUp(row))
+                            location = Properties.Resources.NASA_ISS;
+                    }
+                    if (sleepPeriod && ShuttleCrewSleep(row))
+                        location = Properties.Resources.NASA_STS;
+                    if (wakeUpCall && ShuttleCrewWakeUp(row))
                         location = Properties.Resources.NASA_STS;
                 }
                 else

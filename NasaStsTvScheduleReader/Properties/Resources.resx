@@ -1184,7 +1184,7 @@
     <comment>RGX_CREW_OFF_DUTY</comment>
   </data>
   <data name="RGX_DATE_HEADER" xml:space="preserve">
-    <value>(?&lt;DayOfWeek&gt;SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)\s?,\s+(?&lt;Month&gt;JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?&lt;Day&gt;\d+)</value>
+    <value>(?&lt;DayOfWeek&gt;SUNDAY|MONDAY|TUESDAY|TU\\ESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)\s?,\s+(?&lt;Month&gt;JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\s+(?&lt;Day&gt;\d+)</value>
     <comment>Regular Expression:Date Header captures DayOfWeek, Month, Day</comment>
   </data>
   <data name="RGX_EVA_ACTIVITY" xml:space="preserve">

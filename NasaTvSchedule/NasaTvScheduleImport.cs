@@ -212,17 +212,9 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 			DisableMenus();
 
+            InitializeDefaults();
 			InitializeExcelControls();
 			LoadOutlookControls();
-
-#if false   //  {
-            //  If it's May or June in 2009, then it's probably STS-125, the Hubble Servicing Mission
-            DateTime dtToday = DateTime.Now;
-            if ((dtToday.Year == 2009) && ((dtToday.Month == 5) || (dtToday.Month == 6)))
-                rbHubble.Checked = true;
-            else
-                rbISS.Checked = true;
-#endif  //  }
 
 			Ready();
 		}
@@ -1009,6 +1001,28 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         private void rbHubble_MouseLeave(object sender, EventArgs e)
         {
             Status = "";
+        }
+
+        /// <summary>
+        /// Initializes program defaults.
+        /// If May 2009, assume mission is Hubble Servicing mission (STS-125)
+        /// </summary>
+        private void InitializeDefaults()
+        {
+#if false   //  {
+            //  If it's May or June in 2009, then it's probably STS-125, the Hubble Servicing Mission
+            DateTime dtToday = DateTime.Now;
+            if ((dtToday.Year == 2009) && ((dtToday.Month == 5) || (dtToday.Month == 6)))
+                rbHubble.Checked = true;
+            else
+                rbISS.Checked = true;
+#endif  //  }
+            //  RMH 20090516 STS-125 launched May 11, 2009, landing scheduled for May 22, 2009
+            DateTime dtNow = DateTime.Now;
+            if ((dtNow.Month == 5) && (dtNow.Year == 2009))
+                rbHubble.Checked = true;
+            else
+                rbISS.Checked = true;
         }
 
         /// <summary>
@@ -1941,6 +1955,29 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbRemindAll_CheckedChanged(object sender, EventArgs e)
+        {
+            RemindAllEvents(cbRemindAll.Checked);
+        }
+
+        private void RemindAllEvents(bool reminder)
+        {
+            for (int index = 0; index < dgvExcelSchedule.Rows.Count; index++)
+            {
+                dgvExcelSchedule.Rows[index].Cells[REMINDER_TV.Name].Value = reminder;
+            }
+        }
+
+        private void cbRemindAll_MouseHover(object sender, EventArgs e)
+        {
+            Status = Properties.Resources.MOUSEHOVER_REMINDALL;
+        }
+
+        private void cbRemindAll_MouseLeave(object sender, EventArgs e)
+        {
+            Status = "";
         }
         
     }

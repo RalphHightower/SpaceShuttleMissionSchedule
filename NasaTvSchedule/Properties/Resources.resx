@@ -251,9 +251,11 @@
   </data>
   <data name="MOUSEHOVER_MISSIONISS" xml:space="preserve">
     <value>Selects ISS mission profile</value>
+    <comment>Hover tip</comment>
   </data>
   <data name="MOUSEHOVER_MISSIONSTANDALONE" xml:space="preserve">
     <value>Selects standalone mission profile</value>
+    <comment>Hover tip</comment>
   </data>
   <data name="MOUSEHOVER_NEWSCHEDULEUPDATE" xml:space="preserve">
     <value>Updates the Outlook Calendar with the new schedule that is currently loaded</value>
@@ -277,6 +279,10 @@
   </data>
   <data name="MOUSEHOVER_REFRESHCATEGORIES" xml:space="preserve">
     <value>Reloads the Outlook Categories</value>
+    <comment>Hover tip</comment>
+  </data>
+  <data name="MOUSEHOVER_REMINDALL" xml:space="preserve">
+    <value>Turn on or off all reminders</value>
     <comment>Hover tip</comment>
   </data>
   <data name="MOUSEHOVER_REMOVESELECTEDITEMS" xml:space="preserve">
@@ -403,5 +409,9 @@
   <data name="TIMER_ELAPSED_TIME_TRANFERRING" xml:space="preserve">
     <value>Elapsed Time Transferring Schedule to Outlook = </value>
     <comment>Elapsed time transferring schedule to Outlook</comment>
+  </data>
+  <data name="URL_CODEPLEX" xml:space="preserve">
+    <value>http://www.codeplex.com/NasaStsTvSchedule</value>
+    <comment>URL for project</comment>
   </data>
 </root>
