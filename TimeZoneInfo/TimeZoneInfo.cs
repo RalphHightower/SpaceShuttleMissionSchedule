@@ -32,6 +32,12 @@ using Microsoft.Win32;
 /// Ralph Hightower
 /// http://www.codeplex.com/NasaStsTvSchedule/
 /// </authors comments>
+/// <changes>
+/// 20080121    RMH "Index" is not a registry key in Vista
+/// 20090320    RMH Problem was reported by a person running XP in the code that retrieves the Time Zones
+///                 from the registry.  The Vista code should work well with XP since m_index is not used
+///                 internally or externally.
+/// </changes>
 /// </summary>
 
 [assembly: CLSCompliant(true)]
@@ -199,7 +205,7 @@ namespace Microsoft.Msdn.BclTeam
             ArrayList timeZoneList = new ArrayList();
 
             // Extract the information from the registry into an arraylist.
-            String timeZoneKeyPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones";
+            String timeZoneKeyPath = Msdn.BclTeam.Properties.Resources.REG_TIMEZONE_PATH.ToString();
             using (RegistryKey timeZonesKey = Registry.LocalMachine.OpenSubKey(timeZoneKeyPath))
             {
                 String[] zoneKeys = timeZonesKey.GetSubKeyNames();
@@ -209,11 +215,24 @@ namespace Microsoft.Msdn.BclTeam
                     using (RegistryKey timeZoneKey = timeZonesKey.OpenSubKey(zoneKeys[i]))
                     {
                         TimeZoneInfo newTimeZone = new TimeZoneInfo();
-                        newTimeZone.m_displayName = (String)timeZoneKey.GetValue("Display");
-                        newTimeZone.m_daylightName = (String)timeZoneKey.GetValue("Dlt");
-                        newTimeZone.m_standardName = (String)timeZoneKey.GetValue("Std");
-                        newTimeZone.m_index = (Int32)timeZoneKey.GetValue("Index");
-                        Byte[] bytes = (Byte[])timeZoneKey.GetValue("TZI");
+                        newTimeZone.m_displayName = (String)timeZoneKey.GetValue(Msdn.BclTeam.Properties.Resources.REG_DISPLAY);
+                        newTimeZone.m_daylightName = (String)timeZoneKey.GetValue(Msdn.BclTeam.Properties.Resources.REG_DLT);
+                        newTimeZone.m_standardName = (String)timeZoneKey.GetValue(Msdn.BclTeam.Properties.Resources.REG_STD);
+                        //  Ralph Hightower 20090320
+                        //  This code to detect whether the OS is XP or Vista is not needed since m_index is not needed.
+                        //  The code for Vista should work just fine for XP since m_index is not used by external code.
+#if false   //  {
+                        //  Ralph Hightower 20080121
+                        //      The registry structure for the Windows TimeZones changed in Vista:
+                        //      "Index" is in XP, not in Vista
+                        if (Environment.OSVersion.Version.Major < 6)
+                            newTimeZone.m_index = (Int32)timeZoneKey.GetValue(MSDN.BCLTeam.Properties.Resources.REG_INDEX);
+                        else
+                            newTimeZone.m_index = i;
+#else   //  }{
+                        newTimeZone.m_index = i;
+#endif  //  }
+                        Byte[] bytes = (Byte[])timeZoneKey.GetValue(Msdn.BclTeam.Properties.Resources.REG_TZI);
                         newTimeZone.m_bias = new TimeSpan(0, BitConverter.ToInt32(bytes, 0), 0);
                         newTimeZone.m_daylightBias = new TimeSpan(0, BitConverter.ToInt32(bytes, 8), 0);
                         newTimeZone.m_standardTransitionMonth = BitConverter.ToInt16(bytes, 14);
