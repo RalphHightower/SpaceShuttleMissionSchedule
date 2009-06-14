@@ -37,15 +37,19 @@
  *          Updated regular expression RGX_DATE_HEADER to include that pattern
  *          Added CREW ARRIVAL to fixed event times
  *          Updated Version in AssemblyInfo
- * 20090309
+ * 20090309 - Ralph Hightower
  *      STS-119: rev0 and a schedule changed the date format, dropping the leading 0;
  *          instead of 03/09/09, the date published was 3/9/09.  Updated RGX_DATE_HEADER to allow the missing 0.
- * 20090320
+ * 20090320 - Ralph Hightower
  *      STS-119: Noticed that rev. e schedule did not have # in the EVA #1 ENDS causing the failure of the routine 
  *          SubjectVerbPatternMatch to recognize the end of the EVA
- * 20090507
+ * 20090507 - Ralph Hightower
  *      STS-125: rev0 Crew sleep period beginning May 18, 2009 8:31 PM EDT, ending May 20, 2009 4:31 AM EDT.
  *      rev0 has TU\ESDAY, MAY 19.  Modified RGX_DATE_HEADER to recognize this variant of Tuesday.
+ * 20090613 - Ralph Hightower
+ *      STS-127: rev0 Saturday, June 20, 2009.  There was no blank line between events ENDEAVOUR CREW SLEEP BEGINS
+ *      and FLIGHT DAY 8 HIGHLIGHTS (replayed on the hour during crew sleep), causing the program to assume that it was
+ *      a multiline subject.  Always made the assumption that there is an empty row between events.  That is not the case.
  */
 using System;
 using System.Collections.Generic;
@@ -676,7 +680,11 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			{ Properties.Resources.TM_DEORBIT_BURN, "00:02:50" },
             { Properties.Resources.TM_CREW_ARRIVAL, "00:30:00" },
             { Properties.Resources.TM_TI_BURN, "00:00:30" },
-            { Properties.Resources.TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS, "00:30:00"}
+            { Properties.Resources.TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS, "00:30:00"},
+            { Properties.Resources.TM_RSS_RETRACTION, "01:00:00" },
+            { Properties.Resources.TM_PRELAUNCH_STATUS_UPDATE, "01:00:00" },
+            { Properties.Resources.TM_PAYLOAD_BAY_DOOR_OPENING, "00:30:00" },
+            { Properties.Resources.TM_PAYLOAD_BAY_DOOR_CLOSING, "00:30:00" }
 		};
 
         private string[,] SpaceLocations = {
@@ -1951,7 +1959,13 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					bldrMultiLineSubject.Append(" ");
 				}
 				nextRow++;
-				singleLine = TvScheduleCells.GetValue(nextRow, SubjectColumnHeader);
+                if (IsRowScheduleEntry(nextRow))
+                    break;
+
+                if (!IsRowHeader(row))
+                    singleLine = TvScheduleCells.GetValue(nextRow, SubjectColumnHeader);
+                else
+                    break;
 			}
 
 			string multiLineSubject = bldrMultiLineSubject.ToString().Trim();
@@ -1959,6 +1973,27 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			bldrMultiLineSubject = null;
 			return (multiLineSubject);
 		}
+
+        /// <summary>
+        /// Detects if the current row is an empty line
+        /// </summary>
+        /// <param name="row">Row to process</param>
+        /// <returns>True if the row is empty, false if not</returns>
+        private bool EmptyLine(int row)
+        {
+            Object orbit = TvScheduleCells.GetValue(row, OrbitColumnHeader);
+            Object subject = TvScheduleCells.GetValue(row, SubjectColumnHeader);
+            Object flightDay = TvScheduleCells.GetValue(row, FlightDayColumnHeader);
+            Object met = TvScheduleCells.GetValue(row, MissionElapsedTimeColumnHeader);
+            Object centralTime = TvScheduleCells.GetValue(row, CentralTimeColumnHeader);
+            Object easternTime = TvScheduleCells.GetValue(row, EasternTimeColumnHeader);
+            Object greenwichMeanTime = TvScheduleCells.GetValue(row, GreenwichMeanTimeColumnHeader);
+
+            //  Prelaunch events don't have Orbit, Flight Day, or MET
+            bool emptyLine = (centralTime == null) && (easternTime == null) && (greenwichMeanTime == null);
+
+            return (emptyLine);
+        }
 
 		/// <summary>
 		/// Some events do not last until the next event occurs, such as press conferences, PAO events, etc
@@ -2273,11 +2308,11 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				System.Type cellCentralType = cellCentral.GetType();
 				System.Type cellEasternType = cellEastern.GetType();
 				System.Type cellGreenwichType = cellGreenwich.GetType();
-				if ((cellSubjecType.FullName == Properties.Resources.SYSTEM_STRING)
-					&& (cellCentralType.FullName == Properties.Resources.SYSTEM_DOUBLE)
-					&& (cellEasternType.FullName == Properties.Resources.SYSTEM_DOUBLE)
-					&& (cellGreenwichType.FullName == Properties.Resources.SYSTEM_DOUBLE))
-					scheduleEntry = true;
+                //  Prelaunch events do not have an orbit
+                scheduleEntry = ((cellSubjecType.FullName == Properties.Resources.SYSTEM_STRING)
+                    && (cellCentralType.FullName == Properties.Resources.SYSTEM_DOUBLE)
+                    && (cellEasternType.FullName == Properties.Resources.SYSTEM_DOUBLE)
+                    && (cellGreenwichType.FullName == Properties.Resources.SYSTEM_DOUBLE));
 			}
 			return (scheduleEntry);
 		}
@@ -2349,6 +2384,35 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 #endif
 			return (true);
 		}
+
+        /// <summary>
+        /// Detects if the current row is a Header Record
+        /// </summary>
+        /// <param name="row">Row to determine</param>
+        /// <returns>True if the row is a Header Row, false otherwise</returns>
+        private bool IsRowHeader(int row)
+        {
+            Object orbit = TvScheduleCells.GetValue(row, OrbitColumnHeader);
+            Object subject = TvScheduleCells.GetValue(row, SubjectColumnHeader);
+            Object site = TvScheduleCells.GetValue(row, SiteColumHeader);
+            Object met = TvScheduleCells.GetValue(row, MissionElapsedTimeColumnHeader);
+            Object central = TvScheduleCells.GetValue(row, CentralTimeColumnHeader);
+            Object eastern = TvScheduleCells.GetValue(row, EasternTimeColumnHeader);
+
+            bool isRowHeader = false;
+
+            if ((orbit != null) && (subject != null) && (site != null) && (met != null) && (central != null) && (eastern != null))
+            {
+                isRowHeader = (orbit.ToString() == Properties.Resources.NASA_ORBIT) &&
+                    (subject.ToString() == Properties.Resources.NASA_SUBJECT) &&
+                    (site.ToString() == Properties.Resources.NASA_SITE) &&
+                    (met.ToString() == Properties.Resources.NASA_MET) &&
+                    ((central.ToString() == Properties.Resources.NASA_CST) || (central.ToString() == Properties.Resources.NASA_CDT)) &&
+                    ((eastern.ToString() == Properties.Resources.NASA_EST) || (central.ToString() == Properties.Resources.NASA_EDT));
+            }
+
+            return (isRowHeader);
+        }
 
 		/// <summary>
 		/// Gets the current date from the Flight Day heading
