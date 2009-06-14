@@ -2689,6 +2689,24 @@ namespace PermanentVacations.Nasa.Sts.Schedule.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PAYLOAD BAY DOOR CLOSING.
+        /// </summary>
+        internal static string TM_PAYLOAD_BAY_DOOR_CLOSING {
+            get {
+                return ResourceManager.GetString("TM_PAYLOAD_BAY_DOOR_CLOSING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PAYLOAD BAY DOOR OPENING.
+        /// </summary>
+        internal static string TM_PAYLOAD_BAY_DOOR_OPENING {
+            get {
+                return ResourceManager.GetString("TM_PAYLOAD_BAY_DOOR_OPENING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to POST-MMT BRIEFING.
         /// </summary>
         internal static string TM_POST_MMT_BRIEFING {
@@ -2698,11 +2716,29 @@ namespace PermanentVacations.Nasa.Sts.Schedule.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PRELAUNCH STATUS UPDATE.
+        /// </summary>
+        internal static string TM_PRELAUNCH_STATUS_UPDATE {
+            get {
+                return ResourceManager.GetString("TM_PRELAUNCH_STATUS_UPDATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (?&lt;FlightDay&gt;FLIGHT DAY)\s+(?&lt;Day&gt;\d+)\s+(?&lt;Highlights&gt;HIGHLIGHTS).
         /// </summary>
         internal static string TM_RG_FLIGHT_DAY_HIGHLIGHTS {
             get {
                 return ResourceManager.GetString("TM_RG_FLIGHT_DAY_HIGHLIGHTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ROTATING SERVICE STRUCTURE RETRACTION.
+        /// </summary>
+        internal static string TM_RSS_RETRACTION {
+            get {
+                return ResourceManager.GetString("TM_RSS_RETRACTION", resourceCulture);
             }
         }
         
