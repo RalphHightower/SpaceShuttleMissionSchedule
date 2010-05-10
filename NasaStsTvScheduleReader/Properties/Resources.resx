@@ -1259,6 +1259,10 @@
     <value>DEORBIT BURN</value>
     <comment>00:02:30</comment>
   </data>
+  <data name="TM_FINAL_ISS_SEPARATION" xml:space="preserve">
+    <value>FINAL SEPARATION FROM ISS</value>
+    <comment>00:00:30</comment>
+  </data>
   <data name="TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS" xml:space="preserve">
     <value>HIGH DEFINITION FLIGHT DAY</value>
     <comment>High Definition Flight Day Highlights</comment>
@@ -1285,11 +1289,11 @@
   </data>
   <data name="TM_PAYLOAD_BAY_DOOR_CLOSING" xml:space="preserve">
     <value>PAYLOAD BAY DOOR CLOSING</value>
-    <comment>00:30:00</comment>
+    <comment>00:01:03</comment>
   </data>
   <data name="TM_PAYLOAD_BAY_DOOR_OPENING" xml:space="preserve">
     <value>PAYLOAD BAY DOOR OPENING</value>
-    <comment>00:30:00</comment>
+    <comment>00:01:03</comment>
   </data>
   <data name="TM_POST_MMT_BRIEFING" xml:space="preserve">
     <value>POST-MMT BRIEFING</value>
@@ -1306,6 +1310,10 @@
   <data name="TM_RSS_RETRACTION" xml:space="preserve">
     <value>ROTATING SERVICE STRUCTURE RETRACTION</value>
     <comment>01:00:00</comment>
+  </data>
+  <data name="TM_RSS_RETRACTION_ABBR" xml:space="preserve">
+    <value>RSS RETRACTION</value>
+    <comment>00:40:00</comment>
   </data>
   <data name="TM_TI_BURN" xml:space="preserve">
     <value>TI BURN</value>

@@ -33,6 +33,10 @@
  *      Fixed ImportMultipleSchedules to process last file
  * 20081127 - Ralph Hightower
  *      Added Mission Type (ISS, Hubble): ISS has docking
+ * 20090829 - Ralph Hightower
+ *      Fixed annoyance with Remind All checkbox.  Clear checkbox when opening a single NASA TV Schedule file;
+ *      Set reminders to checkbox status when importing multiple files.
+ *      Added File Close handler
  */
 using System;
 using System.Collections;
@@ -399,6 +403,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		private void btnOpenNasaTvSchedule_Click(object sender, EventArgs e)
 		{
             Busy(Properties.Resources.ID_BUSY_READING_EXCEL);
+            cbRemindAll.Checked = false;
             StartTimer();
             OpenNasaTvSchedule();
             Ready();
@@ -1162,7 +1167,7 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 						if (noErrors)
 						{
 							dgvExcelSchedule.Rows.Add(false, scheduleRow.Orbit, scheduleRow.BeginDate,
-								scheduleRow.EndDate, false, scheduleRow.Revised(), scheduleRow.Subject,
+								scheduleRow.EndDate, cbRemindAll.Checked, scheduleRow.Revised(), scheduleRow.Subject,
 								scheduleRow.Site);
 							chkDocked.Checked = tvSchedule.IsDocked();
 							chkOrbit.Checked = tvSchedule.InSpace();
@@ -1978,6 +1983,11 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
         private void cbRemindAll_MouseLeave(object sender, EventArgs e)
         {
             Status = "";
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         
     }
