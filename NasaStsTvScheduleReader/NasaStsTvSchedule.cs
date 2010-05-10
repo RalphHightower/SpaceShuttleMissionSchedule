@@ -50,6 +50,12 @@
  *      STS-127: rev0 Saturday, June 20, 2009.  There was no blank line between events ENDEAVOUR CREW SLEEP BEGINS
  *      and FLIGHT DAY 8 HIGHLIGHTS (replayed on the hour during crew sleep), causing the program to assume that it was
  *      a multiline subject.  Always made the assumption that there is an empty row between events.  That is not the case.
+ * 20090829 - Ralph Hightower
+ *      Refined guesstimate for Rotating Service Structure from a NASA employee that twitters.
+ *      Added guesstimate event from NASA twitter for crew off-duty period: Short missions 4 hrs, long missions 8 hrs; picked average.
+ * 20100502 - Ralph Hightower
+ *      Added TM_RSS_RETRACTION_ABBR as a fixed time event
+ * 
  */
 using System;
 using System.Collections.Generic;
@@ -664,7 +670,8 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// This is just a guesstimate of how long some events last.
 		/// </summary>
 		//  TM_RG means Time Event, Regular Expression
-        private string[,] EventTimes = { { Properties.Resources.TM_RG_FLIGHT_DAY_HIGHLIGHTS, "00:45:00" },
+        private string[,] EventTimes = { 
+            { Properties.Resources.TM_RG_FLIGHT_DAY_HIGHLIGHTS, "00:45:00" },
 			{ Properties.Resources.TM_VIDEO_FILE, "01:00:00" },
 			{ Properties.Resources.TM_ISS_FLIGHT_DIRECTOR_UPDATE, "00:15:00" },
 			{ Properties.Resources.TM_MISSION_STATUS_BRIEFING, "00:45:00" },
@@ -681,10 +688,13 @@ namespace PermanentVacations.Nasa.Sts.Schedule
             { Properties.Resources.TM_CREW_ARRIVAL, "00:30:00" },
             { Properties.Resources.TM_TI_BURN, "00:00:30" },
             { Properties.Resources.TM_HIGH_DEFINITION_FLIGHT_DAY_HIGHLIGHTS, "00:30:00"},
-            { Properties.Resources.TM_RSS_RETRACTION, "01:00:00" },
+            { Properties.Resources.TM_RSS_RETRACTION, "00:40:00" },
+            { Properties.Resources.TM_RSS_RETRACTION_ABBR, "00:40:00" },
             { Properties.Resources.TM_PRELAUNCH_STATUS_UPDATE, "01:00:00" },
             { Properties.Resources.TM_PAYLOAD_BAY_DOOR_OPENING, "00:30:00" },
-            { Properties.Resources.TM_PAYLOAD_BAY_DOOR_CLOSING, "00:30:00" }
+            { Properties.Resources.TM_PAYLOAD_BAY_DOOR_CLOSING, "00:30:00" },
+            { Properties.Resources.EVENT_OFF_DUTY_PERIOD, "00:06:00" },
+            { Properties.Resources.EVENT_FINAL_SEPARATION_ISS, "00:00:30" }
 		};
 
         private string[,] SpaceLocations = {
@@ -813,7 +823,8 @@ namespace PermanentVacations.Nasa.Sts.Schedule
             { Properties.Resources.NASA_WHC, Properties.Resources.NASA_ISS },
             { Properties.Resources.NASA_WHS, Properties.Resources.NASA_WHS },
             { Properties .Resources.NASA_WRS, Properties.Resources.NASA_ISS },
-            { Properties.Resources.NASA_Z1, Properties.Resources.NASA_ISS}
+            { Properties.Resources.NASA_Z1, Properties.Resources.NASA_ISS  },
+            { Properties.Resources.EVENT_FINAL_SEPARATION_ISS, Properties.Resources.NASA_STS }
         };
 
 		/// <summary>
