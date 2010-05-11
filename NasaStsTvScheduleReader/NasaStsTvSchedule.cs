@@ -55,6 +55,8 @@
  *      Added guesstimate event from NASA twitter for crew off-duty period: Short missions 4 hrs, long missions 8 hrs; picked average.
  * 20100502 - Ralph Hightower
  *      Added TM_RSS_RETRACTION_ABBR as a fixed time event
+ * 20100510 - Ralph Hightower
+ *      Modified GetCreationRevisionDate to look for 4 digit years (STS-132)
  * 
  */
 using System;
@@ -1656,27 +1658,50 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			if ((cellOne != null) && (cellOne.GetType().ToString() == Properties.Resources.SYSTEM_STRING))
 			{
 				//  The Regular Expression to get the revision date is only accessed once, so it doesn't need to be compiled
-				Regex rgDate = new Regex(Properties.Resources.RGX_MM_DD_YY);
+                Regex rgDate8 = new Regex(Properties.Resources.RGX_MM_DD_YYYY);
 
-				Match mtchDate = rgDate.Match(cellOne.ToString());
+                Match mtchDate8 = rgDate8.Match(cellOne.ToString());
 
-				GroupCollection grpcolDate = mtchDate.Groups;
+                GroupCollection grpcolDate8 = mtchDate8.Groups;
 
-				if (grpcolDate[Properties.Resources.IX_MONTH].Success &&
-					grpcolDate[Properties.Resources.IX_DAY].Success &&
-                    grpcolDate[Properties.Resources.IX_YEAR].Success)
-				{
-					string revisionDate = cellOne.ToString().Trim();
-                    DateTime dtRevisionDate = new DateTime(Convert.ToInt32(grpcolDate[Properties.Resources.IX_YEAR].Value),
-                        Convert.ToInt32(grpcolDate[Properties.Resources.IX_MONTH].Value),
-                        Convert.ToInt32(grpcolDate[Properties.Resources.IX_DAY].Value));
-					//DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
-					//	Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
-					Year = dtRevisionDate.Year;
-					if (Year < 2000)
-						Year += 2000;
-				}
-				rgDate = null;
+                if (grpcolDate8[Properties.Resources.IX_MONTH].Success &&
+                    grpcolDate8[Properties.Resources.IX_DAY].Success &&
+                    grpcolDate8[Properties.Resources.IX_YEAR].Success)
+                {
+                    string revisionDate = cellOne.ToString().Trim();
+                    DateTime dtRevisionDate = new DateTime(Convert.ToInt32(grpcolDate8[Properties.Resources.IX_YEAR].Value),
+                        Convert.ToInt32(grpcolDate8[Properties.Resources.IX_MONTH].Value),
+                        Convert.ToInt32(grpcolDate8[Properties.Resources.IX_DAY].Value));
+                    //DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
+                    //	Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
+                    Year = dtRevisionDate.Year;
+                }
+                else
+                {
+                    Regex rgDate6 = new Regex(Properties.Resources.RGX_MM_DD_YY);
+
+                    Match mtchDate6 = rgDate6.Match(cellOne.ToString());
+
+                    GroupCollection grpcolDate6 = mtchDate6.Groups;
+
+                    if (grpcolDate6[Properties.Resources.IX_MONTH].Success &&
+                        grpcolDate6[Properties.Resources.IX_DAY].Success &&
+                        grpcolDate6[Properties.Resources.IX_YEAR].Success)
+                    {
+                        string revisionDate = cellOne.ToString().Trim();
+                        DateTime dtRevisionDate = new DateTime(Convert.ToInt32(grpcolDate6[Properties.Resources.IX_YEAR].Value),
+                            Convert.ToInt32(grpcolDate6[Properties.Resources.IX_MONTH].Value),
+                            Convert.ToInt32(grpcolDate6[Properties.Resources.IX_DAY].Value));
+                        //DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
+                        //	Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
+                        Year = dtRevisionDate.Year;
+                        if (Year < 2000)
+                            Year += 2000;
+                        //  The Regular Expression to get the revision date is only accessed once, so it doesn't need to be compiled
+                    }
+                    rgDate6 = null;
+                }
+                rgDate8 = null;
 			}
 		}
 

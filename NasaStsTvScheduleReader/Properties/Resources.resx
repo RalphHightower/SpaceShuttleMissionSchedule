@@ -1211,6 +1211,10 @@
     <value>(?&lt;Month&gt;[01]?[0-9])/(?&lt;Day&gt;[0-3]?[0-9])/(?&lt;Year&gt;[0-9][0-9])</value>
     <comment>Regular Expression to capture month/day/year</comment>
   </data>
+  <data name="RGX_MM_DD_YYYY" xml:space="preserve">
+    <value>(?&lt;Month&gt;[01]?[0-9])/(?&lt;Day&gt;[0-3]?[0-9])/(?&lt;Year&gt;(19[89][0-9]|200[0-9]|2010))</value>
+    <comment>Regular Expression to capture month/day/year</comment>
+  </data>
   <data name="RGX_OFF_DUTY_PERIOD" xml:space="preserve">
     <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|SHUTTLE)(?:\s?/?\s?)(?&lt;ISS&gt;ISS)(?:\s)(?&lt;Action&gt;CREW OFF DUTY)</value>
     <comment>Regular expression to get crew off duty</comment>
@@ -1289,11 +1293,11 @@
   </data>
   <data name="TM_PAYLOAD_BAY_DOOR_CLOSING" xml:space="preserve">
     <value>PAYLOAD BAY DOOR CLOSING</value>
-    <comment>00:01:03</comment>
+    <comment>00:30:00</comment>
   </data>
   <data name="TM_PAYLOAD_BAY_DOOR_OPENING" xml:space="preserve">
     <value>PAYLOAD BAY DOOR OPENING</value>
-    <comment>00:01:03</comment>
+    <comment>00:30:00</comment>
   </data>
   <data name="TM_POST_MMT_BRIEFING" xml:space="preserve">
     <value>POST-MMT BRIEFING</value>
