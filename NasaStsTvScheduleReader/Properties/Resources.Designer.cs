@@ -2527,6 +2527,15 @@ namespace PermanentVacations.Nasa.Sts.Schedule.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (?&lt;Month&gt;[01]?[0-9])/(?&lt;Day&gt;[0-3]?[0-9])/(?&lt;Year&gt;(19[89][0-9]|200[0-9]|2010)).
+        /// </summary>
+        internal static string RGX_MM_DD_YYYY {
+            get {
+                return ResourceManager.GetString("RGX_MM_DD_YYYY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|SHUTTLE)(?:\s?/?\s?)(?&lt;ISS&gt;ISS)(?:\s)(?&lt;Action&gt;CREW OFF DUTY).
         /// </summary>
         internal static string RGX_OFF_DUTY_PERIOD {
