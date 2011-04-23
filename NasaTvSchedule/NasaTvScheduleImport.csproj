@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PermanentVacations.Nasa.Sts.OutlookCalendar</RootNamespace>
     <AssemblyName>NasaTvSchedule</AssemblyName>
-    <SccProjectName>"%24/NasaTvSchedule.root/NasaTvSchedule", RGAAAAAA</SccProjectName>
+    <SccProjectName>"%24/NasaTvSchedule.root/NasaTvSchedule", THAAAAAA</SccProjectName>
     <SccLocalPath>..</SccLocalPath>
     <SccAuxPath>
     </SccAuxPath>
@@ -22,6 +22,8 @@
     </AssemblyOriginatorKeyFile>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ApplicationIcon>Resources\NasaLogo.ico</ApplicationIcon>
     <PublishUrl>http://localhost/NasaTvSchedule/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -33,9 +35,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <ApplicationIcon>Resources\NasaLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -115,14 +116,6 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Interop.Outlook">
-      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>9</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -142,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GNU_GeneralPublicLicenseV3.txt" />
+    <Content Include="NasaTvScheduleImport.htm" />
     <Content Include="NasaTvScheduleImport.sdm" />
     <Compile Include="Resources\SpaceShuttle_32X32-256.ico" />
     <Compile Include="Resources\NASA_16X16-16.ico" />
