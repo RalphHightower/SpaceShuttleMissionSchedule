@@ -116,5 +116,12 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 		{
 
 		}
+
+        private void urlProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            urlProjectPage.Links[urlProjectPage.Links.IndexOf(e.Link)].Visited = true;
+
+            System.Diagnostics.Process.Start(Properties.Resources.URL_CODEPLEX);
+        }
 	}
 }

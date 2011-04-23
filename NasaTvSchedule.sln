@@ -2,30 +2,61 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasaTvScheduleImport", "NasaTvSchedule\NasaTvScheduleImport.csproj", "{5D9B9505-6D5A-4963-A7D4-1BAAB5DB70B5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
-		{5637BCC0-5B21-4A69-8381-115598FD6D19} = {5637BCC0-5B21-4A69-8381-115598FD6D19}
 		{CD8C7043-036E-435E-A974-06C30C0489D7} = {CD8C7043-036E-435E-A974-06C30C0489D7}
+		{5637BCC0-5B21-4A69-8381-115598FD6D19} = {5637BCC0-5B21-4A69-8381-115598FD6D19}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneInfo", "TimeZoneInfo\TimeZoneInfo.csproj", "{CD8C7043-036E-435E-A974-06C30C0489D7}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB647633-B5B0-45DA-A4F4-FC6E6608E06A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
-		NasaStsTvSchedule.ad = NasaStsTvSchedule.ad
 		NasaStsTvSchedule.sd = NasaStsTvSchedule.sd
 		NasaStsTvSchedule.vsd = NasaStsTvSchedule.vsd
+		NasaTvSchedule.vsd = NasaTvSchedule.vsd
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasaStsTvScheduleReader", "NasaStsTvScheduleReader\NasaStsTvScheduleReader.csproj", "{5637BCC0-5B21-4A69-8381-115598FD6D19}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupNasaTvSchedule", "SetupNasaTvSchedule\SetupNasaTvSchedule.vdproj", "{34EACD38-A589-4A09-ADD8-BE75672D5D2D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManifest", "DemoInstall\projects\UpdateManifest\UpdateManifest.csproj", "{BAA55318-195A-47BD-9F93-72E7D96C71DC}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{5D9B9505-6D5A-4963-A7D4-1BAAB5DB70B5} = {5D9B9505-6D5A-4963-A7D4-1BAAB5DB70B5}
+		{56E8E807-0807-45E0-B19A-98912AE47630} = {56E8E807-0807-45E0-B19A-98912AE47630}
+		{CD8C7043-036E-435E-A974-06C30C0489D7} = {CD8C7043-036E-435E-A974-06C30C0489D7}
+		{5637BCC0-5B21-4A69-8381-115598FD6D19} = {5637BCC0-5B21-4A69-8381-115598FD6D19}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetSecurity", "DemoInstall\projects\SetSecurity\SetSecurity.csproj", "{56E8E807-0807-45E0-B19A-98912AE47630}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{5D9B9505-6D5A-4963-A7D4-1BAAB5DB70B5} = {5D9B9505-6D5A-4963-A7D4-1BAAB5DB70B5}
 	EndProjectSection

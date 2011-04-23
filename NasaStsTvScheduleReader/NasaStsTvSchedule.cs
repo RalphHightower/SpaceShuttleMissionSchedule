@@ -57,6 +57,8 @@
  *      Added TM_RSS_RETRACTION_ABBR as a fixed time event
  * 20100510 - Ralph Hightower
  *      Modified GetCreationRevisionDate to look for 4 digit years (STS-132)
+ * 20100916 - Ralph Hightower
+ *      Shuttle History: Modified GetCreationRevisionDate to look at 2 digit years and determine appropriate century (1981-2011)
  * 
  */
 using System;
@@ -1692,12 +1694,17 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                         DateTime dtRevisionDate = new DateTime(Convert.ToInt32(grpcolDate6[Properties.Resources.IX_YEAR].Value),
                             Convert.ToInt32(grpcolDate6[Properties.Resources.IX_MONTH].Value),
                             Convert.ToInt32(grpcolDate6[Properties.Resources.IX_DAY].Value));
-                        //DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
+                        //  DateTime dtRevisionDate = DateTime.ParseExact(revisionDate,
                         //	Properties.Resources.NASA_MM_DD_YY, CultureInfo.InvariantCulture);
                         Year = dtRevisionDate.Year;
-                        if (Year < 2000)
-                            Year += 2000;
-                        //  The Regular Expression to get the revision date is only accessed once, so it doesn't need to be compiled
+                        //  Space Shuttle started flying in 1981 through 2011
+                        if (Year < 1981)
+                        {
+                            if ((Year >= 81) && (Year <= 99))
+                                Year += 1900;
+                            else
+                                Year += 2000;
+                        }
                     }
                     rgDate6 = null;
                 }

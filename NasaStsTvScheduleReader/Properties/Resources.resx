@@ -1188,7 +1188,7 @@
     <comment>Regular Expression:Date Header captures DayOfWeek, Month, Day</comment>
   </data>
   <data name="RGX_EVA_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Eva&gt;EVA)\s+(?:#\s?)?(?&lt;Number&gt;\d+)\s+(?&lt;Activity&gt;BEGINS|ENDS)</value>
+    <value>(?&lt;Eva&gt;EVA)(?:\s+(?:#\s?)|#+(?:\s?))?(?&lt;Number&gt;\d+)(?:\s)+(?&lt;Activity&gt;BEGINS|ENDS)</value>
     <comment>EVA #? BEGINS or ENDS</comment>
   </data>
   <data name="RGX_FLIGHDAY_HEADER" xml:space="preserve">
