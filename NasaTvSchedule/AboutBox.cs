@@ -1,3 +1,31 @@
+/*
+    NasaTvScheduleImport.  This program reads the NASA TV Schedule in Excel
+    Format for the Space Shuttle and transfers the entries into Microsoft
+    Outlook Calendar as Appointment items.
+
+    Copyright (C) 2007-2011  Ralph M. Hightower, Jr (Permanent Vacations)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    mailto:Ralph.Hightower@gmail.com
+ * Ralph Hightower
+ * Chapin, SC 29036
+*/
+/* Change History
+ * 20110429 Updated Copyright period; added Technical Article Link
+ */
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -117,11 +145,81 @@ namespace PermanentVacations.Nasa.Sts.OutlookCalendar
 
 		}
 
+        /// <summary>
+        /// Opens web browser to CodePlex page for NASA STS TV Schedule application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void urlProjectPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             urlProjectPage.Links[urlProjectPage.Links.IndexOf(e.Link)].Visited = true;
 
             System.Diagnostics.Process.Start(Properties.Resources.URL_CODEPLEX);
+        }
+
+        /// <summary>
+        /// Opens web browser to the Technical Article page on Code Project about the development process and reason for development
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void urlTechArticle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            urlTechArticle.Links[urlTechArticle.Links.IndexOf(e.Link)].Visited = true;
+
+            System.Diagnostics.Process.Start(Properties.Resources.URL_CODEPROJECT);
+
+        }
+
+        /// <summary>
+        /// Closes About Box when Escape is hit (haven't entered this path during testing)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AboutBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)27:  //  Escape key '\e'
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Closes About Box when Escape is hit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void okButton_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)27:  //  Escape key '\e'
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Closes About Box when Escape is hit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxDescription_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)27:  //  Escape key '\e'
+                    Close();
+                    break;
+                default:
+                    break;
+            }
+
         }
 	}
 }

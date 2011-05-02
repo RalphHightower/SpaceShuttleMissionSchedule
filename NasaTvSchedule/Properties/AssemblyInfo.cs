@@ -5,14 +5,19 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PermanentVacations.Nasa.Sts.OutlookCalendar")]
+[assembly: AssemblyTitle("Permanent Vacations NASA STS Mission Schedule Outlook Calendar")]
 [assembly: AssemblyDescription("NASA STS TV Outlook Calendar reads the Excel spreadsheet containing the schedule of events published by NASA for Space Shuttle missions.  " +
-	"It can copy the schedule of events from the Excel file to the calendar in Outlook and manages the schedule of events in the Outlook Calendar.\r\n" +
-	"This program is released under the GNU General Public License")]
-[assembly: AssemblyConfiguration("Microsoft Excel and Outlook required")]
+	"It can transfer the schedule of events from the Excel file to the calendar in Outlook and manages the schedule of events in the Outlook Calendar.\r\n" +
+	"This program is released under the GNU General Public License\r\n\r\n" +
+    "Click on the Project Page, Update link to see if you need the latest application update for the latest Space Shuttle mission.\r\n\r\n" +
+    "If you are technically inclined and want to know the code behind the program or my reason for designing and developing the application, " +
+    "then click on the link for the Technical Article.\r\n\r\n" +
+    "The reason why I chose to program the application in C# instead of Visual Basic was because this is my project and I consider C# superior to VB.Net.  " +
+    "Plus, I wanted to escape Visual Basic purgatory.")]
+[assembly: AssemblyConfiguration("Microsoft 2003-2010 Excel and Outlook 2003-2010 required")]
 [assembly: AssemblyCompany("Permanent Vacations")]
 [assembly: AssemblyProduct("PermanentVacations.Nasa.Sts.OutlookCalendar")]
-[assembly: AssemblyCopyright("Copyright 2007-2009 © Ralph M. Hightower, Jr. (Permanent Vacations)")]
+[assembly: AssemblyCopyright("Copyright 2007-2011 © Ralph M. Hightower, Jr. (Permanent Vacations)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +36,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.4.133.1")]
-[assembly: AssemblyFileVersion("1.4.133.1")]
+[assembly: AssemblyVersion("1.4.134.1")]
+[assembly: AssemblyFileVersion("1.4.134.1")]

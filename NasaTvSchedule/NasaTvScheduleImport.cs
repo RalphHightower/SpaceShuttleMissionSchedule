@@ -3,7 +3,7 @@
     Format for the Space Shuttle and transfers the entries into Microsoft
     Outlook Calendar as Appointment items.
 
-    Copyright (C) 2007  Ralph M. Hightower, Jr (Permanent Vacations)
+    Copyright (C) 2007-2011  Ralph M. Hightower, Jr (Permanent Vacations)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
