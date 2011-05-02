@@ -412,6 +412,10 @@
   </data>
   <data name="URL_CODEPLEX" xml:space="preserve">
     <value>http://www.codeplex.com/NasaStsTvSchedule</value>
-    <comment>URL for project</comment>
+    <comment>URL for project and updates</comment>
+  </data>
+  <data name="URL_CODEPROJECT" xml:space="preserve">
+    <value>http://www.codeproject.com/KB/office/NasaTvSchedule.aspx</value>
+    <comment>URL for Technical Article of code, reasons for development</comment>
   </data>
 </root>
