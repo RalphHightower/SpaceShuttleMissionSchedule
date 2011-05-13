@@ -415,6 +415,9 @@
     <value>FlightDay</value>
     <comment>Group Collection Index: FlightDay</comment>
   </data>
+  <data name="IX_GARAN" xml:space="preserve">
+    <value>GARAN</value>
+  </data>
   <data name="IX_HIGHLIGHTS" xml:space="preserve">
     <value>Highlights</value>
     <comment>Group Collection Index: Highlights</comment>
@@ -430,6 +433,9 @@
   <data name="IX_KIBO" xml:space="preserve">
     <value>Kibo</value>
     <comment>Japanese Kibo Module</comment>
+  </data>
+  <data name="IX_MEMBER" xml:space="preserve">
+    <value>Member</value>
   </data>
   <data name="IX_MINUTE" xml:space="preserve">
     <value>Minute</value>
@@ -519,9 +525,15 @@
     <value>COLUMBUS</value>
     <comment>Columbus European Laboratory Module</comment>
   </data>
+  <data name="NASA_CREW_SLEEP" xml:space="preserve">
+    <value>CREW SLEEP</value>
+  </data>
   <data name="NASA_CREW_SLEEP_BEGINS" xml:space="preserve">
     <value>CREW SLEEP BEGINS</value>
     <comment>Sleep period begins</comment>
+  </data>
+  <data name="NASA_CREW_WAKE" xml:space="preserve">
+    <value>CREW WAKE</value>
   </data>
   <data name="NASA_CREW_WAKE_UP" xml:space="preserve">
     <value>CREW WAKE UP</value>
@@ -774,6 +786,15 @@
   <data name="NASA_MECO" xml:space="preserve">
     <value>MECO</value>
     <comment>Main Engine Cut-off</comment>
+  </data>
+  <data name="NASA_MEMBER_SLEEP_BEGINS" xml:space="preserve">
+    <value>SLEEP BEGINS</value>
+  </data>
+  <data name="NASA_MEMBER_WAKE" xml:space="preserve">
+    <value>WAKE</value>
+  </data>
+  <data name="NASA_MEMBER_WAKE_UP" xml:space="preserve">
+    <value>WAKE UP</value>
   </data>
   <data name="NASA_MET" xml:space="preserve">
     <value>MET</value>
@@ -1159,6 +1180,9 @@
     <value>VTR PLAYBACK</value>
     <comment>VTR Playback of events (do not use to change status of docked, launch or landing</comment>
   </data>
+  <data name="NASA_WAKE" xml:space="preserve">
+    <value>WAKE</value>
+  </data>
   <data name="NASA_WHC" xml:space="preserve">
     <value>WHC</value>
     <comment>Waste and Hygiene Compartment</comment>
@@ -1195,10 +1219,6 @@
     <value>^(?&lt;FlightDay&gt;FD)\s+(?&lt;Day&gt;\d+)</value>
     <comment>Regular Expression: Flight Day Header</comment>
   </data>
-  <data name="RGX_ISS_CREW_SLEEP_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP)</value>
-    <comment>ISS, optionally Shuttle Crew, and Wake Up or Sleep Period Begins</comment>
-  </data>
   <data name="RGX_MISSIONDAY" xml:space="preserve">
     <value>(?&lt;Day&gt;\d+)(?:/)</value>
     <comment>Regular Expression: Mission Day \d/</comment>
@@ -1223,8 +1243,15 @@
     <value>(?&lt;Shuttle&gt;^RMS(?=\s|/)|(?&lt;=\s|/)RMS(?=\s|/|$)|^SRMS(?=\s|/)|(?&lt;=\s|/)SRMS(?=\s|/|$))|(?&lt;ISS&gt;^SSRMS(?=\s|/)|(?&lt;=\s|/)SSRMS(?=\s|/|$)|^SSRMS(?=\s|/)|(?&lt;=\s|/)SSRMS(?=\s|/|$))|(?&lt;Kibo&gt;JEM RMS)</value>
     <comment>Regular Expression: Captures occurance of Station, Kibo, and Shuttle robot arms</comment>
   </data>
-  <data name="RGX_SHUTTLE_CREW_SLEEP_ACTIVITY" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)?(?:\s*)(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|CREW WAKEUP)</value>
+  <data name="RGX_SLEEP_ACTIVITY_ISS_CREW" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE|CREW SLEEP)</value>
+    <comment>ISS, optionally Shuttle Crew, and Wake Up or Sleep Period Begins</comment>
+  </data>
+  <data name="RGX_SLEEP_ACTIVITY_MEMBER" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE)</value>
+  </data>
+  <data name="RGX_SLEEP_ACTIVITY_SHUTTLE_CREW" xml:space="preserve">
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE)</value>
     <comment>Captures Shuttle Crew, optionally ISS, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="SYSTEM_DOUBLE" xml:space="preserve">

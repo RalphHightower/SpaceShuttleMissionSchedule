@@ -59,7 +59,9 @@
  *      Modified GetCreationRevisionDate to look for 4 digit years (STS-132)
  * 20100916 - Ralph Hightower
  *      Shuttle History: Modified GetCreationRevisionDate to look at 2 digit years and determine appropriate century (1981-2011)
- * 
+ * 20110513 - Ralph Hightower
+ *      Updated crew sleep/wake period detection.  STS-134 (Endeavour) has Expedition crew, Ron Garan, on a different sleep
+ *      schedule from ISS crew.
  */
 using System;
 using System.Collections.Generic;
@@ -272,22 +274,42 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// Compiled Regular Expression for ISS Crew Sleep Activity
 		/// ISS Crew Sleep Activity is: Optional: "Shuttle name / ", Required: ISS CREW SLEEP BEGINS or ENDS
 		/// </summary>
-		private Regex crgIssCrewSleepActivity = null;
+        private Regex crgIssCrewSleepActivity = null;
+        private Regex crgExpeditionSleepActivity = null;
 		/// <summary>
 		/// Compiled Regular Expression for ISS Crew Sleep Activity
 		/// Getter creates compiled instance of Regex if it hasn't been created yet.
 		/// Setter does not check for nulls since it will be used in ~NasaStsTVSchedule
 		/// </summary>
-		private Regex rgIssCrewSleepActivity
+        private Regex rgIssCrewSleepActivity
+        {
+            get
+            {
+                if (crgIssCrewSleepActivity == null)
+                {
+                    crgIssCrewSleepActivity = new Regex(Properties.Resources.RGX_SLEEP_ACTIVITY_ISS_CREW,
+                        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+                }
+                return (crgIssCrewSleepActivity);
+            }
+            set
+            {
+                if (value == null)
+                    crgIssCrewSleepActivity = null;
+                else
+                    crgIssCrewSleepActivity = value;
+            }
+        }
+        private Regex rgExpeditionCrewSleepActivity
 		{
 			get
 			{
-				if (crgIssCrewSleepActivity == null)
+                if (crgExpeditionSleepActivity == null)
 				{
-					crgIssCrewSleepActivity = new Regex(Properties.Resources.RGX_ISS_CREW_SLEEP_ACTIVITY,
+                    crgExpeditionSleepActivity = new Regex(Properties.Resources.RGX_SLEEP_ACTIVITY_MEMBER,
 						RegexOptions.Compiled | RegexOptions.CultureInvariant);
 				}
-				return (crgIssCrewSleepActivity);
+                return (crgExpeditionSleepActivity);
 			}
 			set
 			{
@@ -313,7 +335,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			{
 				if (crgShuttleCrewSleepActivity == null)
 				{
-					crgShuttleCrewSleepActivity = new Regex(Properties.Resources.RGX_SHUTTLE_CREW_SLEEP_ACTIVITY,
+					crgShuttleCrewSleepActivity = new Regex(Properties.Resources.RGX_SLEEP_ACTIVITY_SHUTTLE_CREW,
 						RegexOptions.Compiled | RegexOptions.CultureInvariant);
 				}
 				return (crgShuttleCrewSleepActivity);
@@ -1846,8 +1868,14 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                 //	20071226 - Ralph Hightower
                 //		STS-118 schedule has a site entry of " " which none the less caused a blank site
                 //		to be entered in the schedule (leading and trailing spaces are trimmed)
-                bool sleepPeriod = Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS);
-                bool wakeUpCall = Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) || Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP);
+                bool sleepPeriod = Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS)
+                    || Subject.Contains(Properties.Resources.NASA_CREW_SLEEP)
+                    || Subject.Contains(Properties.Resources.NASA_MEMBER_SLEEP_BEGINS);
+                bool wakeUpCall = Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) 
+                    || Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP)
+                    || Subject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP) 
+                    || Subject.Contains(Properties.Resources.NASA_CREW_WAKE)
+                    || Subject.Contains(Properties.Resources.NASA_WAKE);
                 if (sleepPeriod || wakeUpCall)
                 {
                     if (StationMission)
@@ -2011,7 +2039,9 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                     break;
 			}
 
-			string multiLineSubject = bldrMultiLineSubject.ToString().Trim();
+            //  Regex rgxSpaces = new Regex("( {2,})?");
+			//  string multiLineSubject = rgxSpaces.Replace(bldrMultiLineSubject.ToString().Trim(), @" ");
+            string multiLineSubject = bldrMultiLineSubject.ToString().Trim();
 
 			bldrMultiLineSubject = null;
 			return (multiLineSubject);
@@ -2101,6 +2131,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 
 			bool shuttleCrewSleep = false;
 			bool issCrewSleep = false;
+            bool expeditionCrewSleep = false;
 			bool evaActivity = false;
 
 			string subjectStart = TvScheduleCells.GetValue(CurrentRow, SubjectColumnHeader).ToString();
@@ -2113,12 +2144,15 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				evaActivity = EVABegins(CurrentRow);
 			}
 
-			if (subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS))
+			if (subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS)
+                || subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP)
+                || subjectStart.Contains(Properties.Resources.NASA_MEMBER_SLEEP_BEGINS))
 			{
 				shuttleCrewSleep = ShuttleCrewSleep(CurrentRow);
 				issCrewSleep = ISSCrewSleep(CurrentRow);
+                expeditionCrewSleep = ExpeditionCrewSleep(Properties.Resources.IX_GARAN, CurrentRow);
 			}
-            bool sleepActivity = shuttleCrewSleep || issCrewSleep;
+            bool sleepActivity = shuttleCrewSleep || issCrewSleep || expeditionCrewSleep;
 
 			for (indexRowAhead = CurrentRow + 1; (indexRowAhead <= RowCount) &&
 				(scheduleRow != ScheduleType.scheduleEntry) &&
@@ -2134,7 +2168,11 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                     // An event that occurs during a sleep period may advance the day in another timezone
                     if (sleepActivity)
                     {
-                        if (currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+                        if (currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) 
+                            || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP) 
+                            || currentSubject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP)
+                            || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE)
+                            || currentSubject.Contains(Properties.Resources.NASA_WAKE))
                         {
                             endCentralTime = ExcelFormatTime(indexRowAhead, CentralTimeColumnHeader);
                             endDate = ConvertFromCentralTzToViewingTz(endDate, endCentralTime);
@@ -2192,11 +2230,14 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 					}
 				}
 				//  If the Shuttle Crew or ISS Crew is in a sleep period, look for their wake up entry
-				if ((shuttleCrewSleep || issCrewSleep) && (scheduleRow == ScheduleType.scheduleEntry))
+				if ((shuttleCrewSleep || issCrewSleep || expeditionCrewSleep) && (scheduleRow == ScheduleType.scheduleEntry))
 				{
                     string strSubject = TvScheduleCells.GetValue(indexRowAhead, SubjectColumnHeader).ToString();
-					if (strSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) ||
-						strSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP))
+					if (strSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP)
+                        || strSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP) 
+                        || strSubject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP)
+                        || strSubject.Contains(Properties.Resources.NASA_CREW_WAKE)
+                        || strSubject.Contains(Properties.Resources.NASA_WAKE))
 					{
 						if (shuttleCrewSleep && ShuttleCrewWakeUp(indexRowAhead))
 						{
@@ -2212,6 +2253,13 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 						}
 						else
 							scheduleRow = ScheduleType.empty;
+                        if (expeditionCrewSleep && ExpeditionCrewWakeUp(Properties.Resources.IX_GARAN, indexRowAhead))
+                        {
+                            scheduleRow = ScheduleType.scheduleEntry;
+                            break;
+                        }
+                        else
+                            scheduleRow = ScheduleType.empty;
 
 					}
 					else
@@ -2623,6 +2671,9 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		{
 			bool shuttleCrewSleep = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
 				Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
+            if (!shuttleCrewSleep)
+                shuttleCrewSleep = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
+                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_SLEEP, row);
 
 			return (shuttleCrewSleep);
 		}
@@ -2640,6 +2691,12 @@ namespace PermanentVacations.Nasa.Sts.Schedule
             if (!shuttleCrewWakeUp)
                 shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
                     Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_WAKEUP, row);
+            if (!shuttleCrewWakeUp)
+                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
+                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_WAKE, row);
+            if (!shuttleCrewWakeUp)
+                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
+                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_WAKE, row);
 
 			return (shuttleCrewWakeUp);
 		}
@@ -2703,8 +2760,11 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <returns>true if ISS subject in sleep period</returns>
 		private bool ISSCrewSleep(int row)
 		{
-			bool issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-				Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
+            bool issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
+                Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
+            if (!issCrewSleep)
+                issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
+                    Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_SLEEP, row);
 
 			return (issCrewSleep);
 		}
@@ -2722,13 +2782,97 @@ namespace PermanentVacations.Nasa.Sts.Schedule
             if (!issCrewWakeUp)
                 issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
                     Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_WAKEUP, row);
+            if (!issCrewWakeUp)
+                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
+                    Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_WAKE, row);
+            if (!issCrewWakeUp)
+                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
+                    Properties.Resources.IX_ISS, Properties.Resources.NASA_WAKE, row);
 
 			return (issCrewWakeUp);
 		}
-		#endregion	//	ISS Crew Sleep Activity
 
-		#region Versatile Regular Expression Pattern Match Subject with Verb
-		/// <summary>
+        /// <summary>
+        /// Gets status of Expedition Crew member sleep period
+        /// </summary>
+        /// <param name="crewMember">Expedition Crew member</param>
+        /// <param name="row">Row of event to interpret</param>
+        /// <returns>true if Expedition Crew member in sleep period</returns>
+        private bool ExpeditionCrewSleep(string crewMember, int row)
+        {
+            bool expeditionCrewSleep = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_SLEEP_BEGINS, row);
+            if (!expeditionCrewSleep)
+                expeditionCrewSleep = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
+
+            return (expeditionCrewSleep);
+        }
+
+        /// <summary>
+        /// Gets status of Expedition Crew member sleep period
+        /// </summary>
+        /// <param name="crewMember">Expedition Crew member</param>
+        /// <param name="row">Row of event to interpret</param>
+        /// <returns>true if Expedition Crew member in wake period</returns>
+        private bool ExpeditionCrewWakeUp(string crewMember, int row)
+        {
+            bool expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_WAKE_UP, row);
+            if (!expeditionCrewWakeUp)
+                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_WAKE, row);
+            if (!expeditionCrewWakeUp)
+                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_WAKE_UP, row);
+            if (!expeditionCrewWakeUp)
+                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
+                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_WAKE, row);
+
+            return (expeditionCrewWakeUp);
+        }
+        #endregion	//	ISS Crew Sleep Activity
+
+        #region EVA Activity
+        /// <summary>
+        /// Checks to see if Subject is EVA BEGINS
+        /// </summary>
+        /// <param name="row">Row in TvScheduleCells with Subject to match</param>
+        /// <returns>Returns true if the Subject contains EVA BEGINS</returns>
+        private bool EVABegins(int row)
+        {
+            bool evaBegins = false;
+
+            string entry = TvScheduleCells.GetValue(row, SubjectColumnHeader).ToString();
+            //	Do not check the Subject-Verb Pattern match if the entry contains any of the
+            //	EVA preparations to purge nitrogen from the bloodstream to avoid "the bends"
+            if (!entry.Contains(Properties.Resources.NASA_CAMPOUT) &&
+                !entry.Contains(Properties.Resources.NASA_PRE_BREATHE) &&
+                !entry.Contains(Properties.Resources.NASA_PREBREATHE))
+            {
+                evaBegins = SubjectVerbPatternMatch(rgEvaActivity, Properties.Resources.IX_EVA,
+                    Properties.Resources.NASA_BEGINS, row);
+            }
+
+            return (evaBegins);
+        }
+
+        /// <summary>
+        /// Checks to see if Subject is EVA ENDS
+        /// </summary>
+        /// <param name="row">Row in TvScheduleCells with Subject to match</param>
+        /// <returns>Returns true if the Subject contains EVA ENDS</returns>
+        private bool EVAEnds(int row)
+        {
+            bool evaEnds = SubjectVerbPatternMatch(rgEvaActivity, Properties.Resources.IX_EVA,
+                Properties.Resources.NASA_ENDS, row);
+
+            return (evaEnds);
+        }
+        #endregion EVA Activity
+
+        #region Versatile Regular Expression Pattern Match Subject with Verb
+        /// <summary>
 		/// Helper method used by:
 		/// 1. ShuttleCrewSleepBegins
 		/// 2. ShuttleCrewWakeup
@@ -2757,41 +2901,6 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 			return (matchSubjectVerb);
 		}
 
-		/// <summary>
-		/// Checks to see if Subject is EVA BEGINS
-		/// </summary>
-		/// <param name="row">Row in TvScheduleCells with Subject to match</param>
-		/// <returns>Returns true if the Subject contains EVA BEGINS</returns>
-		private bool EVABegins(int row)
-		{
-			bool evaBegins = false;
-
-			string entry = TvScheduleCells.GetValue(row, SubjectColumnHeader).ToString();
-			//	Do not check the Subject-Verb Pattern match if the entry contains any of the
-			//	EVA preparations to purge nitrogen from the bloodstream to avoid "the bends"
-			if (!entry.Contains(Properties.Resources.NASA_CAMPOUT) &&
-				!entry.Contains(Properties.Resources.NASA_PRE_BREATHE) &&
-				!entry.Contains(Properties.Resources.NASA_PREBREATHE))
-			{
-				evaBegins = SubjectVerbPatternMatch(rgEvaActivity, Properties.Resources.IX_EVA,
-					Properties.Resources.NASA_BEGINS, row);
-			}
-
-			return (evaBegins);
-		}
-
-		/// <summary>
-		/// Checks to see if Subject is EVA ENDS
-		/// </summary>
-		/// <param name="row">Row in TvScheduleCells with Subject to match</param>
-		/// <returns>Returns true if the Subject contains EVA ENDS</returns>
-		private bool EVAEnds(int row)
-		{
-			bool evaEnds = SubjectVerbPatternMatch(rgEvaActivity, Properties.Resources.IX_EVA,
-				Properties.Resources.NASA_ENDS, row);
-
-			return (evaEnds);
-		}
 		#endregion	//	Versatile Regular Expression Pattern Match Subject with Verb
 	}
 	#endregion
