@@ -263,6 +263,7 @@
   </data>
   <data name="EVENT_OFF_DUTY_PERIOD" xml:space="preserve">
     <value>OFF DUTY PERIOD</value>
+    <comment>Crew Off Duty Period</comment>
   </data>
   <data name="EVENT_ORBIT_ADJUST" xml:space="preserve">
     <value>ORBIT ADJUST BURN</value>
@@ -394,6 +395,7 @@
   </data>
   <data name="IX_ACTION" xml:space="preserve">
     <value>Action</value>
+    <comment>Capture Group Index for Action in Regular Expression for EVA BEGIN|END, Crew SLEEP|WAKE UP</comment>
   </data>
   <data name="IX_ACTIVITY" xml:space="preserve">
     <value>Activity</value>
@@ -417,6 +419,7 @@
   </data>
   <data name="IX_GARAN" xml:space="preserve">
     <value>GARAN</value>
+    <comment>Expedition 27/28 Crew Member, special speep period during STS-134</comment>
   </data>
   <data name="IX_HIGHLIGHTS" xml:space="preserve">
     <value>Highlights</value>
@@ -436,6 +439,7 @@
   </data>
   <data name="IX_MEMBER" xml:space="preserve">
     <value>Member</value>
+    <comment>Capture Group Index for Crew Sleep, Wake Up regular expression</comment>
   </data>
   <data name="IX_MINUTE" xml:space="preserve">
     <value>Minute</value>
@@ -527,6 +531,7 @@
   </data>
   <data name="NASA_CREW_SLEEP" xml:space="preserve">
     <value>CREW SLEEP</value>
+    <comment>Crew Sleep Period pattern</comment>
   </data>
   <data name="NASA_CREW_SLEEP_BEGINS" xml:space="preserve">
     <value>CREW SLEEP BEGINS</value>
@@ -534,6 +539,7 @@
   </data>
   <data name="NASA_CREW_WAKE" xml:space="preserve">
     <value>CREW WAKE</value>
+    <comment>Crew Wake Up Period pattern</comment>
   </data>
   <data name="NASA_CREW_WAKE_UP" xml:space="preserve">
     <value>CREW WAKE UP</value>
@@ -789,12 +795,15 @@
   </data>
   <data name="NASA_MEMBER_SLEEP_BEGINS" xml:space="preserve">
     <value>SLEEP BEGINS</value>
+    <comment>Crew Sleep Period pattern</comment>
   </data>
   <data name="NASA_MEMBER_WAKE" xml:space="preserve">
     <value>WAKE</value>
+    <comment>Crew Wake Up Period pattern</comment>
   </data>
   <data name="NASA_MEMBER_WAKE_UP" xml:space="preserve">
     <value>WAKE UP</value>
+    <comment>Crew Wake Up Period pattern</comment>
   </data>
   <data name="NASA_MET" xml:space="preserve">
     <value>MET</value>
@@ -1076,6 +1085,14 @@
     <value>SITE</value>
     <comment>Nasa Column Heading</comment>
   </data>
+  <data name="NASA_SLEEP" xml:space="preserve">
+    <value>SLEEP</value>
+    <comment>Crew Sleep Period pattern</comment>
+  </data>
+  <data name="NASA_SLEEP_BEGINS" xml:space="preserve">
+    <value>SLEEP BEGINS</value>
+    <comment>Crew Sleep Period pattern</comment>
+  </data>
   <data name="NASA_SLP_D1" xml:space="preserve">
     <value>SLP-D1</value>
     <comment>Spacelab Pallet Deployable 1 (carries SPDM)</comment>
@@ -1182,6 +1199,15 @@
   </data>
   <data name="NASA_WAKE" xml:space="preserve">
     <value>WAKE</value>
+    <comment>Crew Wake Up Period pattern</comment>
+  </data>
+  <data name="NASA_WAKE_UP" xml:space="preserve">
+    <value>WAKE UP</value>
+    <comment>Crew Wake Up Period pattern</comment>
+  </data>
+  <data name="NASA_WAKEUP" xml:space="preserve">
+    <value>WAKEUP</value>
+    <comment>Crew Wake Up Period pattern</comment>
   </data>
   <data name="NASA_WHC" xml:space="preserve">
     <value>WHC</value>
@@ -1244,15 +1270,16 @@
     <comment>Regular Expression: Captures occurance of Station, Kibo, and Shuttle robot arms</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_ISS_CREW" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE|CREW SLEEP)</value>
-    <comment>ISS, optionally Shuttle Crew, and Wake Up or Sleep Period Begins</comment>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <comment>ISS, optionally Shuttle Crew and or member, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_MEMBER" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <comment>Member, optionally Shuttle and/or ISS Crew, and Wake Up or Sleep Period</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_SHUTTLE_CREW" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW WAKE UP|SLEEP BEGINS|WAKE UP|CREW WAKE|WAKE)</value>
-    <comment>Captures Shuttle Crew, optionally ISS, and Wake Up or Sleep Period Begins</comment>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <comment>Captures Shuttle Crew, optionally ISS and/or Member, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="SYSTEM_DOUBLE" xml:space="preserve">
     <value>System.Double</value>
@@ -1261,6 +1288,10 @@
   <data name="SYSTEM_STRING" xml:space="preserve">
     <value>System.String</value>
     <comment>.Net class</comment>
+  </data>
+  <data name="TM_ASCENT_FLIGHT_CONTROL_TEM_VIDEO_REPLAY" xml:space="preserve">
+    <value>ASCENT FLIGHT CONTROL TEAM VIDEO REPLAY</value>
+    <comment>00:40:00</comment>
   </data>
   <data name="TM_BRIEFING" xml:space="preserve">
     <value>BRIEFING</value>
