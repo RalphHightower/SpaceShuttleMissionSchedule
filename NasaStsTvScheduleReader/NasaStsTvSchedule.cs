@@ -62,6 +62,10 @@
  * 20110513 - Ralph Hightower
  *      Updated crew sleep/wake period detection.  STS-134 (Endeavour) has Expedition crew, Ron Garan, on a different sleep
  *      schedule from ISS crew.
+ * 20110417 - Ralph Hightower
+ *      More changes related to crew sleep/wake period detection.  Moved sleep and wake events into arrays for sleep period and
+ *      crew wake up detection; makes the logic simpler
+ *      Added timed event for Video Replay of Ascent Flight Control Team
  */
 using System;
 using System.Collections.Generic;
@@ -720,9 +724,33 @@ namespace PermanentVacations.Nasa.Sts.Schedule
             { Properties.Resources.TM_PAYLOAD_BAY_DOOR_OPENING, "00:30:00" },
             { Properties.Resources.TM_PAYLOAD_BAY_DOOR_CLOSING, "00:30:00" },
             { Properties.Resources.EVENT_OFF_DUTY_PERIOD, "00:06:00" },
-            { Properties.Resources.EVENT_FINAL_SEPARATION_ISS, "00:00:30" }
+            { Properties.Resources.EVENT_FINAL_SEPARATION_ISS, "00:00:30" },
+            { Properties.Resources.TM_ASCENT_FLIGHT_CONTROL_TEM_VIDEO_REPLAY, "00:40:00" }
 		};
 
+        /// <summary>
+        /// Patterns for Crew Sleep Periods
+        /// </summary>
+        private string[] VerbsSleep = { 
+                Properties.Resources.NASA_CREW_SLEEP_BEGINS,
+                Properties.Resources.NASA_CREW_SLEEP,
+                Properties.Resources.NASA_SLEEP_BEGINS,
+                Properties.Resources.NASA_SLEEP,
+                Properties.Resources.NASA_MEMBER_SLEEP_BEGINS
+        };
+
+        private string[] VerbsWake = {
+            Properties.Resources.NASA_CREW_WAKE_UP,
+            Properties.Resources.NASA_CREW_WAKE,
+            Properties.Resources.NASA_WAKE_UP,
+            Properties.Resources.NASA_WAKE,
+            Properties.Resources.NASA_WAKEUP,
+            Properties.Resources.NASA_CREW_WAKEUP
+        };
+
+        /// <summary>
+        /// Default locations for various NASA events
+        /// </summary>
         private string[,] SpaceLocations = {
             { Properties.Resources.EVENT_VTR_PLAYBACK, Properties.Resources.NASA_JSC },
 
@@ -1868,14 +1896,8 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                 //	20071226 - Ralph Hightower
                 //		STS-118 schedule has a site entry of " " which none the less caused a blank site
                 //		to be entered in the schedule (leading and trailing spaces are trimmed)
-                bool sleepPeriod = Subject.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS)
-                    || Subject.Contains(Properties.Resources.NASA_CREW_SLEEP)
-                    || Subject.Contains(Properties.Resources.NASA_MEMBER_SLEEP_BEGINS);
-                bool wakeUpCall = Subject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) 
-                    || Subject.Contains(Properties.Resources.NASA_CREW_WAKEUP)
-                    || Subject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP) 
-                    || Subject.Contains(Properties.Resources.NASA_CREW_WAKE)
-                    || Subject.Contains(Properties.Resources.NASA_WAKE);
+                bool sleepPeriod = Subject.Contains(Properties.Resources.NASA_SLEEP);
+                bool wakeUpCall = Subject.Contains(Properties.Resources.NASA_WAKE) ;
                 if (sleepPeriod || wakeUpCall)
                 {
                     if (StationMission)
@@ -2144,9 +2166,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				evaActivity = EVABegins(CurrentRow);
 			}
 
-			if (subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP_BEGINS)
-                || subjectStart.Contains(Properties.Resources.NASA_CREW_SLEEP)
-                || subjectStart.Contains(Properties.Resources.NASA_MEMBER_SLEEP_BEGINS))
+			if (subjectStart.Contains(Properties.Resources.NASA_SLEEP))
 			{
 				shuttleCrewSleep = ShuttleCrewSleep(CurrentRow);
 				issCrewSleep = ISSCrewSleep(CurrentRow);
@@ -2168,11 +2188,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
                     // An event that occurs during a sleep period may advance the day in another timezone
                     if (sleepActivity)
                     {
-                        if (currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP) 
-                            || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP) 
-                            || currentSubject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP)
-                            || currentSubject.Contains(Properties.Resources.NASA_CREW_WAKE)
-                            || currentSubject.Contains(Properties.Resources.NASA_WAKE))
+                        if (currentSubject.Contains(Properties.Resources.NASA_WAKE))
                         {
                             endCentralTime = ExcelFormatTime(indexRowAhead, CentralTimeColumnHeader);
                             endDate = ConvertFromCentralTzToViewingTz(endDate, endCentralTime);
@@ -2233,11 +2249,7 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 				if ((shuttleCrewSleep || issCrewSleep || expeditionCrewSleep) && (scheduleRow == ScheduleType.scheduleEntry))
 				{
                     string strSubject = TvScheduleCells.GetValue(indexRowAhead, SubjectColumnHeader).ToString();
-					if (strSubject.Contains(Properties.Resources.NASA_CREW_WAKE_UP)
-                        || strSubject.Contains(Properties.Resources.NASA_CREW_WAKEUP) 
-                        || strSubject.Contains(Properties.Resources.NASA_MEMBER_WAKE_UP)
-                        || strSubject.Contains(Properties.Resources.NASA_CREW_WAKE)
-                        || strSubject.Contains(Properties.Resources.NASA_WAKE))
+					if (strSubject.Contains(Properties.Resources.NASA_WAKE))
 					{
 						if (shuttleCrewSleep && ShuttleCrewWakeUp(indexRowAhead))
 						{
@@ -2611,69 +2623,22 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 
 		#region Shuttle Crew Sleep Activity
 		/// <summary>
-		///  Regular expression built for C# on: Thu, Nov 8, 2007, 11:47:39 AM
-		///  Using Expresso Version: 3.0.2766, http://www.ultrapico.com
-		///
-		/// (?<Shuttle>ATLANTIS|DISCOVERY|ENDEAVOR)
-		/// (?:\s*/?\s*)?
-		/// (?<ISS>ISS)?
-		/// (?:\s*)
-		/// (?<Activity>CREW SLEEP BEGINS|CREW WAKE UP)
-		///
-		///  Required: Shuttle (ATLANTIS, DISCOVERY, ENDEAVOR)
-		///  Optional: ISS
-		///  Required: Sleep Activity (CREW WAKE UP or SLEEP PERIOD BEGINS)
-		///
-		///  A description of the regular expression:
-		///
-		///  [Shuttle]: A named capture group. [ATLANTIS|DISCOVERY|ENDEAVOR]
-		///      Select from 3 alternatives
-		///          ATLANTIS
-		///              ATLANTIS
-		///          DISCOVERY
-		///              DISCOVERY
-		///          ENDEAVOR
-		///              ENDEAVOR
-		///  Match expression but don't capture it. [\s*/?\s*], zero or one repetitions
-		///      \s*/?\s*
-		///          Whitespace, any number of repetitions
-		///          /, zero or one repetitions
-		///          Whitespace, any number of repetitions
-		///  [ISS]: A named capture group. [ISS], zero or one repetitions
-		///      ISS
-		///          ISS
-		///  Match expression but don't capture it. [\s*]
-		///      Whitespace, any number of repetitions
-		///  [Action]: A named capture group. [CREW SLEEP BEGINS|CREW WAKE UP]
-		///      Select from 2 alternatives
-		///          CREW SLEEP BEGINS
-		///              CREW
-		///              Space
-		///              SLEEP
-		///              Space
-		///              BEGINS
-		///          CREW WAKE UP
-		///              CREW
-		///              Space
-		///              WAKE
-		///              Space
-		///              UP
-		///
-		///
-		/// </summary>
-
-		/// <summary>
 		/// Gets the status of Shuttle Crew Sleep
 		/// </summary>
 		/// <param name="row">Row of event to interpret</param>
 		/// <returns>true if in sleep period</returns>
 		private bool ShuttleCrewSleep(int row)
 		{
-			bool shuttleCrewSleep = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-				Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
-            if (!shuttleCrewSleep)
-                shuttleCrewSleep = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_SLEEP, row);
+            bool shuttleCrewSleep = false;
+            int sleepMin = VerbsSleep.GetLowerBound(0);
+            int sleepMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+
+            for (ndx = sleepMin; ndx  <= sleepMax && ! shuttleCrewSleep; ndx++)
+            {
+                shuttleCrewSleep = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity, Properties.Resources.IX_SHUTTLE,
+                    VerbsSleep[ndx], row);
+            }
 
 			return (shuttleCrewSleep);
 		}
@@ -2685,18 +2650,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <returns>true if subject in wake up period</returns>
 		private bool ShuttleCrewWakeUp(int row)
 		{
-			bool shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-				Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_WAKE_UP, row);
-            //  There is an entry in STS-122\tvshed_rev0.xls that has "CREW WAKEUP" instead of "CREW WAKE UP"
-            if (!shuttleCrewWakeUp)
-                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_WAKEUP, row);
-            if (!shuttleCrewWakeUp)
-                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_CREW_WAKE, row);
-            if (!shuttleCrewWakeUp)
-                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity,
-                    Properties.Resources.IX_SHUTTLE, Properties.Resources.NASA_WAKE, row);
+            bool shuttleCrewWakeUp = false;
+            int wakeMin = VerbsSleep.GetLowerBound(0);
+            int wakeMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+            
+            for (ndx  = wakeMin; ndx <= wakeMax && ! shuttleCrewWakeUp; ndx ++)
+            {
+                shuttleCrewWakeUp = SubjectVerbPatternMatch(rgShuttleCrewSleepActivity, Properties.Resources.IX_SHUTTLE, 
+                    VerbsWake[ndx], row);
+            }
 
 			return (shuttleCrewWakeUp);
 		}
@@ -2722,11 +2685,8 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		///  [Shuttle]: A named capture group. [ATLANTIS|DISCOVERY|ENDEAVOR], zero or one repetitions
 		///      Select from 3 alternatives
 		///          ATLANTIS
-		///              ATLANTIS
 		///          DISCOVERY
-		///              DISCOVERY
 		///          ENDEAVOR
-		///              ENDEAVOR
 		///  Match expression but don't capture it. [\s*/?\s*], zero or one repetitions
 		///      \s*/?\s*
 		///          Whitespace, any number of repetitions
@@ -2760,11 +2720,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <returns>true if ISS subject in sleep period</returns>
 		private bool ISSCrewSleep(int row)
 		{
-            bool issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-                Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
-            if (!issCrewSleep)
-                issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-                    Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_SLEEP, row);
+            bool issCrewSleep = false;
+            int sleepMin = VerbsSleep.GetLowerBound(0);
+            int sleepMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+
+            for (ndx = sleepMin; ndx <= sleepMax && !issCrewSleep; ndx++)
+            {
+                issCrewSleep = SubjectVerbPatternMatch(rgIssCrewSleepActivity, Properties.Resources.IX_ISS, 
+                    VerbsSleep[ndx], row);
+            }
 
 			return (issCrewSleep);
 		}
@@ -2776,18 +2741,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
 		/// <returns>true if ISS subject is in wake up period</returns>
 		private bool ISSCrewWakeUp(int row)
 		{
-			bool issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-				Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_WAKE_UP, row);
-            //  There is an entry in STS-122\tvshed_rev0.xls that has "CREW WAKEUP" instead of "CREW WAKE UP"
-            if (!issCrewWakeUp)
-                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-                    Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_WAKEUP, row);
-            if (!issCrewWakeUp)
-                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-                    Properties.Resources.IX_ISS, Properties.Resources.NASA_CREW_WAKE, row);
-            if (!issCrewWakeUp)
-                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity,
-                    Properties.Resources.IX_ISS, Properties.Resources.NASA_WAKE, row);
+            bool issCrewWakeUp = false;
+            int wakeMin = VerbsSleep.GetLowerBound(0);
+            int wakeMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+            
+            for (ndx = wakeMin; ndx <= wakeMax && ! issCrewWakeUp; ndx ++)
+            {
+                issCrewWakeUp = SubjectVerbPatternMatch(rgIssCrewSleepActivity, Properties.Resources.IX_ISS, 
+                    VerbsWake[ndx], row);
+            }
 
 			return (issCrewWakeUp);
 		}
@@ -2800,11 +2763,17 @@ namespace PermanentVacations.Nasa.Sts.Schedule
         /// <returns>true if Expedition Crew member in sleep period</returns>
         private bool ExpeditionCrewSleep(string crewMember, int row)
         {
-            bool expeditionCrewSleep = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_SLEEP_BEGINS, row);
-            if (!expeditionCrewSleep)
-                expeditionCrewSleep = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_SLEEP_BEGINS, row);
+            bool expeditionCrewSleep = false;
+
+            int sleepMin = VerbsSleep.GetLowerBound(0);
+            int sleepMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+
+            for (ndx = sleepMin; ndx <= sleepMax && !expeditionCrewSleep; ndx++)
+            {
+                expeditionCrewSleep = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity, Properties.Resources.IX_MEMBER, 
+                    VerbsSleep[ndx], row);
+            }
 
             return (expeditionCrewSleep);
         }
@@ -2817,17 +2786,16 @@ namespace PermanentVacations.Nasa.Sts.Schedule
         /// <returns>true if Expedition Crew member in wake period</returns>
         private bool ExpeditionCrewWakeUp(string crewMember, int row)
         {
-            bool expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_WAKE_UP, row);
-            if (!expeditionCrewWakeUp)
-                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_MEMBER_WAKE, row);
-            if (!expeditionCrewWakeUp)
-                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_WAKE_UP, row);
-            if (!expeditionCrewWakeUp)
-                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity,
-                    Properties.Resources.IX_MEMBER, Properties.Resources.NASA_CREW_WAKE, row);
+            bool expeditionCrewWakeUp = false;
+            int wakeMin = VerbsSleep.GetLowerBound(0);
+            int wakeMax = VerbsSleep.GetUpperBound(0);
+            int ndx = 0;
+
+            for (ndx = wakeMin; ndx < wakeMax && ! expeditionCrewWakeUp; ndx ++)
+            {
+                expeditionCrewWakeUp = SubjectVerbPatternMatch(rgExpeditionCrewSleepActivity, Properties.Resources.IX_MEMBER, 
+                    VerbsWake[ndx], row);
+            }
 
             return (expeditionCrewWakeUp);
         }
