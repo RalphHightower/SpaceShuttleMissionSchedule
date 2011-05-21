@@ -62,10 +62,18 @@
  * 20110513 - Ralph Hightower
  *      Updated crew sleep/wake period detection.  STS-134 (Endeavour) has Expedition crew, Ron Garan, on a different sleep
  *      schedule from ISS crew.
- * 20110417 - Ralph Hightower
- *      More changes related to crew sleep/wake period detection.  Moved sleep and wake events into arrays for sleep period and
- *      crew wake up detection; makes the logic simpler
+ * 20110517 - Ralph Hightower
+ *      More changes related to crew sleep/wake period detection; fixed problem with May 23rd of STS-134.
+ *      Moved sleep and wake events into arrays for sleep period and crew wake up detection; makes the logic simpler.
  *      Added timed event for Video Replay of Ascent Flight Control Team
+ * 20110521 - Ralph Hightower
+ *      The mission of Endeavour, STS-134, has been particularly vexing with the split ISS Expedition Crew 27 & 28
+ *      different sleep schedules.  That involved coding changes for V.1.4.134.2.
+ *      Fixed Regular Expression for Sleep Activity in Resources to recognize ISS CREW SLEEP as sleep period beginning 
+ *      for STS-134 mission for May 22, 2011.  I love the power of Regular Expressions.  They rock!
+ *      STS-134 required coding changes for the split sleep schedules of ISS Expedition Crews 27 and 28.  But, generally,
+ *      changes to the program have only needed updating of the Regular Expressions for it to work with what it expects
+ *      in the Excel file that NASA publishes.
  */
 using System;
 using System.Collections.Generic;

@@ -1270,15 +1270,15 @@
     <comment>Regular Expression: Captures occurance of Station, Kibo, and Shuttle robot arms</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_ISS_CREW" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS)(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW SLEEP|SLEEP BEGINS|CREW WAKE UP|CREW WAKE|WAKE UP|CREW WAKEUP|WAKE)</value>
     <comment>ISS, optionally Shuttle Crew and or member, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_MEMBER" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)?(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW SLEEP|SLEEP BEGINS|CREW WAKE UP|CREW WAKE|WAKE UP|CREW WAKEUP|WAKE)</value>
     <comment>Member, optionally Shuttle and/or ISS Crew, and Wake Up or Sleep Period</comment>
   </data>
   <data name="RGX_SLEEP_ACTIVITY_SHUTTLE_CREW" xml:space="preserve">
-    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;SLEEP BEGINS|CREW SLEEP BEGINS|WAKE|WAKEUP|WAKE UP|CREW WAKE|CREW WAKEUP|CREW WAKE UP)</value>
+    <value>(?&lt;Shuttle&gt;ATLANTIS|DISCOVERY|ENDEAVOUR|ENDEAVOR)(?:\s*/?\s*)?(?&lt;ISS&gt;ISS?)?(?:\s*/?\s*)?(?&lt;Member&gt;GARAN)?(?:\s)+(?&lt;Activity&gt;CREW SLEEP BEGINS|CREW SLEEP|SLEEP BEGINS|CREW WAKE UP|CREW WAKE|WAKE UP|CREW WAKEUP|WAKE)</value>
     <comment>Captures Shuttle Crew, optionally ISS and/or Member, and Wake Up or Sleep Period Begins</comment>
   </data>
   <data name="SYSTEM_DOUBLE" xml:space="preserve">
