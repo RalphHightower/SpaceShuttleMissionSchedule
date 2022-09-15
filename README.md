@@ -150,9 +150,7 @@ schedule because the program will delete appointments by that category to revise
 4. Select the events in the top half that you want to track in your Outlook calendar.
 5. Tell the program to transfer the selected events from the NASA schedule to your Outlook calendar.
 
-There are several other buttons that make it easy as pushing a button to update your calendar, such as Select All,
-
-Remove Selected Events.
+There are several other buttons that make it easy as pushing a button to update your calendar, such as Select All, Remove Selected Events.
 
 The Smart Select button looks at the date and time range of the NASA schedule file and selects those events in
 your Outlook calendar that is within the NASA schedule. This makes it easy to remove events and add
@@ -163,9 +161,9 @@ have the program automagically update your schedule.
 
 NASA Links
 
-NASA - Space Shuttle
-NASA - Shuttle Mission TV Schedule
-NASA - International Space Station
+- NASA - Space Shuttle
+- NASA - Shuttle Mission TV Schedule
+- NASA - International Space Station
 
 Program Requirements:
 - Excel
@@ -176,7 +174,7 @@ Microsoft Primary Interop Assembly (pick one of the below)
 - Office 2003 Update: Redistributable Primary Interop Assemblies
 - 2007 Microsoft Office System Update: Redistributable Primary Interop Assemblies
 
-Programming Article
+### Programming Article
 
 The technical article, NASA Space Shuttle TV Schedule Transfer to Outlook Calendar, published on CodeProject
 describes the programming aspects and development of the program, as well as the reasons for creating the
@@ -184,11 +182,11 @@ program and problems encountered during the development process.
 
 Technologies Used:
 
-C#
-Microsoft Excel
-Microsoft Outlook
-Microsoft Visual Studio 2005
-Microsoft Visual Studio Tools for Office
+- C#
+- Microsoft Excel
+- Microsoft Outlook
+- Microsoft Visual Studio 2005
+- Microsoft Visual Studio Tools for Office
 
 ### Reason for Development
 
