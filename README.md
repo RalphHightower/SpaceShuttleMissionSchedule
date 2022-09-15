@@ -26,8 +26,9 @@ emotions today, but one thing is indisputable -- America's not going to stop exp
 Challenger, Discovery, Endeavour and our ship, Atlantis. Thank you for protecting us and bringing this program to such a fitting end. God bless all of you, God bless the United States of America."
 
 "It was an honor to be a guest of NASA to be at the first and only @NASATweetup for a Space Shuttle landing. To
-see a Space Shuttle's launch and landing was something I never expected."
-Ralph Hightower, Idea Man, Project Coordinator and Developer, Ralph Hightower's view of the liftoff of Atlantis from the NASA Causeway, July 8, 2011. 
+see a Space Shuttle's launch and landing was something I never expected." Ralph Hightower, Idea Man, Project Coordinator and Developer.
+
+Ralph Hightower's view of the liftoff of Atlantis from the NASA Causeway, July 8, 2011. 
 Camera: Canon A-1, 70-205mm zoom lens @ 205mm, Kodak Ektar 100 film. Copyright 2011, Ralph Hightower.
 
 At 11:29 AM EDT, July 8, 2011, Space Shuttle Atlantis launched her final mission, ending 30 years of Space
@@ -51,7 +52,6 @@ the Download page and download Mission Schedules.
 Thirty years of Space Shuttle flights ended on July 21,
 
 2011 at 5:57 AM EDT.
-
 STS-135. Atlantis official launch date was July 8, 2011 at 11:26:46 AM EDT for a 12 day mission to the
 International Space Station. Atlantis will carry the Raffaello multipurpose logistics module to deliver supplies,
 logistics and spare parts to the International Space Station. The mission also will fly a system to investigate the
