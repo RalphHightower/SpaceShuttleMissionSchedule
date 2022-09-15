@@ -9,7 +9,11 @@ project ended with wheel stop of the final flight of the Space Shuttle.
 The NASA Space Shuttle TV Schedule Transfer to Outlook Calendar provides an easy method for you to transfer
 NASA's Space Shuttle mission schedules, published in Excel, to your Outlook Calendar.
 
-Photo credit: NASA
+With the retirement of CodePlex and eventual shutdown of CodePlex, this project has moved to SpaceShuttleTVSchedule on GitHub. Since the NASA Space Shuttle fleet was retired in July 2011, there has not been a need to update this project. I encourage all to visit the fleet at their retirement homes: 
+
+- Discovery at Smithsonian Air and Space Museum-Udvar-Hazy
+- Atlantis at the Kennedy Space Center Visitors Complex
+- Endeavour at the California Science Center
 
 On July 21, 2011, 5:57 AM EDT, landing announcer: "Having fired the imagination of a generation, a ship like no
 other, it's place in history secured, the space shuttle pulls into port one final time. It's voyage at an end."
