@@ -1,10 +1,10 @@
-# SpaceShuttleMissionSchedule
+# Space Shuttle Mission Schedule
 NASA Space Shuttle TV Schedule Transfer to Outlook Calendar
 
 This project was hosted on CodePlex which Microsoft closed and layer decommissioned. Development on this
 project ended with wheel stop of the final flight of the Space Shuttle.
 
-# Project Description
+## Project Description
 
 The NASA Space Shuttle TV Schedule Transfer to Outlook Calendar provides an easy method for you to transfer
 NASA's Space Shuttle mission schedules, published in Excel, to your Outlook Calendar.
@@ -183,7 +183,7 @@ Microsoft Primary Interop Assembly (pick one of the below)
 
 ### Programming Article
 
-The technical article, NASA Space Shuttle TV Schedule Transfer to Outlook Calendar, published on CodeProject
+The technical article, [NASA Space Shuttle TV Schedule Transfer to Outlook Calendar](https://www.codeproject.com/Articles/21847/NASA-Space-Shuttle-TV-Schedule-Transfer-to-Outlook), published on CodeProject
 describes the programming aspects and development of the program, as well as the reasons for creating the
 program and problems encountered during the development process.
 
