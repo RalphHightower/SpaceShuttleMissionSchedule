@@ -1,12 +1,12 @@
 ---
-title: Ralph Hightower - NASA Space Shuttle Missions Schedules Excel to Outlook Events 
+title: Ralph Hightower - Copy NASA Space Shuttle Missions Schedules to Outlook Calendar
 ---
 author:
   name: Ralph Hightower 
   email: ralph.hightower@gmail.com
 description: > # this means to ignore newlines until "show_excerpts:"
-  Transfer NASA Space Shuttle missions schedules that they published 
-  in Excel format and copy the events into the Calendar of Microsoft Outlook. 
+  This Windows application reads NASA Space Shuttle missions schedules that they published 
+  in Excel format and adds the events into the Calendar of Microsoft Outlook. 
 
 show_excerpts: false # set to true to show excerpts on the homepage
 
