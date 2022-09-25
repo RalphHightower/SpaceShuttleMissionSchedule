@@ -1,5 +1,5 @@
-# Space Shuttle Mission Schedule
-NASA Space Shuttle TV Schedule Transfer to Outlook Calendar
+# Space Shuttle Mission Schedule[^1]
+NASA Space Shuttle TV Schedule Transfer to Outlook Calendar[^1]
 
 This project was hosted on CodePlex which Microsoft closed and layer decommissioned. Development on this
 project ended with wheel stop of the final flight of the Space Shuttle.
@@ -212,4 +212,6 @@ solution to automate.
 Since Microsoft published the Visual Studio Tools for Office, I saw this as a perfect opportunity to create a
 program that reads the television schedules in Excel format and adds the schedule to my Calendar in Outlook as
 appointments.
+
+[^1]: Support of SpaceShuttleMissionSchedule ended with wheelstop of Space Shuttle Atlantis on July 21, 2011 with the end of the Space Shuttle fleet.
 
