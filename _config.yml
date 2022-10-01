@@ -2,6 +2,12 @@ title: Ralph Hightower - Copy NASA Space Shuttle Missions Schedules to Outlook C
 author:
   name: Ralph Hightower 
   email: ralph.hightower@gmail.com
+  #street_address:
+  city: Chapin
+  state: SC
+  zip_code: 29036
+  country: United States of America
+  #phone:
 description: > # this means to ignore newlines until "show_excerpts:"
   This Windows application reads NASA Space Shuttle missions schedules that they published 
   in Excel format and adds the events into the Calendar of Microsoft Outlook. 
