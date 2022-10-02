@@ -34,7 +34,7 @@ Challenger, Discovery, Endeavour and our ship, Atlantis. Thank you for protectin
 "It was an honor to be a guest of NASA to be at the first and only @NASATweetup for a Space Shuttle landing. To
 see a Space Shuttle's launch and landing was something I never expected." Ralph Hightower, Idea Man, Project Coordinator and Developer. I was surprised hearing the twin sonic booms when the Space Shuttles announce their return to Earth. On television, the twin sonic booms sound like a muffled *boom.boom*. In person, it sounds like **BANG! BANG!**, as if a gun was fired.
 
-Ralph Hightower's view of the liftoff of Atlantis from the NASA Causeway, July 8, 2011. 
+[Ralph Hightower's view of the liftoff of Atlantis from the NASA Causeway, July 8, 2011.](https://flic.kr/s/aHsjvNsNvU)
 Camera: Canon A-1, 70-205mm zoom lens @ 205mm, Kodak Ektar 100 film. Copyright 2011, Ralph Hightower.
 
 At 11:29 AM EDT, July 8, 2011, Space Shuttle Atlantis launched her final mission, ending 30 years of Space
@@ -55,9 +55,7 @@ With the close of the Space Shuttle era, I uploaded my collection of the full se
 schedules, including as many revisions that are published during a particular mission, that I have. Head over to
 the Download page and download Mission Schedules.
 
-Thirty years of Space Shuttle flights ended on July 21,
-
-2011 at 5:57 AM EDT.
+Thirty years of Space Shuttle flights ended on July 21, 2011 at 5:57 AM EDT.
 STS-135. Atlantis official launch date was July 8, 2011 at 11:26:46 AM EDT for a 12 day mission to the
 International Space Station. Atlantis will carry the Raffaello multipurpose logistics module to deliver supplies,
 logistics and spare parts to the International Space Station. The mission also will fly a system to investigate the
@@ -67,15 +65,15 @@ After some drama with the weather not cooperating and at T-31 when the O2 vent h
 retracted at the launch pad, Atlantis and her crew of four, CDR Chris Ferguson, PLT Doug Hurley, MS1 Sandy
 Magnus, and MS2 Rex Walheim, rocketed into history at 11:39 AM EDT to close out the Space Shuttle program.
 
-My Flickr Photo Set "STS-135: Final Launch of Space Shuttle Atlantis"
+My Flickr Photo Set ["STS-135: Final Launch of Space Shuttle Atlantis"](https://flic.kr/s/aHsjvNsNvU)
 
 Where as the launch of Atlantis was filled with drama, the landing of Atlantis had none. There were no weather
 contrainst from bringing Atlantis home on July 21, 2011. The skies were crystal clear, or in the words of NASA
 Astronaut, Rick Sturckow, who was flying weather recon in the Shuttle Training Aircraft, "severe clear". At the
 runway viewing site for NASA's first and only Tweetup for a Space Shuttle landing, I was surprised by the twin
-sonic booms; they were sharp, crisp, and clear.
+sonic booms; they were sharp, crisp, and clear. On television, the twin sonic booms sounds like a muffled "*boom. boom.*" In person, the twin sonic booms sound like "**BANG! BANG!**"
 
-My Flickr Photo Set "STS-135 Landing: Atlantis Pulls into Port One Final Time"
+My Flickr Photo Set ["STS-135 Landing: Atlantis Pulls into Port One Final Time"](https://flic.kr/s/aHsjvNti8h)
 Since the last Space Shuttle has entered retirement, this program also goes into retirement with the Space
 Shuttle fleet. I hope that you have found the program as useful as I have.
 If you are on Twitter, there are a number of different Tweetups to follow for the launch of Atlantis of the @NASA
