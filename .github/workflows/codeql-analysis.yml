@@ -23,7 +23,7 @@ jobs:
       pull-requests: read
     steps:
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.202
     - name: Checkout repositoCodeQLm
