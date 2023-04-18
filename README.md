@@ -1,4 +1,7 @@
 # Space Shuttle Mission Schedule[^1]
+
+[^1]: Support of SpaceShuttleMissionSchedule ended with wheelstop of Space Shuttle Atlantis on July 21, 2011 with the end of the Space Shuttle fleet.
+
 NASA Space Shuttle TV Schedule Transfer to Outlook Calendar[^1]
 
 This project was hosted on CodePlex which Microsoft closed and later decommissioned. Development on this
@@ -15,35 +18,35 @@ With the retirement of CodePlex and eventual shutdown of CodePlex, this project 
 - Atlantis at the Kennedy Space Center Visitors Complex
 - Endeavour at the California Science Center
 
-On July 21, 2011, 5:57 AM EDT, landing announcer: "Having fired the imagination of a generation, a ship like no
-other, it's place in history secured, the space shuttle pulls into port one final time. It's voyage at an end."
+On July 21, 2011, 5:57 AM EDT, landing announcer: *"Having fired the imagination of a generation, a ship like no
+other, it's place in history secured, the space shuttle pulls into port one final time. It's voyage at an end."*
 
-Atlantis Commander Chris "Fergie" Ferguson: "Mission complete, Houston. After serving the world for over 30
-years, the space shuttle has earned its place in history. It's come to a final stop."
+Atlantis Commander Chris "Fergie" Ferguson: *"Mission complete, Houston. After serving the world for over 30
+years, the space shuttle has earned its place in history. It's come to a final stop."*
 
-Houston CAPCOM, astronaut Barry "Butch" Wilmore: "We copy your wheels stopped, and we'll take this
+Houston CAPCOM, astronaut Barry "Butch" Wilmore: *"We copy your wheels stopped, and we'll take this
 opportunity to congratulate you, Atlantis, as well as the thousands of passionate individuals across this great,
 space-faring nation who truly empower this incredible spacecraft, which for three decades has inspired millions
-around the globe, Job well done."
+around the globe, Job well done."*
 
-Atlantis Commander: Chris "Fergie" Ferguson: "Hey thanks, Butch, great words, great words. You know, the space
+Atlantis Commander: Chris "Fergie" Ferguson: *"Hey thanks, Butch, great words, great words. You know, the space
 shuttle has changed the way we view the world and it's changed the way we view our universe. There are a lot of
 emotions today, but one thing is indisputable -- America's not going to stop exploring. Thank you Columbia,
-Challenger, Discovery, Endeavour and our ship, Atlantis. Thank you for protecting us and bringing this program to such a fitting end. God bless all of you, God bless the United States of America."
+Challenger, Discovery, Endeavour and our ship, Atlantis. Thank you for protecting us and bringing this program to such a fitting end. God bless all of you, God bless the United States of America."*
 
-"It was an honor to be a guest of NASA to be at the first and only @NASATweetup for a Space Shuttle landing. To
-see a Space Shuttle's launch and landing was something I never expected." Ralph Hightower, Idea Man, Project Coordinator and Developer. I was surprised hearing the twin sonic booms when the Space Shuttles announce their return to Earth. On television, the twin sonic booms sound like a muffled *boom.boom*. In person, it sounds like **BANG! BANG!**, as if a gun was fired.
+*"It was an honor to be a guest of NASA to be at the first and only @NASATweetup for a Space Shuttle landing. To
+see a Space Shuttle's launch and landing was something I never expected."* Ralph Hightower, Idea Man, Chief Architect and Developer. *"I was surprised hearing the twin sonic booms when the Space Shuttles announce their return to Earth. On television, the twin sonic booms sound like a muffled ***boom.boom***. *In person, it sounds like* **BANG! BANG!**, *as if a gun was fired."*
 
 [Ralph Hightower's view of the liftoff of Atlantis from the NASA Causeway, July 8, 2011.](https://flic.kr/s/aHsjvNsNvU)
 Camera: Canon A-1, 70-205mm zoom lens @ 205mm, Kodak Ektar 100 film. Copyright 2011, Ralph Hightower.
 
 At 11:29 AM EDT, July 8, 2011, Space Shuttle Atlantis launched her final mission, ending 30 years of Space
 Shuttle flights.
-Ascent Commentator Rob Navias: "And liftoff. The final liftoff of Atlantis, shoulders of the Space Shuttle, America
-will continue the dream."
+Ascent Commentator Rob Navias: *"And liftoff. The final liftoff of Atlantis, shoulders of the Space Shuttle, America
+will continue the dream."*
 "Houston now controlling the flight of Atlantis as the Space Shuttle spreads its wings one final time for a
-sentimental journey into history."
-At MECO (Main Engine Cutoff): "Booster officer confirms Main Engine Cutoff. For the last time the Space Shuttle Main Engines have fallen silent as the shuttle slips into the final chapter of a storied 30 year adventure."
+sentimental journey into history."*
+At MECO (Main Engine Cutoff): *"Booster officer confirms Main Engine Cutoff. For the last time the Space Shuttle Main Engines have fallen silent as the shuttle slips into the final chapter of a storied 30 year adventure."
 
 My interview with the local CBS affliliate WLTX: Ralph Hightower Wins NASA Tweetup to See Space Shuttle
 Atlantis Landing. The day before landing, I stopped by WLTX's studio to appear live on their morning show in the 6
@@ -210,6 +213,3 @@ solution to automate.
 Since Microsoft published the Visual Studio Tools for Office, I saw this as a perfect opportunity to create a
 program that reads the television schedules in Excel format and adds the schedule to my Calendar in Outlook as
 appointments.
-
-[^1]: Support of SpaceShuttleMissionSchedule ended with wheelstop of Space Shuttle Atlantis on July 21, 2011 with the end of the Space Shuttle fleet.
-
