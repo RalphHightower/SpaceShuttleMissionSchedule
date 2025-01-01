@@ -1,6 +1,6 @@
 The Clear BSD License
 
-Copyright (c) 2022 Ralph M. Hightower, Jr.
+Copyright (c) 2007-2025 Ralph M. Hightower, Jr.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
