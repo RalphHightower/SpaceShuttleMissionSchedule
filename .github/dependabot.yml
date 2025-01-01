@@ -17,3 +17,33 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: "weekly"
+
+  - package-ecosystem: nuget
+    directory: /DemoInstall/projects/SetSecurity
+    schedule:
+      interval: daily
+
+  - package-ecosystem: nuget
+    directory: /DemoInstall/projects/UpdateManifest
+    schedule:
+      interval: daily
+
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: nuget
+    directory: /NasaStsTvScheduleReader
+    schedule:
+      interval: daily
+
+  - package-ecosystem: nuget
+    directory: /NasaTvSchedule
+    schedule:
+      interval: daily
+
+  - package-ecosystem: nuget
+    directory: /TimeZoneInfo
+    schedule:
+      interval: daily
