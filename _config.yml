@@ -9,9 +9,9 @@ author:
   country: United States of America
   #phone:
 description: > # this means to ignore newlines until "show_excerpts:"
-  This Windows application reads NASA Space Shuttle missions schedules that they published 
-  in Excel format and adds the events into the Calendar of Microsoft Outlook. 
-
+  While the @NASA Space Shuttle fleet was flying, @NASA published the mission schedule in @Microsoft Excel format for each flight 
+  with frequent revisions. This Windows application would read the downloaded Excel files and create scheduling events in the 
+  Calendar section of @Microsoft Outlook. Support ended with wheelstop of STS-135 on July 11, 2011.
 show_excerpts: false # set to true to show excerpts on the homepage
 
 # Minima date format
