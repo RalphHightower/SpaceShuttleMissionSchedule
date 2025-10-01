@@ -14,6 +14,11 @@ description: > # this means to ignore newlines until "show_excerpts:"
   Calendar section of @Microsoft Outlook. Support ended with wheelstop of STS-135 on July 21, 2011.
 show_excerpts: false # set to true to show excerpts on the homepage
 
+repository: 'RalphHightower/SpaceShuttleMissionSchedule'
+url: 'https://ralphhightower.github.io'
+baseurl: '/SpaceShuttleMissionSchedule/'
+timezone: 'America/New_York'
+github_username: RalphHightower
 # Minima date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
 timezone: 'America/New_York'
